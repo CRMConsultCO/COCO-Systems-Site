@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ace Mobile Auto Trim — Book a Service</title>
+<style>
+  *{box-sizing:border-box;}
+  body{ margin:0; font-family:Arial, Helvetica, sans-serif; background:#f4f6f8; color:#1c2b36; }
+  header{ background:#1c3a52; color:#fff; padding:22px 24px; }
+  header h1{ margin:0; font-size:1.5rem; }
+  header p{ margin:4px 0 0; opacity:0.8; font-size:0.9rem; }
+  nav{ background:#14293b; padding:8px 24px; }
+  nav a{ color:#cfe0ee; text-decoration:none; font-size:0.85rem; margin-right:18px; }
+  .wrap{ max-width:560px; margin:0 auto; padding:32px 20px 60px; }
+  .card{ background:#fff; border:1px solid #dfe4e8; border-radius:8px; padding:24px; }
+  .card h2{ margin-top:0; font-size:1.2rem; }
+  label{ display:block; font-size:0.8rem; margin:14px 0 4px; color:#3d4b56; }
+  input, select, textarea{ width:100%; padding:9px 10px; border:1px solid #ccd3d8; border-radius:5px; font-size:0.9rem; font-family:inherit; }
+  textarea{ resize:vertical; min-height:60px; }
+  .row2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .section-label{ font-size:0.7rem; letter-spacing:1px; text-transform:uppercase; color:#8a97a1; margin:22px 0 2px; border-top:1px solid #e6eaed; padding-top:16px; }
+  .section-label.first{ border-top:none; padding-top:0; margin-top:8px; }
+  button{ margin-top:20px; background:#1c3a52; color:#fff; border:none; padding:10px 20px; border-radius:5px; font-size:0.9rem; cursor:pointer; }
+  button:hover{ background:#14293b; }
+  .err{ display:none; color:#b3261e; font-size:0.8rem; margin-top:8px; }
+  .confirm{ display:none; background:#e7f3ea; border:1px solid #bcdcc4; border-radius:6px; padding:14px; margin-top:18px; font-size:0.9rem; }
+  .curtain-link{ display:block; text-align:center; margin-top:28px; font-size:0.75rem; color:#8a97a1; text-decoration:none; }
+  .curtain{ display:none; margin-top:14px; background:#0d1a12; color:#3dff8a; font-family:'Courier New',monospace; font-size:0.72rem; padding:12px; border-radius:6px; white-space:pre-wrap; }
+  footer{ text-align:center; padding:26px; font-size:0.75rem; color:#8a97a1; }
+  footer a{ color:#1c3a52; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Ace Mobile Auto Trim</h1>
+  <p>Upholstery, trim &amp; interior restoration — Denver, CO</p>
+</header>
+<nav><a href="#">Home</a><a href="#">Services</a><a href="#">Book Now</a><a href="#">Contact</a></nav>
+
+<div class="wrap">
+  <div class="card">
+    <h2>Book a service</h2>
+    <p style="font-size:0.85rem; color:#5b6871;">Tell us about you and your vehicle — this is the same depth of intake a real shop needs to run without back-and-forth phone tag.</p>
+
+    <div class="section-label first">Your Info</div>
+    <div class="row2">
+      <div><label for="firstName">First Name</label><input id="firstName" placeholder="Jane"></div>
+      <div><label for="lastName">Last Name</label><input id="lastName" placeholder="Doe"></div>
+    </div>
+    <div class="row2">
+      <label style="grid-column:1/-1; margin:14px 0 4px;">&nbsp;</label>
+    </div>
+    <div class="row2">
+      <div><label for="phone">Phone Number</label><input id="phone" placeholder="(555) 555-5555"></div>
+      <div><label for="email">Email Address</label><input id="email" placeholder="jane@email.com"></div>
+    </div>
+
+    <div class="section-label">Vehicle</div>
+    <div class="row2">
+      <div><label for="vehYear">Vehicle Year</label><input id="vehYear" placeholder="2018"></div>
+      <div><label for="vehMake">Vehicle Make</label><input id="vehMake" placeholder="Ford"></div>
+    </div>
+    <div class="row2">
+      <div><label for="vehModel">Vehicle Model</label><input id="vehModel" placeholder="F-150"></div>
+      <div><label for="vin">VIN <span style="opacity:0.6;">(if known)</span></label><input id="vin" placeholder="Optional"></div>
+    </div>
+
+    <div class="section-label">The Job</div>
+    <label for="service">Service Needed</label>
+    <input id="service" placeholder="e.g. seat re-upholstery">
+    <label for="details">Project Details</label>
+    <textarea id="details" placeholder="Anything else that'll help us scope it — condition, materials, timeline"></textarea>
+
+    <div class="section-label">Scheduling</div>
+    <div class="row2">
+      <div><label for="contactMethod">Preferred Contact Method</label>
+        <select id="contactMethod">
+          <option value="">Select one</option>
+          <option>Phone Call</option>
+          <option>Text</option>
+          <option>Email</option>
+        </select>
+      </div>
+      <div><label for="budget">Budget Range</label>
+        <select id="budget">
+          <option value="">Select one</option>
+          <option>Under $500</option>
+          <option>$500–$1,500</option>
+          <option>$1,500–$3,000</option>
+          <option>$3,000+</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+    </div>
+    <div class="row2">
+      <div><label for="apptDate">Preferred Appointment Date</label><input id="apptDate" type="date"></div>
+      <div><label for="apptTime">Preferred Appointment Time</label><input id="apptTime" type="time"></div>
+    </div>
+
+    <div class="err" id="err">Please fill in your name, phone, vehicle year/make/model, and the service needed.</div>
+    <button onclick="submitBooking()">Request booking</button>
+
+    <div class="confirm" id="confirm">Thanks — request received. We'll text you shortly to confirm a time.</div>
+  </div>
+
+  <a class="curtain-link" href="#" onclick="toggleCurtain(); return false;" id="curtainLink">See how this looks on the shop's side</a>
+  <div class="curtain" id="curtain"></div>
+
+  <footer>Built by <a href="Retro Terminal - Website Concept Prototype.html" target="_top">Coco Systems</a> — this is a demo page, not a real business.</footer>
+</div>
+
+<script>
+function submitBooking(){
+  var values = {
+    firstName: document.getElementById('firstName').value.trim(),
+    lastName: document.getElementById('lastName').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    vehYear: document.getElementById('vehYear').value.trim(),
+    vehMake: document.getElementById('vehMake').value.trim(),
+    vehModel: document.getElementById('vehModel').value.trim(),
+    vin: document.getElementById('vin').value.trim(),
+    service: document.getElementById('service').value.trim(),
+    details: document.getElementById('details').value.trim(),
+    contactMethod: document.getElementById('contactMethod').value,
+    budget: document.getElementById('budget').value,
+    apptDate: document.getElementById('apptDate').value,
+    apptTime: document.getElementById('apptTime').value
+  };
+
+  var required = ['firstName','phone','vehYear','vehMake','vehModel','service'];
+  var ok = required.every(function(k){ return values[k]; });
+  if(!ok){ document.getElementById('err').style.display = 'block'; return; }
+  document.getElementById('err').style.display = 'none';
+  document.getElementById('confirm').style.display = 'block';
+
+  var curtain = document.getElementById('curtain');
+  curtain.style.display = 'block';
+  curtain.textContent = '> RECEIVING SUBMISSION...';
+  setTimeout(function(){ curtain.textContent += '\n> WRITING RECORD TO DATABASE...'; }, 400);
+  setTimeout(function(){ curtain.textContent += '\n> CREATING CLIENT + VEHICLE RECORD...'; }, 800);
+  setTimeout(function(){ curtain.textContent += '\n> ROUTING TO TRELLO — CHECKED IN / INTAKE...'; }, 1200);
+  setTimeout(function(){
+    curtain.textContent += '\n> DONE. Opening the production board...';
+    try{
+      window.parent.postMessage({ type: 'chopshop-ticket', data: values }, '*');
+    }catch(err){}
+  }, 1700);
+}
+function toggleCurtain(){
+  var c = document.getElementById('curtain');
+  if(c.textContent.trim() === '') return;
+  c.style.display = c.style.display === 'block' ? 'none' : 'block';
+}
+</script>
+
+</body>
+</html>

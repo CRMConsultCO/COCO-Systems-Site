@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Steady Hand Tattoo Co. — Request a Consult</title>
+<style>
+  *{box-sizing:border-box;}
+  body{ margin:0; font-family:Arial, Helvetica, sans-serif; background:#1c1a18; color:#ece6df; }
+  header{ background:#0f0e0d; padding:26px 24px; border-bottom:2px solid #c98a3b; }
+  header h1{ margin:0; font-size:1.6rem; letter-spacing:1px; }
+  header p{ margin:6px 0 0; opacity:0.7; font-size:0.9rem; }
+  nav{ background:#141312; padding:8px 24px; }
+  nav a{ color:#c98a3b; text-decoration:none; font-size:0.85rem; margin-right:18px; }
+  .wrap{ max-width:540px; margin:0 auto; padding:36px 20px 60px; }
+  .card{ background:#252220; border:1px solid #3a352f; border-radius:8px; padding:24px; }
+  .card h2{ margin-top:0; font-size:1.2rem; color:#c98a3b; }
+  label{ display:block; font-size:0.85rem; margin:14px 0 4px; color:#b8afa4; }
+  input{ width:100%; padding:9px 10px; border:1px solid #3a352f; border-radius:5px; font-size:0.9rem; background:#1c1a18; color:#ece6df; }
+  button{ margin-top:18px; background:#c98a3b; color:#1c1a18; border:none; padding:10px 20px; border-radius:5px; font-size:0.9rem; cursor:pointer; font-weight:bold; }
+  button:hover{ background:#b87a2e; }
+  .err{ display:none; color:#e07a6f; font-size:0.8rem; margin-top:8px; }
+  .confirm{ display:none; background:#2e2820; border:1px solid #4a3f2c; border-radius:6px; padding:14px; margin-top:18px; font-size:0.9rem; }
+  .curtain-link{ display:block; text-align:center; margin-top:28px; font-size:0.75rem; color:#7a736a; text-decoration:none; }
+  .curtain{ display:none; margin-top:14px; background:#0d1a12; color:#3dff8a; font-family:'Courier New',monospace; font-size:0.72rem; padding:12px; border-radius:6px; white-space:pre-wrap; }
+  footer{ text-align:center; padding:26px; font-size:0.75rem; color:#7a736a; }
+  footer a{ color:#c98a3b; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Steady Hand Tattoo Co.</h1>
+  <p>Custom work, by appointment — Capitol Hill, Denver</p>
+</header>
+<nav><a href="#">Home</a><a href="#">Artists</a><a href="#">Consult</a><a href="#">Contact</a></nav>
+
+<div class="wrap">
+  <div class="card">
+    <h2>Request a consult</h2>
+    <p style="font-size:0.85rem; color:#9a9186;">Tell us your idea — we'll follow up to schedule.</p>
+
+    <label for="name">Name</label>
+    <input id="name" placeholder="Your name">
+    <label for="idea">Design idea</label>
+    <input id="idea" placeholder="Brief description">
+    <label for="date">Preferred date</label>
+    <input id="date" placeholder="e.g. late October">
+    <label for="notes">Reference notes</label>
+    <input id="notes" placeholder="e.g. reference images on Instagram @...">
+
+    <div class="err" id="err">Fill in every field first.</div>
+    <button onclick="submitBooking()">Send request</button>
+
+    <div class="confirm" id="confirm">Thanks — request received. We'll reach out to schedule your consult.</div>
+  </div>
+
+  <a class="curtain-link" href="#" onclick="toggleCurtain(); return false;" id="curtainLink">See how this looks on the studio's side</a>
+  <div class="curtain" id="curtain"></div>
+
+  <footer>Built by <a href="Retro Terminal - Website Concept Prototype.html" target="_top">Coco Systems</a> — this is a demo page, not a real business.</footer>
+</div>
+
+<script>
+function submitBooking(){
+  var ids = ['name','idea','date','notes'];
+  var values = {};
+  var ok = true;
+  ids.forEach(function(id){
+    var v = document.getElementById(id).value.trim();
+    if(!v) ok = false;
+    values[id] = v;
+  });
+  if(!ok){ document.getElementById('err').style.display = 'block'; return; }
+  document.getElementById('err').style.display = 'none';
+  document.getElementById('confirm').style.display = 'block';
+
+  var curtain = document.getElementById('curtain');
+  curtain.style.display = 'block';
+  curtain.textContent = '> RECEIVING SUBMISSION...';
+  setTimeout(function(){ curtain.textContent += '\n> WRITING RECORD TO DATABASE...'; }, 500);
+  setTimeout(function(){ curtain.textContent += '\n> ROUTING TO NOTION...'; }, 1000);
+  setTimeout(function(){
+    curtain.textContent += '\n> DONE. New client page:\n\n' +
+      'Name: ' + values.name + '\nIdea: ' + values.idea +
+      '\nDate: ' + values.date + '\nNotes: ' + values.notes;
+  }, 1600);
+}
+function toggleCurtain(){
+  var c = document.getElementById('curtain');
+  if(c.textContent.trim() === '') return;
+  c.style.display = c.style.display === 'block' ? 'none' : 'block';
+}
+</script>
+
+</body>
+</html>

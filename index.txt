@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COCO SYSTEMS // TERMINAL</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{ height:100%; }
+  body{
+    margin:0; background:#020805; color:#3dff8a;
+    font-family:'Space Mono', 'Courier New', monospace;
+    overflow:hidden; position:relative;
+  }
+  body::before{
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:900;
+    background:repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 3px);
+  }
+  #matrixCanvas{ position:fixed; inset:0; z-index:0; opacity:0.15; pointer-events:none; }
+  .glow{ text-shadow:0 0 6px #3dff8a, 0 0 12px rgba(61,255,138,0.4); }
+  h1, h2, .mono-title{ font-family:'Share Tech Mono', 'Courier New', monospace; }
+
+  /* ---------- BOOT SCREEN ---------- */
+  #bootScreen{
+    position:fixed; inset:0; background:rgba(0,0,0,0.78); color:#3dff8a; z-index:1000;
+    display:flex; align-items:center; justify-content:center; flex-direction:column;
+    cursor:pointer; user-select:none; text-align:center; padding:20px;
+  }
+  #bootScreen .boot-logo{ font-size:12px; line-height:1.15; margin:0 0 20px; }
+  #bootScreen .boot-text{ font-size:1.1rem; letter-spacing:3px; }
+  #bootScreen .boot-sub{ font-size:0.7rem; opacity:0.6; margin-top:14px; letter-spacing:1px; }
+  .cursor{ display:inline-block; width:9px; height:16px; background:#3dff8a; animation:blink 1s step-start infinite; vertical-align:-3px; margin-left:4px; }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  #bootScreen.flicker{ animation:flicker 0.45s steps(2, end) forwards; }
+  @keyframes flicker{
+    0%{ background:#000; }
+    15%{ background:#3dff8a; }
+    30%{ background:#000; }
+    45%{ background:#3dff8a; }
+    60%{ background:#000; }
+    100%{ background:#000; opacity:0; }
+  }
+
+  /* ---------- DESKTOP ---------- */
+  #desktop{ display:none; height:100%; width:100%; position:relative; padding:14px 16px; }
+  #desktop.on{ display:block; }
+  .topbar{ display:flex; justify-content:space-between; font-size:11px; opacity:0.85; letter-spacing:1px; margin-bottom:14px; }
+
+  .icons{ display:flex; flex-wrap:wrap; gap:22px; width:150px; }
+  .icon-btn{
+    background:none; border:1px solid transparent; color:#3dff8a; font-family:'Space Mono', monospace;
+    width:110px; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer;
+    padding:8px 4px; font-size:0.68rem; letter-spacing:0.5px;
+  }
+  .icon-btn .glyph{ font-size:1.9rem; line-height:1; }
+  .icon-btn:hover, .icon-btn:focus-visible{ background:rgba(61,255,138,0.08); border-color:#1f6b40; outline:none; }
+  .icon-btn.highlight{ color:#7fffb0; }
+
+  /* status widget, sticky-note style */
+  .widget{
+    position:absolute; top:60px; right:20px; width:230px; border:1px solid #1f6b40;
+    background:rgba(61,255,138,0.04); font-size:0.68rem; padding:12px 14px; line-height:1.7;
+  }
+  .widget h3{ margin:0 0 8px; font-size:0.7rem; letter-spacing:2px; border-bottom:1px solid #1f6b40; padding-bottom:6px; }
+  .infra-line{ display:flex; justify-content:space-between; }
+  .status-ok{ color:#3dff8a; }
+
+  /* ---------- WINDOWS ---------- */
+  #windowLayer{ position:absolute; inset:0; pointer-events:none; }
+  .window{
+    position:absolute; min-width:280px; min-height:200px; background:#020805;
+    border:1px solid #3dff8a; box-shadow:0 0 18px rgba(61,255,138,0.15);
+    display:flex; flex-direction:column; pointer-events:auto;
+  }
+  .window .titlebar{
+    display:flex; justify-content:space-between; align-items:center; cursor:grab;
+    background:#0d2b1a; padding:6px 10px; border-bottom:1px solid #1f6b40; font-size:0.72rem; letter-spacing:1px;
+  }
+  .window .titlebar:active{ cursor:grabbing; }
+  .window .titlebar .dots{ display:flex; gap:6px; }
+  .window .titlebar .dots span{
+    width:11px; height:11px; border-radius:50%; border:1px solid #3dff8a; background:transparent; cursor:pointer;
+  }
+  .window .titlebar .dots span.close:hover{ background:#3dff8a; }
+  .window iframe{ flex:1; border:none; width:100%; background:#fff; }
+  .window .window-body{ flex:1; padding:16px 18px; overflow:auto; background:#020805; color:#3dff8a; }
+
+  .icon-btn.reveal-flicker{ animation:revealFlicker 0.7s ease-in-out; }
+  @keyframes revealFlicker{ 0%,100%{ opacity:1; } 20%,60%{ opacity:0.15; } 40%,80%{ opacity:0.7; } }
+
+  /* ---------- TRELLO-MIMIC PRODUCTION BOARD ---------- */
+  .board{ display:flex; gap:10px; height:100%; overflow-x:auto; font-size:0.68rem; }
+  .board-col{ min-width:150px; flex:1; border:1px solid #1f6b40; padding:8px; display:flex; flex-direction:column; gap:8px; }
+  .board-col h4{ margin:0 0 2px; font-size:0.65rem; letter-spacing:1px; opacity:0.8; border-bottom:1px solid #1f6b40; padding-bottom:6px; }
+  .board-card{ border:1px solid #3dff8a; padding:8px; line-height:1.5; position:relative; }
+  .board-card .badge{ position:absolute; top:-8px; right:-6px; background:#3dff8a; color:#020805; font-size:0.55rem; padding:2px 5px; font-weight:bold; }
+  .board-card .title{ font-weight:bold; margin-bottom:4px; }
+
+  /* ---------- TASKBAR ---------- */
+  .taskbar{
+    position:absolute; left:0; right:0; bottom:0; height:38px; display:flex; align-items:center;
+    gap:10px; padding:0 12px; border-top:1px solid #1f6b40; background:#020805; font-size:0.68rem; z-index:50;
+  }
+  .taskbar .start{ border:1px solid #3dff8a; padding:5px 10px; letter-spacing:1px; }
+  .taskbar .tabs{ display:flex; gap:8px; flex:1; overflow-x:auto; }
+  .taskbar .tab{ border:1px solid #1f6b40; padding:5px 10px; cursor:pointer; white-space:nowrap; }
+  .taskbar .tab.active{ border-color:#3dff8a; }
+  .taskbar .clock{ opacity:0.75; }
+
+  .hidden{ display:none !important; }
+
+  /* ---------- MOBILE ---------- */
+  @media (max-width: 720px){
+    .widget{ position:static; width:100%; margin:14px 0; }
+    .icons{ width:100%; justify-content:flex-start; }
+    .window{
+      position:fixed !important; inset:10px 10px 48px 10px !important; width:auto !important; height:auto !important;
+    }
+    .window .titlebar{ cursor:default; }
+  }
+</style>
+</head>
+<body>
+
+  <canvas id="matrixCanvas"></canvas>
+
+  <div id="bootScreen" class="glow" tabindex="0" role="button" aria-label="Click or press Enter to boot">
+    <div class="boot-text">CLICK / PRESS ENTER TO BOOT<span class="cursor"></span></div>
+    <div class="boot-sub">COCO SYSTEMS TERMINAL v1.0</div>
+  </div>
+
+  <div id="desktop">
+    <div class="topbar glow">
+      <span>SECURE CHANNEL ESTABLISHED [GREEN]</span>
+      <span>SYSTEM: CRMCONSULTCO.COM</span>
+    </div>
+
+    <div class="icons">
+      <button class="icon-btn" onclick="openWindow('chopshop','CHOP_SHOP.EXE','demo-chop-shop.html')">
+        <span class="glyph">🛠</span>CHOP_SHOP.EXE
+      </button>
+      <button class="icon-btn" onclick="openWindow('boothrent','BOOTH_RENT.EXE','demo-booth-rent.html')">
+        <span class="glyph">✂</span>BOOTH_RENT.EXE
+      </button>
+      <button class="icon-btn" onclick="openWindow('inklog','INK_LOG.EXE','demo-ink-log.html')">
+        <span class="glyph">🖋</span>INK_LOG.EXE
+      </button>
+      <button class="icon-btn" onclick="openWindow('fullstack','FULL_STACK.EXE','demo-full-stack.html')">
+        <span class="glyph">🗂</span>FULL_STACK.EXE
+      </button>
+      <button class="icon-btn highlight" onclick="openWindow('getstarted','GET_STARTED.EXE','get-started.html')">
+        <span class="glyph">▶</span>GET_STARTED.EXE
+      </button>
+      <button class="icon-btn" onclick="openPong()">
+        <span class="glyph">●</span>PONG.EXE
+      </button>
+      <button class="icon-btn hidden" id="secretIcon" onclick="openWindow('secret','SECRET.TXT', null, secretMessage)">
+        <span class="glyph">🔒</span>SECRET.TXT
+      </button>
+    </div>
+
+    <div class="widget glow">
+      <h3>CURRENT INFRASTRUCTURE</h3>
+      <div class="infra-line"><span>WORKSPACE</span><span class="status-ok">LIVE</span></div>
+      <div class="infra-line"><span>DOMAIN: CRMCONSULTCO.COM</span><span class="status-ok">LIVE</span></div>
+      <div class="infra-line"><span>PAYPAL BUSINESS</span><span class="status-ok">LIVE</span></div>
+      <div class="infra-line"><span>LEAD INTAKE FORM</span><span class="status-ok">PENDING</span></div>
+      <div class="infra-line"><span>ENTITY: LLC</span><span class="status-ok">FILING</span></div>
+    </div>
+
+    <div id="windowLayer"></div>
+
+    <div class="taskbar glow">
+      <div class="start">COCO SYSTEMS</div>
+      <div class="tabs" id="taskbarTabs"></div>
+      <div class="clock" id="clock"></div>
+    </div>
+  </div>
+
+<script>
+  // ---------- BOOT ----------
+  var bootScreen = document.getElementById('bootScreen');
+  var desktop = document.getElementById('desktop');
+  function boot(){
+    if(bootScreen.classList.contains('flicker')) return;
+    bootScreen.classList.add('flicker');
+    setTimeout(function(){
+      bootScreen.classList.add('hidden');
+      desktop.classList.add('on');
+    }, 460);
+  }
+  bootScreen.addEventListener('click', boot);
+  bootScreen.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); boot(); }
+  });
+
+  // ---------- CLOCK ----------
+  function updateClock(){
+    document.getElementById('clock').textContent = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  }
+  updateClock();
+  setInterval(updateClock, 15000);
+
+  // ---------- WINDOW MANAGER ----------
+  var openWindows = {};
+  var zTop = 10;
+  var isMobile = function(){ return window.innerWidth <= 720; };
+
+  function openWindow(id, title, url, htmlContent){
+    if(openWindows[id]){
+      focusWindow(id);
+      return;
+    }
+    var win = document.createElement('div');
+    win.className = 'window';
+    win.style.zIndex = ++zTop;
+    if(!isMobile()){
+      win.style.width = '520px';
+      win.style.height = '540px';
+      win.style.left = (60 + Object.keys(openWindows).length * 26) + 'px';
+      win.style.top = (70 + Object.keys(openWindows).length * 26) + 'px';
+    }
+    var bodyMarkup = htmlContent
+      ? '<div class="window-body">' + htmlContent + '</div>'
+      : '<iframe src="' + url + '" title="' + title + '"></iframe>';
+    win.innerHTML =
+      '<div class="titlebar">' +
+        '<span>' + title + '</span>' +
+        '<div class="dots">' +
+          '<span class="min" title="Minimize"></span>' +
+          '<span class="close" title="Close"></span>' +
+        '</div>' +
+      '</div>' +
+      bodyMarkup;
+
+    document.getElementById('windowLayer').appendChild(win);
+    openWindows[id] = win;
+
+    win.querySelector('.close').addEventListener('click', function(){ closeWindow(id); });
+    win.querySelector('.min').addEventListener('click', function(){ minimizeWindow(id); });
+    win.addEventListener('mousedown', function(){ focusWindow(id); });
+
+    makeDraggable(win, win.querySelector('.titlebar'));
+    addTaskbarTab(id, title);
+    focusWindow(id);
+  }
+
+  function closeWindow(id){
+    if(!openWindows[id]) return;
+    openWindows[id].remove();
+    delete openWindows[id];
+    removeTaskbarTab(id);
+    if(id === 'pong' && pongInterval){ clearInterval(pongInterval); pongInterval = null; }
+  }
+
+  function minimizeWindow(id){
+    if(!openWindows[id]) return;
+    openWindows[id].classList.toggle('hidden');
+  }
+
+  function focusWindow(id){
+    if(!openWindows[id]) return;
+    openWindows[id].classList.remove('hidden');
+    openWindows[id].style.zIndex = ++zTop;
+    document.querySelectorAll('.taskbar .tab').forEach(function(t){ t.classList.remove('active'); });
+    var tab = document.getElementById('tab-' + id);
+    if(tab) tab.classList.add('active');
+  }
+
+  function addTaskbarTab(id, title){
+    var tab = document.createElement('div');
+    tab.className = 'tab';
+    tab.id = 'tab-' + id;
+    tab.textContent = title;
+    tab.addEventListener('click', function(){
+      if(openWindows[id].classList.contains('hidden')){
+        focusWindow(id);
+      } else {
+        minimizeWindow(id);
+      }
+    });
+    document.getElementById('taskbarTabs').appendChild(tab);
+  }
+
+  function removeTaskbarTab(id){
+    var tab = document.getElementById('tab-' + id);
+    if(tab) tab.remove();
+  }
+
+  function makeDraggable(win, handle){
+    var dragging = false, offsetX = 0, offsetY = 0;
+    handle.addEventListener('mousedown', function(e){
+      if(isMobile()) return;
+      dragging = true;
+      offsetX = e.clientX - win.offsetLeft;
+      offsetY = e.clientY - win.offsetTop;
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', function(e){
+      if(!dragging) return;
+      win.style.left = (e.clientX - offsetX) + 'px';
+      win.style.top = Math.max(0, e.clientY - offsetY) + 'px';
+    });
+    document.addEventListener('mouseup', function(){ dragging = false; });
+  }
+
+  // ---------- CHOP_SHOP: Ace Mobile Auto Trim themed board + database ----------
+  // Per house rule: CRT green stays on the home page only. Anything spawned
+  // from inside a program's own demo is that business's own themed build —
+  // window chrome (titlebar/drag/close) stays consistent OS shell, but the
+  // content inside is Ace Mobile Auto Trim's own blue/steel look, not green.
+  var chopShopWindowCount = 0;
+  var lastChopTicket = null;
+
+  window.addEventListener('message', function(e){
+    if(e.data && e.data.type === 'chopshop-ticket'){
+      chopShopWindowCount++;
+      // Universal small-business workflow: New Lead -> Estimate -> Deposit ->
+      // Drop-off Scheduled -> Work Complete -> Final Payment -> Pickup. Same
+      // shape works for salons/tattoo studios/etc, just relabeled per vertical.
+      var sampleClients = [
+        { id:'C-1021', first:'Marcus', last:'Webb', email:'marcus.webb@example.com', phone:'(720) 555-0148', vehicle:'2016 Chevy Silverado', service:'Seat re-upholstery', stage:'estimate' },
+        { id:'C-1034', first:'Priya', last:'Shah', email:'priya.shah@example.com', phone:'(303) 555-0199', vehicle:'2020 Subaru Outback', service:'Headliner replacement', stage:'deposit' },
+        { id:'C-1042', first:'Devon', last:'Cole', email:'devon.cole@example.com', phone:'(720) 555-0173', vehicle:'2014 Jeep Wrangler', service:'Full interior re-trim', stage:'dropoff' },
+        { id:'C-1055', first:'Renee', last:'Ibarra', email:'renee.ibarra@example.com', phone:'(303) 555-0182', vehicle:'2019 Ford Transit', service:'Door panel repair', stage:'complete' },
+        { id:'C-1063', first:'Tasha', last:'Reyes', email:'tasha.reyes@example.com', phone:'(720) 555-0164', vehicle:'2017 Honda CR-V', service:'Dash repair', stage:'finalpayment' },
+        { id:'C-1071', first:'Oliver', last:'Kim', email:'oliver.kim@example.com', phone:'(303) 555-0177', vehicle:'2015 Toyota Tacoma', service:'Bed liner install', stage:'pickup' }
+      ];
+      var d = e.data.data;
+      var newClient = {
+        id: 'C-NEW', first: d.firstName, last: d.lastName, email: d.email, phone: d.phone,
+        vehicle: [d.vehYear, d.vehMake, d.vehModel].filter(Boolean).join(' '),
+        service: d.service, stage: 'newlead', isNew: true
+      };
+      lastChopTicket = newClient;
+      // Database window opens first (ends up behind), board opens second (ends up in front).
+      openClientsDatabase('chopdb' + chopShopWindowCount, sampleClients.concat([newClient]));
+      openProductionBoard('chopboard' + chopShopWindowCount, sampleClients.concat([newClient]));
+    }
+  });
+
+  function esc(s){
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  var aceStyle =
+    '<style>' +
+    '.ace-wrap{ font-family:Arial, Helvetica, sans-serif; background:#f4f6f8; color:#1c2b36; height:100%; margin:-16px -18px; display:flex; flex-direction:column; overflow:hidden; }' +
+    '.ace-header{ flex:0 0 auto; background:#1c3a52; color:#fff; padding:10px 14px; font-size:0.8rem; font-weight:bold; }' +
+    '.ace-body{ flex:1; overflow:auto; padding:12px; }' +
+    '.ace-board{ display:flex; gap:10px; min-width:max-content; }' +
+    '.ace-col{ width:150px; flex:0 0 150px; background:#e9edf0; border-radius:6px; padding:8px; }' +
+    '.ace-col h4{ margin:0 0 8px; font-size:0.62rem; color:#3d4b56; letter-spacing:0.5px; }' +
+    '.ace-card{ background:#fff; border:1px solid #dfe4e8; border-radius:6px; padding:8px; margin-bottom:8px; font-size:0.64rem; line-height:1.5; box-shadow:0 1px 2px rgba(0,0,0,0.08); position:relative; }' +
+    '.ace-card .ace-title{ font-weight:bold; margin-bottom:3px; }' +
+    '.ace-card .ace-badge{ position:absolute; top:-7px; right:-6px; background:#1c3a52; color:#fff; font-size:0.55rem; padding:2px 5px; border-radius:3px; }' +
+    '.ace-card button{ margin-top:6px; background:#1c3a52; color:#fff; border:none; padding:4px 7px; border-radius:4px; font-size:0.6rem; cursor:pointer; font-family:Arial,sans-serif; }' +
+    '.ace-card button:hover{ background:#14293b; }' +
+    '.ace-table{ width:100%; border-collapse:collapse; font-size:0.66rem; }' +
+    '.ace-table th{ background:#1c3a52; color:#fff; text-align:left; padding:6px 8px; position:sticky; top:0; }' +
+    '.ace-table td{ padding:6px 8px; border-bottom:1px solid #dfe4e8; }' +
+    '.ace-table tr:nth-child(even) td{ background:#f0f2f4; }' +
+    '.ace-table tr.ace-new td{ background:#e7f3ea; font-weight:bold; }' +
+    '</style>';
+
+  var STAGES = [
+    ['newlead', 'NEW LEAD'],
+    ['estimate', 'ESTIMATE'],
+    ['deposit', 'DEPOSIT'],
+    ['dropoff', 'DROP-OFF SCHEDULED'],
+    ['complete', 'WORK COMPLETE'],
+    ['finalpayment', 'FINAL PAYMENT'],
+    ['pickup', 'PICKUP']
+  ];
+
+  function openProductionBoard(id, clients){
+    var cols = STAGES.map(function(s){
+      var stageKey = s[0], label = s[1];
+      var cards = clients.filter(function(c){ return c.stage === stageKey; }).map(function(c){
+        return '<div class="ace-card">' +
+          (c.isNew ? '<div class="ace-badge">NEW</div>' : '') +
+          '<div class="ace-title">' + esc(c.first) + ' ' + esc(c.last) + (c.vehicle ? ' — ' + esc(c.vehicle) : '') + '</div>' +
+          (c.service ? '<div>Service: ' + esc(c.service) + '</div>' : '') +
+          (c.phone ? '<div>Contact: ' + esc(c.phone) + '</div>' : '') +
+          (c.isNew ? '<button onclick="openChopEstimate()">Generate Estimate &rarr;</button>' : '') +
+        '</div>';
+      }).join('');
+      return '<div class="ace-col"><h4>' + label + '</h4>' + cards + '</div>';
+    }).join('');
+
+    var html = aceStyle +
+      '<div class="ace-wrap">' +
+        '<div class="ace-header">Ace Mobile Auto Trim — Production Board</div>' +
+        '<div class="ace-body"><div class="ace-board">' + cols + '</div></div>' +
+      '</div>';
+
+    openWindow(id, 'PRODUCTION_BOARD.EXE', null, html);
+  }
+
+  function openChopEstimate(){
+    if(!lastChopTicket) return;
+    var c = lastChopTicket;
+    var lineItems = [
+      { desc: c.service || 'Custom interior work', price: 640 },
+      { desc: 'Materials (fabric/foam/adhesive)', price: 210 },
+      { desc: 'Shop supplies', price: 35 }
+    ];
+    var subtotal = lineItems.reduce(function(s,i){ return s + i.price; }, 0);
+    var deposit = Math.round(subtotal * 0.5);
+    var balance = subtotal - deposit;
+
+    var rows = lineItems.map(function(i){
+      return '<tr><td>' + esc(i.desc) + '</td><td style="text-align:right;">$' + i.price.toFixed(2) + '</td></tr>';
+    }).join('');
+
+    var html = aceStyle +
+      '<div class="ace-wrap">' +
+        '<div class="ace-header">Ace Mobile Auto Trim — Estimate</div>' +
+        '<div class="ace-body">' +
+          '<div style="font-size:0.72rem; margin-bottom:10px;">' +
+            '<strong>' + esc(c.first) + ' ' + esc(c.last) + '</strong><br>' +
+            esc(c.vehicle) + '<br>' + esc(c.phone) + (c.email ? ' &middot; ' + esc(c.email) : '') +
+          '</div>' +
+          '<table class="ace-table"><thead><tr><th>Description</th><th style="text-align:right;">Amount</th></tr></thead><tbody>' +
+          rows +
+          '<tr><td><strong>Subtotal</strong></td><td style="text-align:right;"><strong>$' + subtotal.toFixed(2) + '</strong></td></tr>' +
+          '<tr><td>Deposit due (50%) to schedule drop-off</td><td style="text-align:right;">$' + deposit.toFixed(2) + '</td></tr>' +
+          '<tr><td>Balance due at pickup</td><td style="text-align:right;">$' + balance.toFixed(2) + '</td></tr>' +
+          '</tbody></table>' +
+          '<div style="margin-top:14px; font-size:0.62rem; opacity:0.65;">Sample estimate for demo purposes — generated straight from the intake ticket above. Same shape works for a deposit invoice or a final-payment invoice later in the workflow.</div>' +
+        '</div>' +
+      '</div>';
+
+    chopShopWindowCount++;
+    openWindow('chopestimate' + chopShopWindowCount, 'ESTIMATE.PDF', null, html);
+  }
+
+  function openClientsDatabase(id, clients){
+    var rows = clients.map(function(c){
+      return '<tr' + (c.isNew ? ' class="ace-new"' : '') + '>' +
+        '<td>' + esc(c.id) + '</td>' +
+        '<td>' + esc(c.first) + '</td>' +
+        '<td>' + esc(c.last) + '</td>' +
+        '<td>' + esc(c.email) + '</td>' +
+        '<td>' + esc(c.phone) + '</td>' +
+        '<td>' + esc(c.vehicle) + '</td>' +
+        '<td>Yes</td>' +
+      '</tr>';
+    }).join('');
+
+    var html = aceStyle +
+      '<div class="ace-wrap">' +
+        '<div class="ace-header">Ace Mobile Auto Trim — Clients (Database)</div>' +
+        '<div class="ace-body"><table class="ace-table"><thead><tr>' +
+          '<th>Client ID</th><th>First</th><th>Last</th><th>Email Address</th><th>Phone</th><th>Vehicle</th><th>SMS Consent</th>' +
+        '</tr></thead><tbody>' + rows + '</tbody></table></div>' +
+      '</div>';
+
+    openWindow(id, 'CLIENTS.DB', null, html);
+  }
+
+  // ---------- PONG.EXE ----------
+  var pongInterval = null;
+
+  function openPong(){
+    openWindow('pong', 'PONG.EXE', null,
+      '<canvas id="pongCanvas" width="320" height="320" style="display:block;margin:0 auto;background:#000;border:1px solid #1f6b40;max-width:100%;"></canvas>' +
+      '<div style="text-align:center;font-size:0.68rem;opacity:0.7;margin-top:10px;">&uarr; / &darr; or mouse to move &middot; first to 5</div>'
+    );
+    initPong();
+  }
+
+  function initPong(){
+    if(pongInterval){ clearInterval(pongInterval); pongInterval = null; }
+    var canvas = document.getElementById('pongCanvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W = canvas.width, H = canvas.height;
+    var paddleH = 54, paddleW = 8;
+    var playerY = H/2 - paddleH/2, cpuY = H/2 - paddleH/2;
+    var ballX = W/2, ballY = H/2, ballVX = 3, ballVY = 2;
+    var playerScore = 0, cpuScore = 0, over = false;
+
+    canvas.tabIndex = 0;
+    canvas.addEventListener('mousemove', function(e){
+      var rect = canvas.getBoundingClientRect();
+      playerY = (e.clientY - rect.top) - paddleH/2;
+      playerY = Math.max(0, Math.min(H - paddleH, playerY));
+    });
+    canvas.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowUp'){ playerY = Math.max(0, playerY - 22); e.preventDefault(); }
+      if(e.key === 'ArrowDown'){ playerY = Math.min(H - paddleH, playerY + 22); e.preventDefault(); }
+    });
+
+    function resetBall(dir){
+      ballX = W/2; ballY = H/2;
+      ballVX = 3 * dir; ballVY = (Math.random() * 4) - 2;
+    }
+
+    function step(){
+      if(over) return;
+      ballX += ballVX; ballY += ballVY;
+      if(ballY <= 0 || ballY >= H) ballVY *= -1;
+
+      if(ballX <= paddleW + 6 && ballX > paddleW && ballY >= playerY && ballY <= playerY + paddleH){
+        ballVX = Math.abs(ballVX) * 1.05;
+      }
+      if(ballX >= W - paddleW - 6 && ballX < W - paddleW && ballY >= cpuY && ballY <= cpuY + paddleH){
+        ballVX = -Math.abs(ballVX) * 1.05;
+      }
+
+      var cpuCenter = cpuY + paddleH / 2;
+      if(cpuCenter < ballY - 10) cpuY += 2.6;
+      else if(cpuCenter > ballY + 10) cpuY -= 2.6;
+      cpuY = Math.max(0, Math.min(H - paddleH, cpuY));
+
+      if(ballX < 0){ cpuScore++; resetBall(1); }
+      if(ballX > W){ playerScore++; resetBall(-1); }
+      if(playerScore >= 5 || cpuScore >= 5) over = true;
+
+      ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = '#3dff8a';
+      ctx.fillRect(4, playerY, paddleW, paddleH);
+      ctx.fillRect(W - paddleW - 4, cpuY, paddleW, paddleH);
+      ctx.beginPath(); ctx.arc(ballX, ballY, 5, 0, Math.PI * 2); ctx.fill();
+      ctx.font = '16px monospace';
+      ctx.fillText(playerScore + '  -  ' + cpuScore, W / 2 - 24, 20);
+      if(over){
+        ctx.font = '14px monospace';
+        ctx.fillText(playerScore > cpuScore ? 'YOU WIN' : 'CPU WINS', W / 2 - 36, H / 2);
+      }
+    }
+    pongInterval = setInterval(step, 1000 / 50);
+  }
+
+  // ---------- LIGHT MATRIX RAIN ----------
+  (function(){
+    var canvas = document.getElementById('matrixCanvas');
+    var ctx = canvas.getContext('2d');
+    var fontSize = 18;
+    var drops = [];
+    var columnWords = [];
+
+    var words = ['GROW','BUILD','RISE','CREATE','TRUST','BELIEVE','OWN IT','KEEP GOING','GRATITUDE','THANK YOU','FAMILY','ONWARD','PERSIST','SIMPLE','REAL'];
+    function randomWord(){ return words[Math.floor(Math.random() * words.length)] + '     '; }
+
+    function setup(){
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      var columns = Math.floor(canvas.width / fontSize);
+      drops = new Array(columns).fill(0).map(function(){ return Math.random() * -40; });
+      columnWords = new Array(columns).fill(0).map(function(){ return { word: randomWord(), idx: 0 }; });
+    }
+    setup();
+    window.addEventListener('resize', setup);
+
+    function draw(){
+      ctx.fillStyle = 'rgba(2,8,5,0.10)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#3dff8a';
+      ctx.font = fontSize + 'px monospace';
+      for(var i = 0; i < drops.length; i++){
+        var cw = columnWords[i];
+        var ch = cw.word[cw.idx % cw.word.length];
+        cw.idx++;
+        if(ch !== ' '){
+          ctx.fillText(ch, i * fontSize, drops[i] * fontSize);
+        }
+        if(drops[i] * fontSize > canvas.height && Math.random() > 0.978){
+          drops[i] = 0;
+          cw.word = randomWord();
+          cw.idx = 0;
+        }
+        drops[i]++;
+      }
+    }
+    setInterval(draw, 80);
+  })();
+
+  // ---------- EASTER EGGS ----------
+  console.log('%cYou opened the console. Curious minds welcome.\n— DavidRay "Coco" Jaramillo', 'color:#3dff8a; font-family:monospace; font-size:13px;');
+
+  var secretMessage =
+    '<pre style="white-space:pre-wrap; font-family:\'Space Mono\',monospace; font-size:0.8rem; line-height:1.7; margin:0;">' +
+    'ACCESS GRANTED.\n\n' +
+    'You found the easter egg. Not bad.\n\n' +
+    'COCO SYSTEMS was built by one person,\n' +
+    'in borrowed hours, on borrowed machines.\n\n' +
+    'Thank you to my parents and grandparents —\n' +
+    'none of this happens without you.\n\n' +
+    'This one\'s dedicated to Angel O\'Dowd.\n\n' +
+    'Thanks for looking closely.\n\n' +
+    '— DavidRay "Coco" Jaramillo</pre>';
+
+  var secretUnlocked = false;
+  function unlockSecret(){
+    if(secretUnlocked) return;
+    secretUnlocked = true;
+    var icon = document.getElementById('secretIcon');
+    if(!icon) return;
+    icon.classList.remove('hidden');
+    icon.classList.add('reveal-flicker');
+  }
+
+  var konamiSeq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  var konamiPos = 0;
+  var typedBuffer = '';
+
+  document.addEventListener('keydown', function(e){
+    var key = e.key;
+    var expected = konamiSeq[konamiPos];
+    if(key === expected || key.toLowerCase() === expected.toLowerCase()){
+      konamiPos++;
+      if(konamiPos === konamiSeq.length){ unlockSecret(); konamiPos = 0; }
+    } else {
+      konamiPos = (key === konamiSeq[0]) ? 1 : 0;
+    }
+
+    if(key.length === 1){
+      typedBuffer = (typedBuffer + key).slice(-4).toLowerCase();
+      if(typedBuffer === 'coco'){ unlockSecret(); }
+    }
+  });
+</script>
+
+</body>
+</html>

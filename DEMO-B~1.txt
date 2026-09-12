@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Blume Salon Suites — Book a Chair</title>
+<style>
+  *{box-sizing:border-box;}
+  body{ margin:0; font-family:Georgia, 'Times New Roman', serif; background:#fdf6f3; color:#3a2c2c; }
+  header{ background:#e8c9c2; padding:28px 24px; text-align:center; }
+  header h1{ margin:0; font-size:1.7rem; letter-spacing:1px; }
+  header p{ margin:6px 0 0; opacity:0.8; font-size:0.9rem; font-family:Arial, sans-serif; }
+  nav{ background:#dcb3aa; padding:8px 24px; text-align:center; }
+  nav a{ color:#4a3232; text-decoration:none; font-size:0.85rem; margin:0 12px; font-family:Arial, sans-serif; }
+  .wrap{ max-width:520px; margin:0 auto; padding:36px 20px 60px; }
+  .card{ background:#fff; border:1px solid #f0ddd7; border-radius:10px; padding:26px; }
+  .card h2{ margin-top:0; font-size:1.2rem; font-family:Arial, sans-serif; }
+  label{ display:block; font-size:0.85rem; margin:14px 0 4px; color:#6b5252; font-family:Arial, sans-serif; }
+  input{ width:100%; padding:9px 10px; border:1px solid #e6d3cd; border-radius:5px; font-size:0.9rem; font-family:Arial, sans-serif; }
+  button{ margin-top:18px; background:#c78a7e; color:#fff; border:none; padding:10px 20px; border-radius:20px; font-size:0.9rem; cursor:pointer; font-family:Arial, sans-serif; }
+  button:hover{ background:#b8776b; }
+  .err{ display:none; color:#b3261e; font-size:0.8rem; margin-top:8px; font-family:Arial, sans-serif; }
+  .confirm{ display:none; background:#f3e8e4; border:1px solid #e6d3cd; border-radius:6px; padding:14px; margin-top:18px; font-size:0.9rem; font-family:Arial, sans-serif; }
+  .curtain-link{ display:block; text-align:center; margin-top:28px; font-size:0.75rem; color:#a08a8a; text-decoration:none; font-family:Arial, sans-serif; }
+  .curtain{ display:none; margin-top:14px; background:#0d1a12; color:#3dff8a; font-family:'Courier New',monospace; font-size:0.72rem; padding:12px; border-radius:6px; white-space:pre-wrap; }
+  footer{ text-align:center; padding:26px; font-size:0.75rem; color:#a08a8a; font-family:Arial, sans-serif; }
+  footer a{ color:#8a5a4d; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Blume Salon Suites</h1>
+  <p>Independent stylists, booth rental — RiNo, Denver</p>
+</header>
+<nav><a href="#">Home</a><a href="#">Our Stylists</a><a href="#">Book</a><a href="#">Contact</a></nav>
+
+<div class="wrap">
+  <div class="card">
+    <h2>Book a chair</h2>
+    <p style="font-size:0.85rem; color:#7a6262; font-family:Arial, sans-serif;">Pick a stylist and a time — we'll confirm shortly.</p>
+
+    <label for="name">Name</label>
+    <input id="name" placeholder="Your name">
+    <label for="stylist">Preferred stylist</label>
+    <input id="stylist" placeholder="e.g. Marisol">
+    <label for="service">Service</label>
+    <input id="service" placeholder="e.g. color + cut">
+    <label for="time">Preferred time</label>
+    <input id="time" placeholder="e.g. Thursday afternoon">
+
+    <div class="err" id="err">Fill in every field first.</div>
+    <button onclick="submitBooking()">Request appointment</button>
+
+    <div class="confirm" id="confirm">Thanks — request received. We'll confirm your time soon.</div>
+  </div>
+
+  <a class="curtain-link" href="#" onclick="toggleCurtain(); return false;" id="curtainLink">See how this looks on the salon's side</a>
+  <div class="curtain" id="curtain"></div>
+
+  <footer>Built by <a href="Retro Terminal - Website Concept Prototype.html" target="_top">Coco Systems</a> — this is a demo page, not a real business.</footer>
+</div>
+
+<script>
+function submitBooking(){
+  var ids = ['name','stylist','service','time'];
+  var values = {};
+  var ok = true;
+  ids.forEach(function(id){
+    var v = document.getElementById(id).value.trim();
+    if(!v) ok = false;
+    values[id] = v;
+  });
+  if(!ok){ document.getElementById('err').style.display = 'block'; return; }
+  document.getElementById('err').style.display = 'none';
+  document.getElementById('confirm').style.display = 'block';
+
+  var curtain = document.getElementById('curtain');
+  curtain.style.display = 'block';
+  curtain.textContent = '> RECEIVING SUBMISSION...';
+  setTimeout(function(){ curtain.textContent += '\n> WRITING RECORD TO DATABASE...'; }, 500);
+  setTimeout(function(){ curtain.textContent += '\n> ROUTING TO CALENDAR...'; }, 1000);
+  setTimeout(function(){
+    curtain.textContent += '\n> DONE. New event on the calendar:\n\n' +
+      'Name: ' + values.name + '\nStylist: ' + values.stylist +
+      '\nService: ' + values.service + '\nTime: ' + values.time;
+  }, 1600);
+}
+function toggleCurtain(){
+  var c = document.getElementById('curtain');
+  if(c.textContent.trim() === '') return;
+  c.style.display = c.style.display === 'block' ? 'none' : 'block';
+}
+</script>
+
+</body>
+</html>
