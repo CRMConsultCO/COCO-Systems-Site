@@ -60,26 +60,8 @@
 
   <div class="panel">
 
-    <!--
-      TODO (DavidRay): once the real Google Form is built, do ONE of the following:
-
-      OPTION A — simplest, recommended:
-      Replace everything between <!--FORM_START--> and <!--FORM_END--> below with an
-      iframe embed of the real Google Form, e.g.:
-      <iframe src="YOUR_GOOGLE_FORM_EMBED_URL" width="100%" height="900" frameborder="0">
-        Loading…
-      </iframe>
-      Get the embed URL from the Google Form: Send > embed <> icon > copy the src URL.
-
-      OPTION B — keep this custom-styled form:
-      Point the <form> tag's action to your Google Form's formResponse URL and match
-      each input's name attribute to the form's entry.XXXXXXXX IDs (view page source on
-      the live Google Form to find them). Until then, this form has no real backend —
-      it currently just shows a "thanks" message and does not save anywhere.
-    -->
-
     <!--FORM_START-->
-    <form onsubmit="return submitLead(event)">
+    <form id="leadForm" onsubmit="return submitLead(event)">
       <label for="name">NAME</label>
       <input id="name" required placeholder="Your name">
 
@@ -100,8 +82,8 @@
     <!--FORM_END-->
 
     <div class="fallback">
-      Form not wired to a real inbox yet — until it is, email
-      <a href="mailto:finance@crmconsultco.com">finance@crmconsultco.com</a> directly and it'll reach the same place.
+      Trouble submitting? Email
+      <a href="mailto:info@crmconsultco.com">info@crmconsultco.com</a> directly and it'll reach the same place.
     </div>
   </div>
 
@@ -109,9 +91,35 @@
 </div>
 
 <script>
+// Replace with the /exec URL from your Apps Script Web App deployment (see setup instructions).
+var LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzzwsNn85hhKU7YTAJIPN-x3pEbOzZiWp0szaYXWHf1QzF4qU4eErAZCs4bj7DD31Uy/exec';
+
 function submitLead(e){
   e.preventDefault();
-  alert('Thanks — this form isn\'t wired to a real inbox yet. Please email finance@crmconsultco.com directly for now.');
+
+  if(LEAD_ENDPOINT === 'YOUR_APPS_SCRIPT_WEB_APP_URL'){
+    alert('Backend not connected yet — email info@crmconsultco.com directly for now.');
+    return false;
+  }
+
+  var data = new URLSearchParams();
+  data.append('name', document.getElementById('name').value);
+  data.append('business', document.getElementById('business').value);
+  data.append('type', document.getElementById('type').value);
+  data.append('contact', document.getElementById('contact').value);
+  data.append('need', document.getElementById('need').value);
+
+  fetch(LEAD_ENDPOINT, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: data
+  }).then(function(){
+    document.getElementById('leadForm').outerHTML =
+      '<p class="sub glow">REQUEST RECEIVED — Coco Systems will be in touch shortly.<span class="cursor"></span></p>';
+  }).catch(function(){
+    alert('Something went wrong sending your request — please email info@crmconsultco.com directly.');
+  });
+
   return false;
 }
 </script>
