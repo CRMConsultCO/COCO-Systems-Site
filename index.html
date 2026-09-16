@@ -222,9 +222,12 @@
       win.style.left = (60 + Object.keys(openWindows).length * 26) + 'px';
       win.style.top = (70 + Object.keys(openWindows).length * 26) + 'px';
     }
+    // Cache-bust every iframe load so updates to the linked page (get-started.html,
+    // the demo-*.html files) always show up immediately instead of a stale cached copy.
+    var freshUrl = url ? url + (url.indexOf('?') === -1 ? '?' : '&') + '_=' + Date.now() : url;
     var bodyMarkup = htmlContent
       ? '<div class="window-body">' + htmlContent + '</div>'
-      : '<iframe src="' + url + '" title="' + title + '"></iframe>';
+      : '<iframe src="' + freshUrl + '" title="' + title + '"></iframe>';
     win.innerHTML =
       '<div class="titlebar">' +
         '<span>' + title + '</span>' +
