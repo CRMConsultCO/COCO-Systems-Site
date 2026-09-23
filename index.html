@@ -109,6 +109,13 @@
   .taskbar .tab.active{ border-color:#3dff8a; }
   .taskbar .clock{ opacity:0.75; }
 
+  /* ---------- FOLLOW RACCOON: red link to RED_OS (follow/). Remove these 2 rules + the <a class="follow-raccoon"> to undo. ---------- */
+  .taskbar .follow-raccoon{
+    color:#ff3b3b; text-decoration:none; font-family:'Space Mono', monospace; font-size:9px; line-height:1.05;
+    white-space:pre; padding:2px 4px; border:1px solid transparent; text-shadow:0 0 6px rgba(255,59,59,0.55);
+  }
+  .taskbar .follow-raccoon:hover, .taskbar .follow-raccoon:focus-visible{ border-color:#ff3b3b; outline:none; }
+
   .hidden{ display:none !important; }
 
   /* ---------- MOBILE ---------- */
@@ -176,6 +183,9 @@
       <div class="start">COCO SYSTEMS</div>
       <div class="tabs" id="taskbarTabs"></div>
       <div class="clock" id="clock"></div>
+      <a class="follow-raccoon" href="follow/" title="Follow" aria-label="Follow COCO Systems. Plays a short, skippable retro crash animation."><span aria-hidden="true">/^\_/^\
+(=0=0=)
+  &gt;^&lt;</span></a>
     </div>
   </div>
 
