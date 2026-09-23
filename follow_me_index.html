@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RED_OS // COCO SYSTEMS</title>
+<meta name="description" content="RED_OS by COCO Systems (CRM Consult Co). Follow along: artists, creators and social media.">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<!--
+  ====================================================================
+  RED_OS  —  follow/index.html
+  Reached from the red ASCII raccoon in the corner of the hub's taskbar (index.html).
+
+  WHAT THIS PAGE DOES
+  1. Plays a short, harmless "1996 virus -> crash -> reboot" animation
+     (about 6 seconds, skippable from the first frame).
+  2. Reveals RED_OS: the hub's layout and fonts, recolored red/black.
+
+  SAFE BY DESIGN
+  - Pure CSS/JS animation. No downloads, no fullscreen, no pop-ups,
+    no Back-button blocking, no storage beyond a session "seen" flag.
+  - RED_OS content is plain HTML. Without JavaScript the intro never
+    appears and the page works normally.
+  - Reduced-motion visitors skip the intro automatically.
+
+  QUICK EDITS
+  - Turn the intro off for everyone:  INTRO_ENABLED: false  (below)
+  - Social links:                     search "EDIT: LINKS"
+  - URL tricks:  /follow/#skip  (no intro)   /follow/#intro  (force intro)
+
+  REMOVE THE FEATURE
+  Delete the follow/ folder and the "follow-raccoon" lines in index.html.
+  ====================================================================
+-->
+<script>
+  /* Settings, read before first paint so the page never flashes. */
+  window.REDOS = {
+    INTRO_ENABLED: true,        /* false = never auto-play the intro          */
+    ONCE_PER_SESSION: true,     /* false = play on every visit                */
+    SEEN_KEY: 'cocoRedOS.introSeen',
+    SOUND_KEY: 'cocoRedOS.sound'
+  };
+  (function (c) {
+    var d = document.documentElement;
+    d.classList.add('js');
+    var q = location.search + location.hash;
+    var force = /[?#&]intro\b/.test(q);
+    var skip = /[?#&](skip|os)\b/.test(q);
+    var reduce = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    var seen = false;
+    try { seen = sessionStorage.getItem(c.SEEN_KEY) === '1'; } catch (e) {}
+    c.reduce = reduce;
+    c.autoplay = force || (c.INTRO_ENABLED && !skip && !reduce && !(c.ONCE_PER_SESSION && seen));
+    if (c.autoplay) d.classList.add('intro-on');
+  })(window.REDOS);
+</script>
+<style>
+  /* ---------- TOKENS: the hub's palette, recolored ---------- */
+  :root{
+    --red:#ff3b3b;        /* ground (hub: #020805)                     */
+    --ink:#0b0101;        /* text + primary borders (hub: #3dff8a)     */
+    --red-line:#8f1414;   /* dim borders (hub: #1f6b40)                */
+    --void:#050000;       /* intro screen                              */
+    --bone:#f2e6d8;       /* intro skull                               */
+    --amber:#ffb000;      /* intro warning lines                       */
+    --hub-green:#3dff8a;  /* the green hub "glitching away"            */
+  }
+
+  *{ box-sizing:border-box; }
+  html, body{ height:100%; }
+  body{
+    margin:0; background:var(--red); color:var(--ink);
+    font-family:'Space Mono', 'Courier New', monospace;
+    position:relative;
+  }
+  body::before{
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:900;
+    background:repeating-linear-gradient(0deg, rgba(0,0,0,0.12) 0px, rgba(0,0,0,0.12) 1px, transparent 1px, transparent 3px);
+  }
+  .intro-on body{ overflow:hidden; }
+  #rain{ position:fixed; inset:0; z-index:0; opacity:0.15; pointer-events:none; }
+  .glow{ text-shadow:0 0 5px rgba(11,1,1,0.35); }
+  h1, h2{ font-family:'Share Tech Mono', 'Courier New', monospace; }
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+    clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+  html:not(.js) .needs-js{ display:none !important; }
+
+  /* ---------- DESKTOP (mirrors the hub) ---------- */
+  #desktop{ position:relative; z-index:1; min-height:100%; padding:14px 16px 60px; }
+  .topbar{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px 16px;
+    font-size:11px; opacity:0.85; letter-spacing:1px; margin-bottom:14px;
+  }
+
+  .icons{ display:flex; flex-wrap:wrap; gap:22px; width:150px; }
+  .icon-btn{
+    background:none; border:1px solid transparent; color:var(--ink); font-family:'Space Mono', monospace;
+    width:110px; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer;
+    padding:8px 4px; font-size:0.68rem; letter-spacing:0.5px; text-decoration:none; text-align:center;
+    overflow-wrap:anywhere; text-shadow:inherit;
+  }
+  .icon-btn .glyph{ font-size:1.9rem; line-height:1; }
+  .icon-btn:hover{ background:rgba(11,1,1,0.08); border-color:var(--red-line); }
+  .icon-btn:focus-visible{ background:rgba(11,1,1,0.08); border-color:var(--ink); outline:none; }
+
+  .widget{
+    position:absolute; top:60px; right:20px; width:250px; border:1px solid var(--red-line);
+    background:rgba(11,1,1,0.04); font-size:0.68rem; padding:12px 14px; line-height:1.7;
+  }
+  .widget h2{
+    margin:0 0 8px; font-size:0.7rem; letter-spacing:2px; font-weight:normal;
+    border-bottom:1px solid var(--red-line); padding-bottom:6px;
+  }
+  .widget .door{ margin:0 0 8px; }
+  .skull-mini{ width:44px; height:44px; display:block; margin:0 0 10px; shape-rendering:crispEdges; }
+  .skull-mini path{ fill:var(--ink); }
+  .infra-line{ display:flex; justify-content:space-between; gap:12px; }
+  .infra-line span:last-child{ text-align:right; }
+
+  .taskbar{
+    position:fixed; left:0; right:0; bottom:0; z-index:50;
+    min-height:38px; padding:0 12px env(safe-area-inset-bottom, 0px);
+    display:flex; align-items:center; gap:10px;
+    border-top:1px solid var(--red-line); background:var(--red); font-size:0.68rem;
+  }
+  .taskbar .start{ border:1px solid var(--ink); padding:5px 10px; letter-spacing:1px; white-space:nowrap; }
+  .taskbar .tabs{ display:flex; gap:8px; flex:1; min-width:0; overflow-x:auto; }
+  .taskbar .tab{ border:1px solid var(--ink); padding:5px 10px; white-space:nowrap; }
+  .tb-btn{
+    background:none; border:1px solid var(--red-line); color:var(--ink); font:inherit;
+    font-family:'Space Mono', monospace; font-size:0.68rem; padding:5px 8px; cursor:pointer;
+    letter-spacing:1px; white-space:nowrap; text-shadow:inherit;
+  }
+  .tb-btn[aria-pressed="true"]{ border-color:var(--ink); background:rgba(11,1,1,0.1); }
+  .tb-btn:focus-visible{ outline:1px solid var(--ink); outline-offset:2px; }
+  .tb-raccoon{
+    color:var(--ink); text-decoration:none; font-family:'Space Mono', monospace;
+    font-size:9px; line-height:1.05; white-space:pre; padding:2px 4px; border:1px solid transparent;
+  }
+  .tb-raccoon:hover, .tb-raccoon:focus-visible{ border-color:var(--ink); outline:none; }
+  .taskbar .clock{ opacity:0.85; white-space:nowrap; }
+
+  @media (max-width:720px){
+    .widget{ position:static; width:100%; margin:14px 0; }
+    .icons{ width:100%; justify-content:flex-start; }
+  }
+  @media (max-width:420px){
+    .taskbar .tabs{ display:none; }
+    .taskbar{ justify-content:space-between; }
+  }
+
+  /* ---------- INTRO OVERLAY ---------- */
+  #intro{
+    display:none; position:fixed; inset:0; z-index:2000; overflow:hidden;
+    background:var(--void); color:var(--red); transition:opacity .25s ease;
+  }
+  /* Fail-safe: if the script ever dies, the overlay still gets out of the way. */
+  .intro-on #intro{ display:block; animation:failsafe 0s linear 9s forwards; }
+  @keyframes failsafe{ to{ visibility:hidden; pointer-events:none; } }
+  #intro.fade-out{ opacity:0; }
+  #intro::after{
+    content:''; position:absolute; inset:0; pointer-events:none; z-index:2;
+    background:repeating-linear-gradient(0deg, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 1px, transparent 1px, transparent 3px);
+  }
+  #intro[data-stage="boot"]{ background:var(--red); color:var(--ink); }
+
+  .skip{
+    position:absolute; z-index:3; top:calc(12px + env(safe-area-inset-top, 0px)); right:12px;
+    min-height:44px; padding:0 14px; background:rgba(0,0,0,0.25); color:inherit;
+    border:1px solid currentColor; font-family:'Space Mono', monospace; font-size:0.72rem;
+    letter-spacing:1.5px; cursor:pointer;
+  }
+  .skip:hover{ background:rgba(255,59,59,0.18); }
+  .skip:focus-visible{ outline:2px solid var(--bone); outline-offset:3px; }
+  #intro[data-stage="boot"] .skip{ background:rgba(11,1,1,0.06); }
+  #intro[data-stage="boot"] .skip:focus-visible{ outline-color:var(--ink); }
+
+  .intro-screen{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    padding:72px 16px 56px; transform-origin:50% 50%;
+  }
+  .st{ display:none; }
+  #intro[data-stage="glitch"] .st-glitch,
+  #intro[data-stage="virus"] .st-virus,
+  #intro[data-stage="skull"] .st-skull,
+  #intro[data-stage="crash"] .st-crash,
+  #intro[data-stage="boot"] .st-boot{ display:block; }
+
+  .disclaimer{
+    position:absolute; left:16px; right:16px; bottom:calc(14px + env(safe-area-inset-bottom, 0px));
+    margin:0; text-align:center; font-family:'Space Mono', monospace; font-size:0.68rem; letter-spacing:0.5px;
+  }
+  #intro[data-stage="boot"] .disclaimer{ display:none; }
+
+  /* 1. glitch: the green hub tearing apart (movement only, no flashes) */
+  .st-glitch{ position:absolute; inset:0; }
+  .residue{
+    position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); text-align:center;
+    font-family:'Share Tech Mono', monospace; font-size:clamp(1rem, 4vw, 1.6rem); letter-spacing:3px;
+    color:var(--hub-green); text-shadow:-3px 0 var(--red), 3px 0 #19d8ff;
+    animation:jitter .5s steps(1) both;
+  }
+  @keyframes jitter{
+    0%  { transform:translate(0,-50%);     clip-path:inset(0 0 0 0); }
+    20% { transform:translate(-6px,-46%);  clip-path:inset(10% 0 55% 0); }
+    40% { transform:translate(5px,-54%);   clip-path:inset(40% 0 20% 0); }
+    60% { transform:translate(-3px,-49%);  clip-path:inset(0 0 60% 0); }
+    80% { transform:translate(8px,-50%);   clip-path:inset(55% 0 0 0); }
+    100%{ transform:translate(0,-50%);     clip-path:inset(0 0 0 0); }
+  }
+  .tear{
+    position:absolute; left:-10%; right:-10%; height:6px;
+    background:linear-gradient(90deg, transparent, rgba(61,255,138,0.35), rgba(255,59,59,0.45), transparent);
+    animation:tear .5s steps(4) both;
+  }
+  .t1{ top:24%; } .t2{ top:47%; animation-delay:.1s; } .t3{ top:70%; animation-delay:.2s; }
+  @keyframes tear{ 0%{ transform:translateX(-30%); } 50%{ transform:translateX(15%) scaleY(2); } 100%{ transform:translateX(55%); } }
+
+  /* 2. the "virus" dialog (COCO's own window style, not any real OS) */
+  .vwin{
+    width:min(440px, 92vw); border:1px solid var(--red); background:var(--void);
+    box-shadow:0 0 18px rgba(255,59,59,0.25); font-family:'Space Mono', monospace;
+  }
+  .vtitle{
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
+    background:#2a0707; border-bottom:1px solid var(--red-line); padding:6px 10px;
+    font-size:0.72rem; letter-spacing:1px;
+  }
+  .vtitle .dots{ display:flex; gap:6px; }
+  .vtitle .dots i{ width:11px; height:11px; border-radius:50%; border:1px solid var(--red); }
+  .vbody{ padding:16px 18px; font-size:0.78rem; line-height:1.7; }
+  .vbody p{ margin:0 0 6px; min-height:1.7em; }
+  .vbody .warn{ color:var(--amber); }
+  .bar{ height:14px; border:1px solid var(--red); margin-top:10px; padding:2px; }
+  .bar span{ display:block; height:100%; width:0; background:var(--red); }
+  #intro[data-stage="virus"] .bar span{ animation:fill 1.2s steps(10) .2s forwards; }
+  @keyframes fill{ to{ width:100%; } }
+
+  /* 3. the laughing skull (original pixel art) */
+  .st-skull{ text-align:center; }
+  .skull{ width:min(46vmin, 220px); height:auto; display:block; margin:0 auto; shape-rendering:crispEdges; overflow:visible; }
+  .skull .bone{ fill:var(--bone); }
+  .skull .eyes{ fill:var(--red); }
+  #intro[data-stage="skull"] .jaw{ animation:laugh .33s steps(1) infinite; }
+  @keyframes laugh{ 0%{ transform:translateY(0); } 50%{ transform:translateY(1.5px); } }
+  .laugh{
+    font-family:'Share Tech Mono', monospace; font-size:clamp(1.4rem, 6vw, 2.4rem);
+    letter-spacing:6px; margin:16px 0 0; min-height:1.3em;
+  }
+
+  /* 4. crash + CRT power-off */
+  .st-crash{ font-family:'Share Tech Mono', monospace; font-size:clamp(1rem, 4.2vw, 1.6rem); letter-spacing:2px; line-height:1.4; }
+  .st-crash p{ margin:0; }
+  .st-crash .halt{ color:var(--amber); font-size:0.8em; margin-top:14px; }
+  #intro.crt .intro-screen{ animation:crtOff .5s ease-in forwards; }
+  @keyframes crtOff{ 0%{ transform:scale(1,1); } 60%{ transform:scale(1,0.006); } 100%{ transform:scale(0,0.006); } }
+  .crt-line{
+    position:absolute; left:0; right:0; top:50%; height:2px; z-index:1; pointer-events:none;
+    background:var(--bone); box-shadow:0 0 12px var(--red); opacity:0;
+  }
+  #intro.crt .crt-line{ animation:crtLine .55s forwards; }
+  @keyframes crtLine{ 0%, 55%{ opacity:0; transform:scaleX(1); } 60%{ opacity:1; transform:scaleX(1); } 100%{ opacity:1; transform:scaleX(0); } }
+
+  /* 5. reboot into red */
+  .st-boot{ width:min(560px, 100%); font-family:'Space Mono', monospace; font-size:clamp(0.72rem, 2.6vw, 0.9rem); line-height:1.8; }
+  .st-boot pre{ margin:0; font-family:inherit; white-space:pre-wrap; display:inline; }
+  .cursor{ display:inline-block; width:9px; height:16px; background:currentColor; vertical-align:-3px; margin-left:4px; animation:blink 1s step-start infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  /* Reduced motion: if someone opts in to the intro, play it as a calm slideshow. */
+  @media (prefers-reduced-motion: reduce){
+    .residue{ animation:none; }
+    .tear{ display:none; }
+    #intro[data-stage="skull"] .jaw, .cursor{ animation:none; }
+    #intro.crt .intro-screen{ animation:none; opacity:0; }
+    #intro.crt .crt-line{ animation:none; }
+    #intro, .skip{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="rain" aria-hidden="true"></canvas>
+
+<!-- ====================== RED_OS (the real page) ====================== -->
+<div id="desktop">
+  <h1 id="pageTitle" class="sr-only" tabindex="-1">RED_OS by COCO Systems: follow along</h1>
+
+  <div class="topbar glow">
+    <span>SIGNAL HIJACKED [RED]</span>
+    <span>SYSTEM: RED_OS v96</span>
+  </div>
+
+  <!-- EDIT: LINKS — add a platform by copying one <a> block -->
+  <nav class="icons glow" aria-label="Follow COCO Systems">
+    <a class="icon-btn" href="https://www.instagram.com/crmconsultingco/" target="_blank" rel="noopener">
+      <span class="glyph" aria-hidden="true">&#9673;</span>INSTAGRAM.LNK
+    </a>
+    <a class="icon-btn" href="../">
+      <span class="glyph" aria-hidden="true">&#8962;</span>MAIN_SITE.EXE
+    </a>
+    <button class="icon-btn needs-js" id="replayBtn" type="button">
+      <span class="glyph" aria-hidden="true">&#9760;</span><span id="replayLabel">REPLAY.EXE</span>
+    </button>
+  </nav>
+
+  <section class="widget glow" aria-labelledby="widgetTitle">
+    <svg class="skull-mini" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <path d="M4 0h8v1h-8zM2 1h12v1h-12zM1 2h14v1h-14zM1 3h14v1h-14zM1 4h14v1h-14zM1 5h2v1h-2zM7 5h2v1h-2zM13 5h2v1h-2zM1 6h1v1h-1zM7 6h2v1h-2zM14 6h1v1h-1zM1 7h1v1h-1zM7 7h2v1h-2zM14 7h1v1h-1zM1 8h2v1h-2zM6 8h4v1h-4zM13 8h2v1h-2zM2 9h5v1h-5zM9 9h5v1h-5zM3 10h4v1h-4zM9 10h4v1h-4zM3 11h10v1h-10zM3 12h1v1h-1zM5 12h1v1h-1zM7 12h2v1h-2zM10 12h1v1h-1zM12 12h1v1h-1zM3 13h1v1h-1zM5 13h1v1h-1zM7 13h2v1h-2zM10 13h1v1h-1zM12 13h1v1h-1zM3 14h10v1h-10zM5 15h6v1h-6z"/>
+    </svg>
+    <h2 id="widgetTitle">FOLLOW THE SIGNAL</h2>
+    <p class="door">YOU FOUND THE RED DOOR.</p>
+    <div class="infra-line"><span>INSTAGRAM</span><span>@CRMCONSULTINGCO</span></div>
+    <div class="infra-line"><span>MAIN SITE</span><span>CRMCONSULTCO.COM</span></div>
+    <div class="infra-line"><span>MADE FOR</span><span>ARTISTS + CREATORS</span></div>
+    <div class="infra-line"><span>STATUS</span><span>REBOOTED</span></div>
+  </section>
+
+  <div class="taskbar glow">
+    <div class="start">COCO SYSTEMS</div>
+    <div class="tabs"><span class="tab">RED_OS v96</span></div>
+    <button id="soundBtn" class="tb-btn needs-js" type="button" aria-pressed="false">SOUND: OFF</button>
+    <div class="clock" id="clock"></div>
+    <a class="tb-raccoon" href="../" title="Back to the main site" aria-label="Back to the main COCO Systems site"><span aria-hidden="true">/^\_/^\
+(=0=0=)
+  &gt;^&lt;</span></a>
+  </div>
+</div>
+
+<!-- ============ INTRO (decoration only; shown by JavaScript) ============ -->
+<div id="intro">
+  <button id="skipBtn" class="skip" type="button" aria-describedby="introNote">SKIP INTRO &#9656;</button>
+  <p id="introNote" class="sr-only">A short, harmless retro crash animation is playing. It ends by itself in about six seconds.</p>
+
+  <div id="introScreen" class="intro-screen" aria-hidden="true">
+    <div class="st st-glitch">
+      <div class="residue">COCO SYSTEMS TERMINAL v1.0</div>
+      <div class="tear t1"></div><div class="tear t2"></div><div class="tear t3"></div>
+    </div>
+
+    <div class="st st-virus">
+      <div class="vwin">
+        <div class="vtitle"><span>COCO.VIRUS // EST. 1996</span><span class="dots"><i></i><i></i></span></div>
+        <div class="vbody">
+          <p class="warn">SIDE EFFECTS MAY INCLUDE: FOLLOWING.</p>
+          <p id="vLine1"></p>
+          <p id="vLine2"></p>
+          <div class="bar"><span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="st st-skull">
+      <svg class="skull" viewBox="0 0 16 18" focusable="false">
+        <path class="bone" d="M4 0h8v1h-8zM2 1h12v1h-12zM1 2h14v1h-14zM1 3h14v1h-14zM1 4h14v1h-14zM1 5h2v1h-2zM7 5h2v1h-2zM13 5h2v1h-2zM1 6h1v1h-1zM7 6h2v1h-2zM14 6h1v1h-1zM1 7h1v1h-1zM7 7h2v1h-2zM14 7h1v1h-1zM1 8h2v1h-2zM6 8h4v1h-4zM13 8h2v1h-2zM2 9h5v1h-5zM9 9h5v1h-5zM3 10h4v1h-4zM9 10h4v1h-4zM3 11h10v1h-10zM3 12h1v1h-1zM5 12h1v1h-1zM7 12h2v1h-2zM10 12h1v1h-1zM12 12h1v1h-1z"/>
+        <path class="eyes" d="M3 5h4v1h-4zM9 5h4v1h-4zM2 6h5v1h-5zM9 6h5v1h-5zM2 7h5v1h-5zM9 7h5v1h-5zM3 8h3v1h-3zM10 8h3v1h-3z"/>
+        <path class="bone jaw" d="M3 13h1v1h-1zM5 13h1v1h-1zM7 13h2v1h-2zM10 13h1v1h-1zM12 13h1v1h-1zM3 14h10v1h-10zM5 15h6v1h-6z"/>
+      </svg>
+      <p id="laugh" class="laugh"></p>
+    </div>
+
+    <div class="st st-crash">
+      <p>FATAL ERROR 0xC0C0:<br>TOO MUCH PERSONALITY</p>
+      <p class="halt">SYSTEM HALTED.</p>
+    </div>
+
+    <div class="st st-boot"><pre id="bootLog"></pre><span class="cursor"></span></div>
+
+    <p class="disclaimer">// harmless animation. nothing is happening to your device.</p>
+  </div>
+  <div class="crt-line" aria-hidden="true"></div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var C = window.REDOS;
+  var root = document.documentElement;
+  function $(id) { return document.getElementById(id); }
+
+  var intro = $('intro'), desktop = $('desktop');
+  var skipBtn = $('skipBtn'), replayBtn = $('replayBtn'), soundBtn = $('soundBtn');
+  var timers = [], playing = false;
+
+  function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+  function stage(name) { intro.setAttribute('data-stage', name); }
+  function store(key, val) { try { sessionStorage.setItem(key, val); } catch (e) {} }
+  function type(el, text, speed) {
+    var i = 0;
+    (function tick() {
+      el.textContent = text.slice(0, ++i);
+      if (i < text.length) later(tick, speed);
+    })();
+  }
+
+  /* ---------- the ~6 second sequence (times in ms) ---------- */
+  var BOOT_LINES = [
+    'RED_OS v96   (C) COCO SYSTEMS',
+    'MEMORY CHECK ............ 640K OK',
+    'LOADING FOLLOWERS.SYS ... OK',
+    'MOUNTING /ARTISTS ....... OK',
+    '',
+    'WELCOME BACK.'
+  ];
+
+  function play() {
+    clearTimers();
+    playing = true;
+    store(C.SEEN_KEY, '1');
+    ['vLine1', 'vLine2', 'laugh', 'bootLog'].forEach(function (id) { $(id).textContent = ''; });
+    intro.classList.remove('fade-out', 'crt');
+    root.classList.add('intro-on');
+    intro.style.animation = 'none'; void intro.offsetWidth; intro.style.animation = ''; /* restart fail-safe timer */
+    desktop.inert = true;
+    stage('glitch'); sfx('glitch');
+    skipBtn.focus({ preventScroll: true });
+
+    later(function () {
+      stage('virus'); sfx('virus');
+      type($('vLine1'), 'UH OH. SOMETHING CATCHY GOT IN.', 22);
+      later(function () { type($('vLine2'), 'REPLACING BORING WITH COCO...', 22); }, 750);
+    }, 500);
+    later(function () { stage('skull'); sfx('laugh'); type($('laugh'), 'HA HA HA', 110); }, 2000);
+    later(function () { stage('crash'); sfx('crash'); }, 3400);
+    later(function () { intro.classList.add('crt'); }, 3900);
+    later(function () {
+      intro.classList.remove('crt');
+      stage('boot'); sfx('boot');
+      BOOT_LINES.forEach(function (line, i) {
+        later(function () { $('bootLog').textContent += (i ? '\n' : '') + line; }, i * 180);
+      });
+    }, 4450);
+    later(finish, 5800);
+  }
+
+  function finish() {
+    clearTimers();
+    var wasPlaying = playing;
+    playing = false;
+    intro.classList.add('fade-out');
+    desktop.inert = false;
+    timers.push(setTimeout(function () {
+      root.classList.remove('intro-on');
+      intro.classList.remove('fade-out', 'crt');
+      intro.removeAttribute('data-stage');
+    }, 260));
+    if (wasPlaying) $('pageTitle').focus({ preventScroll: true });
+  }
+
+  skipBtn.addEventListener('click', finish);
+  replayBtn.addEventListener('click', play);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && playing) finish();
+  });
+  if (C.reduce) {
+    $('replayLabel').textContent = 'PLAY_INTRO.EXE';
+    replayBtn.title = 'Plays a short animation with motion and flicker';
+  }
+
+  /* ---------- sound: off by default, synthesized (no audio files) ---------- */
+  var audio = { on: false, ctx: null };
+  try { audio.on = sessionStorage.getItem(C.SOUND_KEY) === '1'; } catch (e) {}
+
+  function actx() {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    if (!audio.ctx) audio.ctx = new AC();
+    if (audio.ctx.state === 'suspended') audio.ctx.resume().catch(function () {});
+    return audio.ctx;
+  }
+  function tone(f, at, dur, wave, vol, fEnd) {
+    var a = actx(); if (!a) return;
+    var o = a.createOscillator(), g = a.createGain(), t = a.currentTime + at;
+    o.type = wave; o.frequency.setValueAtTime(f, t);
+    if (fEnd) o.frequency.exponentialRampToValueAtTime(fEnd, t + dur);
+    g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(a.destination); o.start(t); o.stop(t + dur + 0.02);
+  }
+  function noise(at, dur, vol) {
+    var a = actx(); if (!a) return;
+    var n = Math.floor(a.sampleRate * dur), buf = a.createBuffer(1, n, a.sampleRate), d = buf.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+    var s = a.createBufferSource(), g = a.createGain();
+    s.buffer = buf; g.gain.value = vol; s.connect(g); g.connect(a.destination); s.start(a.currentTime + at);
+  }
+  function sfx(name) {
+    if (!audio.on) return;
+    if (name === 'glitch') { noise(0, .06, .05); noise(.14, .05, .04); noise(.28, .08, .05); }
+    if (name === 'virus')  { [523, 659, 784, 1047].forEach(function (f, i) { tone(f, i * .09, .08, 'square', .035); }); }
+    if (name === 'laugh')  { [0, .33, .66].forEach(function (t, i) { tone(440 - i * 40, t, .18, 'square', .045, 300 - i * 30); }); }
+    if (name === 'crash')  { tone(180, 0, .5, 'sawtooth', .05, 40); noise(.5, .25, .04); }
+    if (name === 'boot')   { tone(988, 0, .12, 'square', .035); }
+  }
+  function renderSound() {
+    soundBtn.textContent = 'SOUND: ' + (audio.on ? 'ON' : 'OFF');
+    soundBtn.setAttribute('aria-pressed', audio.on ? 'true' : 'false');
+  }
+  soundBtn.addEventListener('click', function () {
+    audio.on = !audio.on;
+    store(C.SOUND_KEY, audio.on ? '1' : '0');
+    renderSound();
+    if (audio.on) tone(988, 0, .08, 'square', .035);
+  });
+  renderSound();
+
+  /* ---------- clock ---------- */
+  function updateClock() {
+    $('clock').textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+  updateClock(); setInterval(updateClock, 15000);
+
+  /* ---------- word rain (same as the hub, in ink); off for reduced motion ---------- */
+  (function () {
+    var canvas = $('rain');
+    if (C.reduce || !canvas.getContext) return;
+    var ctx = canvas.getContext('2d'), size = 18, drops = [], cols = [];
+    var words = ['GROW','BUILD','RISE','CREATE','TRUST','BELIEVE','OWN IT','KEEP GOING','GRATITUDE','THANK YOU','FAMILY','ONWARD','PERSIST','SIMPLE','REAL'];
+    function word() { return words[Math.floor(Math.random() * words.length)] + '     '; }
+    function setup() {
+      canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+      var n = Math.floor(canvas.width / size);
+      drops = new Array(n).fill(0).map(function () { return Math.random() * -40; });
+      cols = new Array(n).fill(0).map(function () { return { w: word(), i: 0 }; });
+    }
+    setup(); window.addEventListener('resize', setup);
+    setInterval(function () {
+      if (document.hidden) return;
+      ctx.fillStyle = 'rgba(255,59,59,0.10)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#0b0101'; ctx.font = size + 'px monospace';
+      for (var i = 0; i < drops.length; i++) {
+        var c = cols[i], ch = c.w[c.i % c.w.length]; c.i++;
+        if (ch !== ' ') ctx.fillText(ch, i * size, drops[i] * size);
+        if (drops[i] * size > canvas.height && Math.random() > 0.978) { drops[i] = 0; c.w = word(); c.i = 0; }
+        drops[i]++;
+      }
+    }, 80);
+  })();
+
+  console.log('%cRED_OS v96 // you found the red door.', 'color:#ff3b3b; background:#050000; font-family:monospace; font-size:13px; padding:2px 6px;');
+
+  if (C.autoplay) play();
+})();
+</script>
+</body>
+</html>
