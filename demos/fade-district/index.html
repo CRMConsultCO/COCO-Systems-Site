@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fade District Barbers (Demo)</title>
+<meta name="description" content="Walk-ins welcome · Fades, tapers, beard work · Open Tue–Sat. FICTIONAL DEMO.">
+<meta property="og:title" content="Fade District Barbers (Demo)">
+<meta property="og:description" content="Walk-ins welcome · Fades, tapers, beard work · Open Tue–Sat. FICTIONAL DEMO.">
+<!--
+  COCO Systems — Link Page Template v1
+  Client-owned, single file, no subscription. Edit only the CONFIG block in the script below.
+  Host free on GitHub Pages under the client's own account; connect their domain.
+-->
+<style>
+  :root{
+    --bg:#0e0e10; --card:#18181b; --text:#f4f4f5; --muted:#a1a1aa; --accent:#3dff8a; --accentText:#04140a;
+    --radius:14px; --font:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font)}
+  main{max-width:480px;margin:0 auto;padding:40px 16px 32px;display:flex;flex-direction:column;align-items:center;gap:14px}
+  .avatar{width:96px;height:96px;border-radius:50%;object-fit:cover;border:2px solid var(--accent);background:var(--card);
+    display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:700;color:var(--accent)}
+  h1{margin:6px 0 0;font-size:1.4rem;text-align:center}
+  .tag{margin:0;color:var(--muted);text-align:center;font-size:.95rem;line-height:1.4}
+  .links{width:100%;display:flex;flex-direction:column;gap:12px;margin-top:10px}
+  a.btn{display:block;width:100%;padding:15px 18px;border-radius:var(--radius);background:var(--card);color:var(--text);
+    text-decoration:none;text-align:center;font-weight:600;border:1px solid rgba(255,255,255,.08);transition:transform .12s,border-color .12s}
+  a.btn:hover,a.btn:focus-visible{transform:translateY(-2px);border-color:var(--accent);outline:none}
+  a.btn.primary{background:var(--accent);color:var(--accentText);border-color:var(--accent)}
+  .note{font-size:.78rem;color:var(--muted);font-weight:400;display:block;margin-top:3px}
+  a.btn.primary .note{color:var(--accentText);opacity:.8}
+  .socials{display:flex;gap:16px;margin-top:8px;flex-wrap:wrap;justify-content:center}
+  .socials a{color:var(--muted);text-decoration:none;font-size:.9rem}
+  .socials a:hover{color:var(--accent)}
+  footer{margin-top:22px;font-size:.72rem;color:var(--muted);text-align:center}
+  footer a{color:var(--muted)}
+  @media (prefers-reduced-motion:reduce){a.btn{transition:none}a.btn:hover{transform:none}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+/* ===================== CONFIG — edit this block only ===================== */
+const CONFIG = {
+  name: "Fade District Barbers (Demo)",
+  tagline: "Walk-ins welcome · Fades, tapers, beard work · Open Tue–Sat. FICTIONAL DEMO.",
+  avatar: "",            // image URL, or leave "" to show initials
+  theme: {"bg": "#0b1220", "card": "#14203a", "text": "#eef3ff", "muted": "#9fb0d4", "accent": "#f5b700", "accentText": "#0b1220"},
+  links: [
+    {
+        "label": "Book a cut",
+        "url": "#",
+        "note": "Pick your barber and time",
+        "primary": true
+    },
+    {
+        "label": "Price list",
+        "url": "#",
+        "note": "Cut $35 · Fade + beard $50"
+    },
+    {
+        "label": "Join the waitlist",
+        "url": "#"
+    },
+    {
+        "label": "Gift cards",
+        "url": "#"
+    },
+    {
+        "label": "Leave us a review",
+        "url": "#"
+    },
+    {
+        "label": "Want a page like this? $50",
+        "url": "https://crmconsultco.com/follow",
+        "note": "Demo built by COCO Systems · you own it, no monthly fee"
+    }
+],
+  socials: [
+    {
+        "label": "Instagram",
+        "url": "https://instagram.com/crmconsultingco"
+    }
+],
+  footer: true           // small "built by COCO Systems" credit; set false to hide
+};
+/* ======================================================================== */
+
+(function render(c){
+  const r=document.documentElement.style, t=c.theme||{};
+  Object.entries(t).forEach(([k,v])=>r.setProperty('--'+k,v));
+  const esc=s=>String(s||'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+  const safe=u=>/^(https?:|mailto:|tel:|sms:)/i.test(u)?u:'#';
+  const initials=c.name.split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  const avatar=c.avatar?`<img class="avatar" src="${esc(c.avatar)}" alt="${esc(c.name)}">`:`<div class="avatar" aria-hidden="true">${esc(initials)}</div>`;
+  const links=c.links.map(l=>`<a class="btn${l.primary?' primary':''}" href="${esc(safe(l.url))}" target="_blank" rel="noopener">${esc(l.label)}${l.note?`<span class="note">${esc(l.note)}</span>`:''}</a>`).join('');
+  const socials=c.socials.map(s=>`<a href="${esc(safe(s.url))}" target="_blank" rel="noopener">${esc(s.label)}</a>`).join('');
+  document.getElementById('app').innerHTML=`${avatar}<h1>${esc(c.name)}</h1><p class="tag">${esc(c.tagline)}</p>
+    <nav class="links" aria-label="Links">${links}</nav><div class="socials">${socials}</div>
+    ${c.footer?`<footer>Owned by ${esc(c.name)} · built by <a href="https://crmconsultco.com" target="_blank" rel="noopener">COCO Systems</a></footer>`:''}`;
+})(CONFIG);
+</script>
+</body>
+</html>
