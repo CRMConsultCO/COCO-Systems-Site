@@ -3,18 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>RED_OS // COCO SYSTEMS</title>
-<meta name="description" content="Follow the signal. Link-in-bio pages for creators from $25. You own it.">
-<meta property="og:title" content="RED_OS // COCO SYSTEMS">
-<meta property="og:description" content="Follow the signal. Link-in-bio pages for creators from $25. You own it.">
+<title>COCO Systems · Link pages for artists & creators</title>
+<meta name="description" content="Link-in-bio pages you own. $25 template, live in 48 hrs. $50 on your own domain. No monthly fee.">
+<meta property="og:title" content="COCO Systems · Link pages for artists & creators">
+<meta property="og:description" content="Link-in-bio pages you own. $25 template, live in 48 hrs. $50 on your own domain. No monthly fee.">
 <meta name="theme-color" content="#ff3b3b">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <!--
-  /follow: RED_OS link-in-bio (creator audience). PROTOTYPE from Marketing, 2026-10-03.
-  Same RED_OS look (red #ff3b3b, 3px scanlines, Space Mono, ink #190404), condensed into a
-  link-in-bio column: raccoon top-left, SHARE top-right, skull center, stacked program buttons.
+  /follow: RED_OS link-in-bio (creator audience).
+  v2, 2026-10-08 — Marketing handoff "follow v2, menu order, links, legibility":
+    - menu reordered + relinked (every button routes to a real destination)
+    - title 16px / sub-line 13px+100% opacity / scanlines <=8% / 56px+ tap targets
+    - header compacted so buttons #1-3 clear the fold on a 375x667 screen
+    - README.TXT content swapped for a short FAQ
+    - REPLAY demoted to a small footer link
+  Same RED_OS look (red #ff3b3b, scanlines, Space Mono, ink #190404).
   Edit the CONFIG block only.
 -->
 <style>
@@ -25,25 +30,24 @@
   *{box-sizing:border-box}
   html,body{margin:0;min-height:100%;background:var(--red);color:var(--ink);font-family:var(--mono);
     -webkit-font-smoothing:antialiased;text-transform:uppercase}
-  /* CRT scanlines: 2px red, 1px 12% darker, same as RED_OS */
+  /* CRT scanlines: cut to <=8% opacity per legibility pass (was 12%) */
   body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
-    background:repeating-linear-gradient(to bottom,transparent 0 2px,rgba(0,0,0,.12) 2px 3px)}
+    background:repeating-linear-gradient(to bottom,transparent 0 2px,rgba(0,0,0,.07) 2px 3px)}
   a{color:inherit}
-  .wrap{max-width:460px;margin:0 auto;padding:max(10px,env(safe-area-inset-top)) 16px 76px}
+  .wrap{max-width:460px;margin:0 auto;padding:max(8px,env(safe-area-inset-top)) 16px 76px}
   /* header: raccoon left, system tag center, share right */
-  .top{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:56px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:52px}
   .box{border:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;text-decoration:none;cursor:pointer}
   .box:hover,.box:focus-visible{background:var(--ink);color:var(--red);outline:none;border-color:var(--ink)}
   .coon{display:block;padding:4px 7px;white-space:pre;font-size:9px;line-height:1.05;text-transform:none}
   .sys{font-size:10px;letter-spacing:.12em;text-align:center;flex:1}
   .share{padding:9px 11px;font-size:10px;letter-spacing:.12em}
-  .hijack{margin:14px 0 0;text-align:center;font-size:10px;letter-spacing:.14em}
-  /* profile */
-  .profile{display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:14px}
-  /* skull: red-on-dark badge (not the flat black silhouette), clickable. Comes alive after boot,
-     says "I SEE YOU", then nudges the visitor to tap it. Tapping opens a short 3-step overview
-     (see #tut below). No cursor-follow — this page is mobile-first, a cursor doesn't exist there. */
-  .skrow{display:flex;flex-direction:column;align-items:center;gap:8px}
+  .hijack{margin:10px 0 0;text-align:center;font-size:10px;letter-spacing:.14em}
+  /* profile — compacted: no separate rule/door/status lines, see .tagline */
+  .profile{display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:10px}
+  /* skull: red-on-dark badge, ~72px footprint, clickable. Comes alive after boot, says "I SEE YOU",
+     then nudges the visitor to tap it. Tapping opens a short 3-step overview (see #tut below). */
+  .skrow{display:flex;flex-direction:column;align-items:center;gap:6px}
   .skullbtn{border:1px solid var(--ink);background:var(--ink);border-radius:10px;padding:10px;
     cursor:pointer;line-height:0}
   .skullbtn:hover,.skullbtn:focus-visible{outline:none;box-shadow:0 0 0 2px var(--ink2)}
@@ -51,32 +55,34 @@
   @keyframes skpulse{0%{transform:scale(1)}40%{transform:scale(1.1)}100%{transform:scale(1)}}
   .skrow.talk .skullbtn{animation:skpulse .3s ease-out}
   .skullbub{max-width:200px;text-align:center;border:1px solid var(--line);font-size:10px;
-    letter-spacing:.1em;line-height:1.4;padding:6px 10px;min-height:1.4em}
-  h1{margin:12px 0 0;font-size:19px;letter-spacing:.16em;font-weight:700}
-  .signal{margin:6px 0 0;font-size:10px;letter-spacing:.38em}
-  .rule{width:100%;height:1px;background:var(--line);margin:14px 0 10px}
-  .door{margin:0;font-size:11px;letter-spacing:.06em}
-  .status{margin-top:10px;font-size:10px;letter-spacing:.12em;padding:5px 10px;border:1px solid var(--line)}
+    letter-spacing:.1em;line-height:1.4;padding:5px 10px;min-height:1.4em}
+  h1{margin:10px 0 0;font-size:19px;letter-spacing:.16em;font-weight:700}
+  /* merged signal + status line (was 4 separate lines: .signal/.rule/.door/.status) */
+  .tagline{margin:6px 0 0;font-size:13px;letter-spacing:.06em}
   .cur{display:inline-block;width:.6em;height:1em;background:var(--ink);vertical-align:-2px;margin-left:4px;animation:blink 1s steps(1) infinite}
   @keyframes blink{50%{opacity:0}}
   /* program buttons */
-  .links{display:flex;flex-direction:column;gap:10px;margin-top:22px}
-  .prog{display:grid;grid-template-columns:34px 1fr 18px;align-items:center;gap:8px;min-height:54px;padding:8px 12px;text-align:left;width:100%}
+  .links{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+  .prog{display:grid;grid-template-columns:34px 1fr 18px;align-items:center;gap:8px;min-height:60px;padding:8px 12px;text-align:left;width:100%}
   .prog .ic{font-size:18px;text-align:center;line-height:1}
-  .prog .nm{display:block;font-size:12px;font-weight:700;letter-spacing:.06em}
-  .prog .sub{display:block;font-size:9.5px;letter-spacing:.08em;color:var(--ink2);margin-top:2px}
+  .prog .nm{display:block;font-size:16px;font-weight:700;letter-spacing:.05em}
+  .prog .tag{font-size:12px;font-weight:400;opacity:.5;letter-spacing:0;margin-left:3px}
+  .prog .sub{display:block;font-size:13px;letter-spacing:.04em;color:var(--ink);margin-top:3px;
+    text-transform:none;opacity:1}
   .prog:hover .sub,.prog:focus-visible .sub{color:var(--red)}
   .prog .go{font-size:12px;text-align:right}
   .prog.hot{background:var(--ink);color:var(--red);border-color:var(--ink)}
-  .prog.hot .sub{color:rgba(255,59,59,.85)}
+  .prog.hot .sub{color:var(--red)}
   .prog.hot:hover,.prog.hot:focus-visible{background:transparent;color:var(--ink)}
-  .prog.hot:hover .sub,.prog.hot:focus-visible .sub{color:var(--ink2)}
-  /* readme window */
-  .win{margin-top:22px;border:1px solid var(--line)}
+  .prog.hot:hover .sub,.prog.hot:focus-visible .sub{color:var(--ink)}
+  /* README window -> short FAQ */
+  .win{margin-top:20px;border:1px solid var(--line)}
   .win .bar{display:flex;justify-content:space-between;padding:6px 10px;border-bottom:1px solid var(--line);font-size:10px;letter-spacing:.14em}
-  .win dl{margin:0;padding:8px 10px 10px;display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:10px;letter-spacing:.06em}
-  .win dt{margin:0}
-  .win dd{margin:0;text-align:right}
+  .faq{padding:10px 10px 2px;display:flex;flex-direction:column;gap:12px}
+  .faq-item{padding-bottom:10px;border-bottom:1px solid var(--line)}
+  .faq-item:last-child{border-bottom:none;padding-bottom:0}
+  .faq-q{margin:0 0 4px;font-size:13px;font-weight:700;letter-spacing:.02em;text-transform:none}
+  .faq-a{margin:0;font-size:13px;line-height:1.5;letter-spacing:.01em;color:var(--ink);text-transform:none}
   /* taskbar */
   .task{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;align-items:center;gap:8px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));
     border-top:1px solid var(--line);background:var(--red);font-size:9.5px;letter-spacing:.1em}
@@ -97,7 +103,7 @@
   #tut .hd{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
   #tut h3{margin:0;font-size:13px;letter-spacing:.1em;line-height:1.3}
   #tut .close{background:none;border:0;color:var(--ink);font-size:16px;line-height:1;cursor:pointer;padding:0 0 0 8px}
-  #tut p{margin:10px 0 0;font-size:11px;line-height:1.55;letter-spacing:.03em;text-transform:none}
+  #tut p{margin:10px 0 0;font-size:13px;line-height:1.55;letter-spacing:.03em;text-transform:none}
   #tut .dots{display:flex;gap:6px;justify-content:center;margin:16px 0 14px}
   #tut .dot{width:6px;height:6px;border:1px solid var(--ink);background:transparent;padding:0}
   #tut .dot.on{background:var(--ink)}
@@ -135,37 +141,38 @@ const CONFIG = {
   system: "SYSTEM: RED_OS v96",
   hijack: "SIGNAL HIJACKED [RED]",
   name: "COCO SYSTEMS",
-  signal: "FOLLOW THE SIGNAL",
-  door: "YOU FOUND THE RED DOOR.",
-  status: "STATUS: TAKING CLIENTS",
+  // Merged subtitle (was 4 lines: FOLLOW THE SIGNAL / rule / YOU FOUND THE RED DOOR / STATUS).
+  tagline: "FOLLOW THE SIGNAL · TAKING CLIENTS",
+  // Menu order + links per Marketing's 2026-10-08 handoff. Every button goes to a real page.
+  // #1/#3/#4 point at the DM (ig.me) link, not get-started.html?offer=..., until that page
+  // preselects a tier and asks creator-friendly intake questions (P0-6, not built yet).
   links: [
-    { ic:"▶", name:"QUICK_PAGE_$25.EXE", sub:"TEMPLATE PAGE · LIVE IN 48 HRS", url:"https://crmconsultco.com/get-started.html?offer=quick-page", hot:true },
-    { ic:"▶", name:"LINK_PAGE_$50.EXE",  sub:"YOUR OWN DOMAIN · YOU OWN IT",   url:"https://crmconsultco.com/get-started.html?offer=link-page" },
-    { ic:"▦", name:"SAMPLES.DIR",        sub:"CLICK THROUGH SAMPLE PAGES",     url:"https://crmconsultco.com/demos/" },
-    { ic:"◎", name:"RATE_MY_LINK.EXE",   sub:"SEND ME YOUR LINK-IN-BIO",       url:"https://ig.me/m/crmconsultingco" },
-    { ic:"◉", name:"INSTAGRAM.LNK",      sub:"@CRMCONSULTINGCO",               url:"https://www.instagram.com/crmconsultingco/" },
-    { ic:"✉", name:"GET_STARTED.EXE",    sub:"TELL ME WHAT YOU NEED",          url:"https://crmconsultco.com/get-started.html" },
-    { ic:"⌂", name:"MAIN_SITE.EXE",      sub:"BUSINESSES START HERE",          url:"https://crmconsultco.com" },
-    { ic:"@", name:"EMAIL.LNK",          sub:"INFO@CRMCONSULTCO.COM",          url:"mailto:info@crmconsultco.com" },
-    { ic:"☠", name:"REPLAY.EXE",         sub:"REPLAY THE SIGNAL",              action:"replay" }
+    { ic:"▶", name:"QUICK_PAGE · $25", tag:".EXE", sub:"Link page live in 48 hrs. You own it.", url:"https://ig.me/m/crmconsultco", hot:true },
+    { ic:"▦", name:"SAMPLES",          tag:".DIR", sub:"See real pages on a phone", url:"https://crmconsultco.com/demos/" },
+    { ic:"▶", name:"LINK_PAGE · $50",  tag:".EXE", sub:"On your own domain. Domain about $20/yr.", url:"https://ig.me/m/crmconsultco" },
+    { ic:"◎", name:"LINK_CHECK · $1",  tag:".EXE", sub:"Send your link, get 3 fixes in 10 min", url:"https://ig.me/m/crmconsultco" },
+    { ic:"⌂", name:"FOR_BUSINESSES",   tag:".LNK", sub:"Google listing, reviews, booking for shops", url:"https://crmconsultco.com" },
+    { ic:"◉", name:"DM_ME",            tag:".LNK", sub:"@crmconsultco · fastest reply", url:"https://www.instagram.com/crmconsultco/" },
+    { ic:"@", name:"EMAIL",            tag:".LNK", sub:"info@crmconsultco.com", url:"mailto:info@crmconsultco.com" },
+    { ic:"✉", name:"SOMETHING_ELSE",   tag:".EXE", sub:"Tell me what you need", url:"https://crmconsultco.com/get-started.html" }
   ],
-  readme: [
-    ["INSTAGRAM","@CRMCONSULTINGCO"],
-    ["MAIN SITE","CRMCONSULTCO.COM"],
-    ["MADE FOR","ARTISTS + CREATORS"],
-    ["LINK PAGES","$25 / $50 · YOU OWN IT"],
-    ["MONTHLY FEE","NONE"],
-    ["CREATORS","18+ ONLY"],
-    ["STATUS","TAKING CLIENTS"]
+  // README.TXT -> short FAQ (Marketing 2026-10-08 + CEO checklist item E4). No payment processor named.
+  faq: [
+    ["What do I get for $25?", "A link page from a template: up to 6 links, live in 48 hours, 1 revision. It's in your own free account, so you own it."],
+    ["What's the $50 page?", "The same idea on your own domain (about $20/yr, in your name), with up to 15 links and 2 revisions. Half to start, half when you approve it."],
+    ["Is there a monthly fee?", "No. You own the page and the account."],
+    ["How do I pay?", "Once we confirm what you want, I send you a payment link. Payment comes before work starts."],
+    ["Who is this for?", "DJs, artists, creators and small shops. Clients must be 18+."],
+    ["Do you do Google listings and reviews?", "Yes, for local businesses. Tap FOR_BUSINESSES."]
   ],
   bootLines: ["> INCOMING TRANSMISSION...", "> SIGNAL HIJACKED [RED]", "> LOADING RED_OS v96", "> FOLLOW THE SIGNAL_"],
-  shareTitle: "RED_OS // COCO SYSTEMS",
+  shareTitle: "COCO Systems · Link pages for artists & creators",
   // The skull's come-on lines, cycled until it's tapped (then it stops nagging for this visit).
   skullLines: ["I SEE YOU", "...CLICK ME"],
   // The 3-step overview opened by tapping the skull. Edit this, not the layout, to change the copy.
   tutorial: [
     { title: "WHAT IS THIS?", body: "RED_OS is COCO Systems' link hub. Every button below is a real link — tap one." },
-    { title: "GET YOUR OWN", body: "QUICK_PAGE_$25.EXE: a page like this one, template-built and live in 48 hours." },
+    { title: "GET YOUR OWN", body: "QUICK_PAGE · $25: a page like this one, template-built and live in 48 hours." },
     { title: "YOU OWN IT", body: "No monthly fees, ever. Tap the skull anytime to see this again." }
   ]
 };
@@ -179,12 +186,13 @@ const CONFIG = {
   let rects=''; P.forEach((r,y)=>[...r].forEach((ch,x)=>{ if(ch==='X') rects+=`<rect x="${x}" y="${y}" width="1" height="1"/>` }));
   const skull=`<svg class="skull" viewBox="-0.5 -1 12 11" shape-rendering="crispEdges" aria-hidden="true"><g fill="currentColor">${rects}</g></svg>`;
   const links=c.links.map((l,i)=>{
-    const inner=`<span class="ic" aria-hidden="true">${esc(l.ic)}</span><span><span class="nm">${esc(l.name)}</span><span class="sub">${esc(l.sub)}</span></span><span class="go" aria-hidden="true">${l.action?'↻':'>'}</span>`;
+    const nm=`<span class="nm">${esc(l.name)}${l.tag?`<span class="tag">${esc(l.tag)}</span>`:''}</span>`;
+    const inner=`<span class="ic" aria-hidden="true">${esc(l.ic)}</span><span>${nm}<span class="sub">${esc(l.sub)}</span></span><span class="go" aria-hidden="true">${l.action?'↻':'>'}</span>`;
     return l.action
       ? `<button class="box prog" type="button" data-action="${esc(l.action)}">${inner}</button>`
       : `<a class="box prog${l.hot?' hot':''}" href="${esc(safe(l.url))}" target="_blank" rel="noopener">${inner}</a>`;
   }).join('');
-  const rows=c.readme.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('');
+  const faq=c.faq.map(([q,a])=>`<div class="faq-item"><p class="faq-q">${esc(q)}</p><p class="faq-a">${esc(a)}</p></div>`).join('');
   document.getElementById('app').innerHTML=`
     <header class="top">
       <a class="box coon" href="${esc(safe(c.raccoonLink))}" aria-label="COCO Systems home"><span aria-hidden="true">${esc(c.raccoon)}</span></a>
@@ -198,17 +206,14 @@ const CONFIG = {
         <div class="skullbub" role="status" aria-live="polite"><span id="skullTxt"></span></div>
       </div>
       <h1>${esc(c.name)}</h1>
-      <p class="signal">${esc(c.signal)}</p>
-      <div class="rule"></div>
-      <p class="door">${esc(c.door)}</p>
-      <span class="status">${esc(c.status)}<span class="cur" aria-hidden="true"></span></span>
+      <p class="tagline">${esc(c.tagline)}<span class="cur" aria-hidden="true"></span></p>
     </section>
     <nav class="links" aria-label="Links">${links}</nav>
-    <section class="win" aria-label="About">
+    <section class="win" aria-label="FAQ">
       <div class="bar"><span>README.TXT</span><span aria-hidden="true">[ × ]</span></div>
-      <dl>${rows}</dl>
+      <div class="faq">${faq}</div>
     </section>`;
-  document.body.insertAdjacentHTML('beforeend',`<footer class="task"><a class="tb" href="https://crmconsultco.com">COCO SYSTEMS</a><span class="tb">RED_OS v96</span><span class="clock" id="clock"></span></footer>`);
+  document.body.insertAdjacentHTML('beforeend',`<footer class="task"><a class="box tb" href="https://crmconsultco.com">COCO SYSTEMS</a><button class="box tb" type="button" data-action="replay">↻ replay the signal</button><span class="clock" id="clock"></span></footer>`);
 
   // clock
   const clock=document.getElementById('clock');
@@ -227,7 +232,7 @@ const CONFIG = {
     }catch(e){ if(e&&e.name!=='AbortError') show('> COPY FAILED') }
   });
 
-  // boot sequence (plays once per visit; REPLAY.EXE replays it)
+  // boot sequence (plays once per visit; footer replay link replays it)
   const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const boot=document.getElementById('boot'), bt=document.getElementById('bootTxt');
   function play(){

@@ -151,16 +151,24 @@
 // SERVICES — mirrors the CRM Sheet's Catalog tab. Keep these two
 // in sync by hand when Catalog changes; this page does not read
 // the Sheet live. PriceStatus 'Provisional' renders with a *.
+//
+// 2026-10-08: LINK / LINKPLUS realigned to the Final link-page
+// catalog ($25 Quick Page · $50 own-domain page) per Marketing's
+// "follow v2" handoff — copy fix only, no new pricing decision.
+// Added ADDUPGRADE ($99) to match the "analytics + custom design
+// upgrade" line already live on /demos/. PAGE/PAGEPRO/STARTERCRM/
+// CUSTOM (the business tiers) are untouched — out of scope here.
 // ============================================================
 var BASES = [
-  { code:'LINK',       name:'LINK',          price:25,  status:'Provisional', desc:'Link hub — up to 8 links, 3 themes, 1 revision' },
-  { code:'LINKPLUS',   name:'LINK+',         price:75,  status:'Provisional', desc:'Custom branding, up to 15 links, custom domain, 2 revisions' },
+  { code:'LINK',       name:'QUICK PAGE',    price:25,  status:'Provisional', desc:'Link page — up to 6 links, live in 48 hrs, 1 revision. Your own free account.' },
+  { code:'LINKPLUS',   name:'LINK PAGE',     price:50,  status:'Provisional', desc:'Same page on your own domain (about $20/yr), up to 15 links, 2 revisions. Half to start, half on approval.' },
   { code:'PAGE',       name:'PAGE',          price:250, status:'Provisional', desc:'One-page site + form that lands in your Google Sheet, 2 revisions' },
   { code:'PAGEPRO',    name:'PAGE PRO',      price:600, status:'Provisional', desc:'PAGE + branding, copy polish, SEO basics, analytics, 1 add-on' },
   { code:'STARTERCRM', name:'STARTER CRM',   price:900, status:'Provisional', desc:'PAGE + leads → pipeline → reminders → summary, SOP, handoff' },
   { code:'CUSTOM',     name:'NOT SURE / CUSTOM', price:null, status:'Final', desc:'Free 20-min consult, then a flat written quote — or $100/hr session time' }
 ];
 var ADDONS = [
+  { code:'ADDUPGRADE',    name:'Analytics + custom design upgrade', price:99, status:'Provisional' },
   { code:'ADDPAGE',       name:'Extra page/section',    price:75,  status:'Provisional' },
   { code:'ADDDOMAIN',     name:'Custom domain setup',   price:25,  status:'Provisional' },
   { code:'ADDFORMFIELDS', name:'Extra form fields',     price:25,  status:'Provisional' },
