@@ -46,7 +46,7 @@
   }
 
   /* ---------- DESKTOP ---------- */
-  #desktop{ display:none; height:100%; width:100%; position:relative; padding:14px 16px; }
+  #desktop{ display:none; height:100%; width:100%; position:relative; padding:14px 16px 52px; overflow-y:auto; }
   #desktop.on{ display:block; }
   .topbar{ display:flex; justify-content:space-between; font-size:11px; opacity:0.85; letter-spacing:1px; margin-bottom:14px; }
 
@@ -66,7 +66,9 @@
     background:rgba(61,255,138,0.04); font-size:0.68rem; padding:12px 14px; line-height:1.7;
   }
   .widget h3{ margin:0 0 8px; font-size:0.7rem; letter-spacing:2px; border-bottom:1px solid #1f6b40; padding-bottom:6px; }
-  .infra-line{ display:flex; justify-content:space-between; }
+  .infra-line{ display:flex; justify-content:space-between; gap:10px; }
+  .infra-line span:last-child{ text-align:right; }
+  .widget .w-note{ opacity:0.7; margin-top:6px; }
   .status-ok{ color:#3dff8a; }
 
   /* ---------- WINDOWS ---------- */
@@ -86,8 +88,15 @@
     width:11px; height:11px; border-radius:50%; border:1px solid #3dff8a; background:transparent; cursor:pointer;
   }
   .window .titlebar .dots span.close:hover{ background:#3dff8a; }
-  .window iframe{ flex:1; border:none; width:100%; background:#fff; }
-  .window .window-body{ flex:1; padding:16px 18px; overflow:auto; background:#020805; color:#3dff8a; }
+  .window .titlebar .dots span.newtab:hover{ background:#3dff8a; }
+  .window .resize-grip{
+    position:absolute; right:0; bottom:0; width:16px; height:16px; cursor:nwse-resize; z-index:2;
+    background:linear-gradient(135deg, transparent 50%, #3dff8a 50%, #3dff8a 60%, transparent 60%, transparent 72%, #3dff8a 72%, #3dff8a 82%, transparent 82%);
+  }
+  body.wm-busy .window iframe{ pointer-events:none; } /* stop iframes eating the mouse mid-drag/resize */
+  body.wm-busy{ user-select:none; }
+  .window iframe{ flex:1; min-height:0; border:none; width:100%; background:#fff; }
+  .window .window-body{ flex:1; min-height:0; padding:16px 18px; overflow:auto; background:#020805; color:#3dff8a; }
 
   .icon-btn.reveal-flicker{ animation:revealFlicker 0.7s ease-in-out; }
   @keyframes revealFlicker{ 0%,100%{ opacity:1; } 20%,60%{ opacity:0.15; } 40%,80%{ opacity:0.7; } }
@@ -128,6 +137,7 @@
       position:fixed !important; inset:10px 10px 48px 10px !important; width:auto !important; height:auto !important;
     }
     .window .titlebar{ cursor:default; }
+    .window .resize-grip{ display:none; }
   }
 </style>
 </head>
@@ -147,22 +157,22 @@
     </div>
 
     <div class="icons">
-      <button class="icon-btn" onclick="openWindow('chopshop','CHOP_SHOP.EXE','demo-chop-shop.html')">
+      <button class="icon-btn" data-prog="chopshop" onclick="openWindow('chopshop','CHOP_SHOP.EXE','demo-chop-shop.html')">
         <span class="glyph">🛠</span>CHOP_SHOP.EXE
       </button>
-      <button class="icon-btn" onclick="openWindow('boothrent','BOOTH_RENT.EXE','demo-booth-rent.html')">
+      <button class="icon-btn" data-prog="boothrent" onclick="openWindow('boothrent','BOOTH_RENT.EXE','demo-booth-rent.html')">
         <span class="glyph">✂</span>BOOTH_RENT.EXE
       </button>
-      <button class="icon-btn" onclick="openWindow('inklog','INK_LOG.EXE','demo-ink-log.html')">
+      <button class="icon-btn" data-prog="inklog" onclick="openWindow('inklog','INK_LOG.EXE','demo-ink-log.html')">
         <span class="glyph">🖋</span>INK_LOG.EXE
       </button>
-      <button class="icon-btn" onclick="openWindow('fullstack','FULL_STACK.EXE','demo-full-stack.html')">
+      <button class="icon-btn" data-prog="fullstack" onclick="openWindow('fullstack','FULL_STACK.EXE','demo-full-stack.html')">
         <span class="glyph">🗂</span>FULL_STACK.EXE
       </button>
-      <button class="icon-btn highlight" onclick="openWindow('getstarted','GET_STARTED.EXE','get-started.html')">
+      <button class="icon-btn highlight" data-prog="getstarted" onclick="openWindow('getstarted','GET_STARTED.EXE','get-started.html')">
         <span class="glyph">▶</span>GET_STARTED.EXE
       </button>
-      <button class="icon-btn" onclick="openPong()">
+      <button class="icon-btn" data-prog="pong" onclick="openPong()">
         <span class="glyph">●</span>PONG.EXE
       </button>
       <button class="icon-btn hidden" id="secretIcon" onclick="openWindow('secret','SECRET.TXT', null, secretMessage)">
@@ -170,13 +180,13 @@
       </button>
     </div>
 
-    <div class="widget glow">
+    <div class="widget glow" id="statusWidget" aria-live="polite">
       <h3>CURRENT INFRASTRUCTURE</h3>
       <div class="infra-line"><span>WORKSPACE</span><span class="status-ok">LIVE</span></div>
       <div class="infra-line"><span>DOMAIN: CRMCONSULTCO.COM</span><span class="status-ok">LIVE</span></div>
       <div class="infra-line"><span>PAYPAL BUSINESS</span><span class="status-ok">LIVE</span></div>
-      <div class="infra-line"><span>LEAD INTAKE FORM</span><span class="status-ok">PENDING</span></div>
-      <div class="infra-line"><span>ENTITY: LLC</span><span class="status-ok">FILING</span></div>
+      <div class="infra-line"><span>LEAD INTAKE FORM</span><span class="status-ok">LIVE</span></div>
+      <div class="infra-line"><span>ENTITY: COCO SYSTEMS LLC</span><span class="status-ok">ACTIVE</span></div>
     </div>
 
     <div id="windowLayer"></div>
@@ -185,7 +195,7 @@
       <div class="start">COCO SYSTEMS</div>
       <div class="tabs" id="taskbarTabs"></div>
       <div class="clock" id="clock"></div>
-      <a class="follow-raccoon" href="follow" title="Follow" aria-label="Follow COCO Systems. Plays a short, skippable retro crash animation."><span aria-hidden="true">/^\_/^\
+      <a class="follow-raccoon" data-prog="follow" href="follow" title="Follow" aria-label="Follow COCO Systems. Plays a short, skippable retro crash animation."><span aria-hidden="true">/^\_/^\
 (=0=0=)
   &gt;^&lt;</span></a>
     </div>
@@ -206,6 +216,61 @@
   bootScreen.addEventListener('click', boot);
   bootScreen.addEventListener('keydown', function(e){
     if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); boot(); }
+  });
+
+  // ---------- STATUS WIDGET: describes whatever program the mouse is over ----------
+  // Fields match Coco's spec: NAME / PRICING (a la carte vs. combo) / DESCRIPTION /
+  // PRICE / RETAIL PRICE. CHOP_SHOP/BOOTH_RENT/INK_LOG prices are the CEO-confirmed
+  // "from" estimates (2026-10-02 decisions log); FULL_STACK stays "Custom quote"
+  // until the Simulation configurator exists. GET_STARTED/PONG are free; FOLLOW
+  // uses the confirmed $50 Link Page price. estNote renders a small disclaimer
+  // line under estimated prices only -- not shown for free/flat-confirmed items.
+  var PROGRAMS = {
+    chopshop:  { name:'CHOP_SHOP', pricing:'Custom build',
+                 desc:'Book-now form, client database, and a drag-style production board &mdash; built for a mobile auto trim &amp; upholstery shop like Overland Mobile Trim.',
+                 price:'From $1,750', retail:'From $2,600',
+                 estNote:'Estimates. Flat price confirmed in writing before work starts.' },
+    boothrent: { name:'BOOTH_RENT', pricing:'Custom build',
+                 desc:'Booking form, renter roster, and a rent-due tracker &mdash; built for a salon or barbershop that rents chairs/booths.',
+                 price:'From $1,250', retail:'From $1,850',
+                 estNote:'Estimates. Flat price confirmed in writing before work starts.' },
+    inklog:    { name:'INK_LOG', pricing:'Custom build',
+                 desc:'Consult form, client log, and deposit tracking from first message to finished session &mdash; built for a tattoo studio or independent artist.',
+                 price:'From $1,550', retail:'From $2,300',
+                 estNote:'Estimates. Flat price confirmed in writing before work starts.' },
+    fullstack: { name:'FULL_STACK', pricing:'&Agrave; la carte or bundled',
+                 desc:'The whole system in one place: leads, clients, projects, payments, and follow-ups &mdash; priced to what you actually need.',
+                 price:'Custom quote', retail:'Custom quote',
+                 estNote:'Estimates. Flat price confirmed in writing before work starts.' },
+    getstarted:{ name:'GET_STARTED', pricing:'&mdash;',
+                 desc:'Tell us what you need. We reply with a free scoping call &mdash; no pressure, no obligation.',
+                 price:'Free', retail:'Free' },
+    pong:      { name:'PONG', pricing:'&mdash;',
+                 desc:'A fully playable Pong clone, because every good terminal needs one.',
+                 price:'Free', retail:'Free' },
+    follow:    { name:'FOLLOW / LINK PAGE', pricing:'&Agrave; la carte &middot; $99 bundle upgrade available',
+                 desc:'One mobile-friendly link-in-bio page for your socials, built once &mdash; you own it, no monthly fee.',
+                 price:'$50 ($25 down, $25 on delivery)', retail:'$50' }
+  };
+  var statusWidget = document.getElementById('statusWidget');
+  var statusDefault = statusWidget.innerHTML;
+  function showProgram(key){
+    var p = PROGRAMS[key]; if(!p) return;
+    statusWidget.innerHTML =
+      '<h3>PROGRAM STATS</h3>' +
+      '<div class="infra-line"><span>NAME</span><span>' + p.name + '</span></div>' +
+      '<div class="infra-line"><span>PRICING</span><span>' + p.pricing + '</span></div>' +
+      '<div class="w-note">DESCRIPTION:<br>' + p.desc + '</div>' +
+      '<div class="infra-line"><span>PRICE</span><span>' + p.price + '</span></div>' +
+      '<div class="infra-line"><span>RETAIL PRICE</span><span>' + p.retail + '</span></div>' +
+      (p.estNote ? '<div class="w-note">' + p.estNote + '</div>' : '');
+  }
+  function resetStatus(){ statusWidget.innerHTML = statusDefault; }
+  document.querySelectorAll('[data-prog]').forEach(function(btn){
+    btn.addEventListener('mouseenter', function(){ showProgram(btn.dataset.prog); });
+    btn.addEventListener('focus', function(){ showProgram(btn.dataset.prog); });
+    btn.addEventListener('mouseleave', resetStatus);
+    btn.addEventListener('blur', resetStatus);
   });
 
   // ---------- CLOCK ----------
@@ -229,10 +294,13 @@
     win.className = 'window';
     win.style.zIndex = ++zTop;
     if(!isMobile()){
-      win.style.width = '520px';
-      win.style.height = '540px';
-      win.style.left = (60 + Object.keys(openWindows).length * 26) + 'px';
-      win.style.top = (70 + Object.keys(openWindows).length * 26) + 'px';
+      var n = Object.keys(openWindows).length;
+      var w = Math.min(520, window.innerWidth - 40);
+      var h = Math.min(540, window.innerHeight - 90);
+      win.style.width = w + 'px';
+      win.style.height = h + 'px';
+      win.style.left = Math.min(60 + n * 26, Math.max(0, window.innerWidth - w - 10)) + 'px';
+      win.style.top = Math.min(70 + n * 26, Math.max(0, window.innerHeight - h - 48)) + 'px';
     }
     // Cache-bust every iframe load so updates to the linked page (get-started.html,
     // the demo-*.html files) always show up immediately instead of a stale cached copy.
@@ -240,24 +308,37 @@
     var bodyMarkup = htmlContent
       ? '<div class="window-body">' + htmlContent + '</div>'
       : '<iframe src="' + freshUrl + '" title="' + title + '"></iframe>';
+    // Third titlebar button: only for windows backed by a real page (url is set).
+    // Generated-content windows (production board, estimate, clients db, pong,
+    // the secret note) have nothing of their own to open in a tab, so they keep
+    // just the original two.
+    var newTabBtn = url
+      ? '<span class="newtab" title="Open in new tab" aria-label="Open in new tab"></span>'
+      : '';
     win.innerHTML =
       '<div class="titlebar">' +
         '<span>' + title + '</span>' +
         '<div class="dots">' +
           '<span class="min" title="Minimize"></span>' +
+          newTabBtn +
           '<span class="close" title="Close"></span>' +
         '</div>' +
       '</div>' +
-      bodyMarkup;
+      bodyMarkup +
+      '<div class="resize-grip" title="Resize"></div>';
 
     document.getElementById('windowLayer').appendChild(win);
     openWindows[id] = win;
 
     win.querySelector('.close').addEventListener('click', function(){ closeWindow(id); });
     win.querySelector('.min').addEventListener('click', function(){ minimizeWindow(id); });
+    if(url){
+      win.querySelector('.newtab').addEventListener('click', function(){ window.open(url, '_blank', 'noopener'); });
+    }
     win.addEventListener('mousedown', function(){ focusWindow(id); });
 
     makeDraggable(win, win.querySelector('.titlebar'));
+    makeResizable(win, win.querySelector('.resize-grip'));
     addTaskbarTab(id, title);
     focusWindow(id);
   }
@@ -311,21 +392,52 @@
       dragging = true;
       offsetX = e.clientX - win.offsetLeft;
       offsetY = e.clientY - win.offsetTop;
+      document.body.classList.add('wm-busy');
       e.preventDefault();
     });
     document.addEventListener('mousemove', function(e){
       if(!dragging) return;
-      win.style.left = (e.clientX - offsetX) + 'px';
-      win.style.top = Math.max(0, e.clientY - offsetY) + 'px';
+      win.style.left = Math.min(window.innerWidth - 80, Math.max(80 - win.offsetWidth, e.clientX - offsetX)) + 'px';
+      win.style.top = Math.min(window.innerHeight - 70, Math.max(0, e.clientY - offsetY)) + 'px';
     });
-    document.addEventListener('mouseup', function(){ dragging = false; });
+    document.addEventListener('mouseup', function(){
+      if(dragging) document.body.classList.remove('wm-busy');
+      dragging = false;
+    });
   }
 
-  // ---------- CHOP_SHOP: Ace Mobile Auto Trim themed board + database ----------
+  function makeResizable(win, grip){
+    var resizing = false, startX, startY, startW, startH;
+    grip.addEventListener('mousedown', function(e){
+      if(isMobile()) return;
+      resizing = true;
+      startX = e.clientX; startY = e.clientY;
+      startW = win.offsetWidth; startH = win.offsetHeight;
+      document.body.classList.add('wm-busy');
+      e.preventDefault(); e.stopPropagation();
+    });
+    document.addEventListener('mousemove', function(e){
+      if(!resizing) return;
+      var maxW = window.innerWidth - win.offsetLeft - 4;
+      var maxH = window.innerHeight - win.offsetTop - 42;
+      win.style.width = Math.max(280, Math.min(maxW, startW + e.clientX - startX)) + 'px';
+      win.style.height = Math.max(200, Math.min(maxH, startH + e.clientY - startY)) + 'px';
+    });
+    document.addEventListener('mouseup', function(){
+      if(resizing) document.body.classList.remove('wm-busy');
+      resizing = false;
+    });
+  }
+
+  // ---------- CHOP_SHOP: Overland Mobile Trim themed board + database ----------
   // Per house rule: CRT green stays on the home page only. Anything spawned
   // from inside a program's own demo is that business's own themed build —
   // window chrome (titlebar/drag/close) stays consistent OS shell, but the
-  // content inside is Ace Mobile Auto Trim's own blue/steel look, not green.
+  // content inside is Overland Mobile Trim's own blue/steel look, not green.
+  // NOTE (Engineering, 2026-10-08): this sample business name is a made-up
+  // stand-in. Standing rule: never name the trim shop from the legal matter
+  // anywhere in this file — if you're renaming this again, change every
+  // "Overland Mobile Trim" string below and nothing else needs to move.
   var chopShopWindowCount = 0;
   var lastChopTicket = null;
 
@@ -360,24 +472,24 @@
     return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 
-  var aceStyle =
+  var shopStyle =
     '<style>' +
-    '.ace-wrap{ font-family:Arial, Helvetica, sans-serif; background:#f4f6f8; color:#1c2b36; height:100%; margin:-16px -18px; display:flex; flex-direction:column; overflow:hidden; }' +
-    '.ace-header{ flex:0 0 auto; background:#1c3a52; color:#fff; padding:10px 14px; font-size:0.8rem; font-weight:bold; }' +
-    '.ace-body{ flex:1; overflow:auto; padding:12px; }' +
-    '.ace-board{ display:flex; gap:10px; min-width:max-content; }' +
-    '.ace-col{ width:150px; flex:0 0 150px; background:#e9edf0; border-radius:6px; padding:8px; }' +
-    '.ace-col h4{ margin:0 0 8px; font-size:0.62rem; color:#3d4b56; letter-spacing:0.5px; }' +
-    '.ace-card{ background:#fff; border:1px solid #dfe4e8; border-radius:6px; padding:8px; margin-bottom:8px; font-size:0.64rem; line-height:1.5; box-shadow:0 1px 2px rgba(0,0,0,0.08); position:relative; }' +
-    '.ace-card .ace-title{ font-weight:bold; margin-bottom:3px; }' +
-    '.ace-card .ace-badge{ position:absolute; top:-7px; right:-6px; background:#1c3a52; color:#fff; font-size:0.55rem; padding:2px 5px; border-radius:3px; }' +
-    '.ace-card button{ margin-top:6px; background:#1c3a52; color:#fff; border:none; padding:4px 7px; border-radius:4px; font-size:0.6rem; cursor:pointer; font-family:Arial,sans-serif; }' +
-    '.ace-card button:hover{ background:#14293b; }' +
-    '.ace-table{ width:100%; border-collapse:collapse; font-size:0.66rem; }' +
-    '.ace-table th{ background:#1c3a52; color:#fff; text-align:left; padding:6px 8px; position:sticky; top:0; }' +
-    '.ace-table td{ padding:6px 8px; border-bottom:1px solid #dfe4e8; }' +
-    '.ace-table tr:nth-child(even) td{ background:#f0f2f4; }' +
-    '.ace-table tr.ace-new td{ background:#e7f3ea; font-weight:bold; }' +
+    '.shop-wrap{ font-family:Arial, Helvetica, sans-serif; background:#f4f6f8; color:#1c2b36; height:100%; margin:-16px -18px; display:flex; flex-direction:column; overflow:hidden; }' +
+    '.shop-header{ flex:0 0 auto; background:#1c3a52; color:#fff; padding:10px 14px; font-size:0.8rem; font-weight:bold; }' +
+    '.shop-body{ flex:1; overflow:auto; padding:12px; }' +
+    '.shop-board{ display:flex; gap:10px; min-width:max-content; }' +
+    '.shop-col{ width:150px; flex:0 0 150px; background:#e9edf0; border-radius:6px; padding:8px; }' +
+    '.shop-col h4{ margin:0 0 8px; font-size:0.62rem; color:#3d4b56; letter-spacing:0.5px; }' +
+    '.shop-card{ background:#fff; border:1px solid #dfe4e8; border-radius:6px; padding:8px; margin-bottom:8px; font-size:0.64rem; line-height:1.5; box-shadow:0 1px 2px rgba(0,0,0,0.08); position:relative; }' +
+    '.shop-card .shop-title{ font-weight:bold; margin-bottom:3px; }' +
+    '.shop-card .shop-badge{ position:absolute; top:-7px; right:-6px; background:#1c3a52; color:#fff; font-size:0.55rem; padding:2px 5px; border-radius:3px; }' +
+    '.shop-card button{ margin-top:6px; background:#1c3a52; color:#fff; border:none; padding:4px 7px; border-radius:4px; font-size:0.6rem; cursor:pointer; font-family:Arial,sans-serif; }' +
+    '.shop-card button:hover{ background:#14293b; }' +
+    '.shop-table{ width:100%; border-collapse:collapse; font-size:0.66rem; }' +
+    '.shop-table th{ background:#1c3a52; color:#fff; text-align:left; padding:6px 8px; position:sticky; top:0; }' +
+    '.shop-table td{ padding:6px 8px; border-bottom:1px solid #dfe4e8; }' +
+    '.shop-table tr:nth-child(even) td{ background:#f0f2f4; }' +
+    '.shop-table tr.shop-new td{ background:#e7f3ea; font-weight:bold; }' +
     '</style>';
 
   var STAGES = [
@@ -394,21 +506,21 @@
     var cols = STAGES.map(function(s){
       var stageKey = s[0], label = s[1];
       var cards = clients.filter(function(c){ return c.stage === stageKey; }).map(function(c){
-        return '<div class="ace-card">' +
-          (c.isNew ? '<div class="ace-badge">NEW</div>' : '') +
-          '<div class="ace-title">' + esc(c.first) + ' ' + esc(c.last) + (c.vehicle ? ' — ' + esc(c.vehicle) : '') + '</div>' +
+        return '<div class="shop-card">' +
+          (c.isNew ? '<div class="shop-badge">NEW</div>' : '') +
+          '<div class="shop-title">' + esc(c.first) + ' ' + esc(c.last) + (c.vehicle ? ' — ' + esc(c.vehicle) : '') + '</div>' +
           (c.service ? '<div>Service: ' + esc(c.service) + '</div>' : '') +
           (c.phone ? '<div>Contact: ' + esc(c.phone) + '</div>' : '') +
           (c.isNew ? '<button onclick="openChopEstimate()">Generate Estimate &rarr;</button>' : '') +
         '</div>';
       }).join('');
-      return '<div class="ace-col"><h4>' + label + '</h4>' + cards + '</div>';
+      return '<div class="shop-col"><h4>' + label + '</h4>' + cards + '</div>';
     }).join('');
 
-    var html = aceStyle +
-      '<div class="ace-wrap">' +
-        '<div class="ace-header">Ace Mobile Auto Trim — Production Board</div>' +
-        '<div class="ace-body"><div class="ace-board">' + cols + '</div></div>' +
+    var html = shopStyle +
+      '<div class="shop-wrap">' +
+        '<div class="shop-header">Overland Mobile Trim — Production Board</div>' +
+        '<div class="shop-body"><div class="shop-board">' + cols + '</div></div>' +
       '</div>';
 
     openWindow(id, 'PRODUCTION_BOARD.EXE', null, html);
@@ -430,15 +542,15 @@
       return '<tr><td>' + esc(i.desc) + '</td><td style="text-align:right;">$' + i.price.toFixed(2) + '</td></tr>';
     }).join('');
 
-    var html = aceStyle +
-      '<div class="ace-wrap">' +
-        '<div class="ace-header">Ace Mobile Auto Trim — Estimate</div>' +
-        '<div class="ace-body">' +
+    var html = shopStyle +
+      '<div class="shop-wrap">' +
+        '<div class="shop-header">Overland Mobile Trim — Estimate</div>' +
+        '<div class="shop-body">' +
           '<div style="font-size:0.72rem; margin-bottom:10px;">' +
             '<strong>' + esc(c.first) + ' ' + esc(c.last) + '</strong><br>' +
             esc(c.vehicle) + '<br>' + esc(c.phone) + (c.email ? ' &middot; ' + esc(c.email) : '') +
           '</div>' +
-          '<table class="ace-table"><thead><tr><th>Description</th><th style="text-align:right;">Amount</th></tr></thead><tbody>' +
+          '<table class="shop-table"><thead><tr><th>Description</th><th style="text-align:right;">Amount</th></tr></thead><tbody>' +
           rows +
           '<tr><td><strong>Subtotal</strong></td><td style="text-align:right;"><strong>$' + subtotal.toFixed(2) + '</strong></td></tr>' +
           '<tr><td>Deposit due (50%) to schedule drop-off</td><td style="text-align:right;">$' + deposit.toFixed(2) + '</td></tr>' +
@@ -454,7 +566,7 @@
 
   function openClientsDatabase(id, clients){
     var rows = clients.map(function(c){
-      return '<tr' + (c.isNew ? ' class="ace-new"' : '') + '>' +
+      return '<tr' + (c.isNew ? ' class="shop-new"' : '') + '>' +
         '<td>' + esc(c.id) + '</td>' +
         '<td>' + esc(c.first) + '</td>' +
         '<td>' + esc(c.last) + '</td>' +
@@ -465,10 +577,10 @@
       '</tr>';
     }).join('');
 
-    var html = aceStyle +
-      '<div class="ace-wrap">' +
-        '<div class="ace-header">Ace Mobile Auto Trim — Clients (Database)</div>' +
-        '<div class="ace-body"><table class="ace-table"><thead><tr>' +
+    var html = shopStyle +
+      '<div class="shop-wrap">' +
+        '<div class="shop-header">Overland Mobile Trim — Clients (Database)</div>' +
+        '<div class="shop-body"><table class="shop-table"><thead><tr>' +
           '<th>Client ID</th><th>First</th><th>Last</th><th>Email Address</th><th>Phone</th><th>Vehicle</th><th>SMS Consent</th>' +
         '</tr></thead><tbody>' + rows + '</tbody></table></div>' +
       '</div>';

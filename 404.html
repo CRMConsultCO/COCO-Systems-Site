@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 // FILE_NOT_FOUND.EXE — COCO SYSTEMS</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Page not found — COCO Systems.">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<!--
+  COCO Systems — 404 page (404.html)
+  GitHub Pages serves this automatically for any missing URL on a
+  project/user site with this file at the repo root.
+
+  Design choice (Engineering, 2026-10-01): styled as a crashed RED_OS
+  error dialog rather than the green hub, since the CEO brief asked
+  for a link back to /follow specifically — a 404 reads as "you
+  wandered off the map and into the glitch," which fits the site's
+  own virus/crash lore instead of fighting it. A quieter link back to
+  the actual homepage (/) is included too, since most people who hit
+  a 404 just want home, not a bit.
+-->
+<style>
+  :root{
+    --bg:#050000; --panel:#0d0202; --title:#2a0707; --border:#ff3b3b;
+    --text:#f2e6d8; --muted:#b58a8a; --accent:#ff3b3b;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);
+    font-family:'Space Mono','Courier New',monospace;}
+  body{display:flex;align-items:center;justify-content:center;padding:24px;min-height:100vh;}
+  body::before{
+    content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0px,rgba(0,0,0,.18) 1px,transparent 1px,transparent 3px);
+  }
+  .dialog{
+    position:relative;z-index:1;width:100%;max-width:420px;background:var(--panel);
+    border:1px solid var(--border);box-shadow:0 0 26px rgba(255,59,59,.25);
+  }
+  .titlebar{display:flex;justify-content:space-between;align-items:center;gap:10px;
+    background:var(--title);border-bottom:1px solid #8f1414;padding:7px 10px;
+    font-family:'Share Tech Mono',monospace;font-size:.78rem;letter-spacing:1px;}
+  .dots{display:flex;gap:6px;}
+  .dots span{width:11px;height:11px;border-radius:50%;border:1px solid var(--accent);}
+  .body{padding:22px 20px 24px;}
+  .glyph{font-size:2.1rem;line-height:1;text-align:center;margin-bottom:6px;}
+  h1{font-family:'Share Tech Mono',monospace;font-size:1.05rem;letter-spacing:1.5px;
+    margin:0 0 4px;text-align:center;color:var(--accent);
+    text-shadow:0 0 8px rgba(255,59,59,.5);}
+  .code{text-align:center;font-size:.72rem;color:var(--muted);margin:0 0 16px;letter-spacing:.5px;}
+  p.msg{font-size:.85rem;line-height:1.6;margin:0 0 20px;text-align:center;color:var(--text);}
+  .actions{display:flex;flex-direction:column;gap:10px;}
+  a.btn{display:block;text-align:center;padding:12px 14px;border:1px solid var(--accent);
+    color:var(--accent);text-decoration:none;font-size:.8rem;letter-spacing:1px;
+    transition:background-color .12s;}
+  a.btn:hover,a.btn:focus-visible{background:rgba(255,59,59,.12);outline:none;}
+  a.btn.quiet{border-color:#5a3a3a;color:var(--muted);}
+  a.btn.quiet:hover,a.btn.quiet:focus-visible{background:rgba(255,255,255,.04);}
+  footer{margin-top:16px;font-size:.68rem;color:var(--muted);text-align:center;opacity:.7;}
+</style>
+</head>
+<body>
+  <div class="dialog" role="alertdialog" aria-labelledby="dlgTitle">
+    <div class="titlebar">
+      <span>SYSTEM ERROR</span>
+      <div class="dots"><span></span><span></span></div>
+    </div>
+    <div class="body">
+      <div class="glyph" aria-hidden="true">&#9888;</div>
+      <h1 id="dlgTitle">FILE_NOT_FOUND.EXE</h1>
+      <p class="code">ERROR 0x404</p>
+      <p class="msg">The page you asked for doesn't exist on this system.<br>It may have moved, or never existed at all.</p>
+      <div class="actions">
+        <a class="btn" href="/follow">&#9654; FOLLOW THE GLITCH</a>
+        <a class="btn quiet" href="/">&#9664; BACK TO THE HOMEPAGE</a>
+      </div>
+    </div>
+  </div>
+  <footer>COCO Systems LLC &middot; crmconsultco.com</footer>
+</body>
+</html>

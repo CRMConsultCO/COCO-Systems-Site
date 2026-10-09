@@ -24,6 +24,10 @@
     still reads as the window shutting down and starting fresh.
   - Reduced-motion visitors skip straight to the red page.
   - Coming back with the Back button restores the hub normally.
+  - A one-line "SIMULATION · NO SYSTEM CHANGES" label stays on screen
+    for the whole sequence (CEO request, 2026-10-01) — same disclaimer
+    slot that already existed, reworded to that exact phrase so it
+    isn't easy to miss on a phone.
 
   REMOVE THE FEATURE
   Delete this file, the <script src="follow-intro.js"> line in
@@ -147,7 +151,7 @@
       '<div class="ft-skull">' + SKULL + '<p class="ft-laugh"></p></div>' +
       '<div class="ft-crash"><p>FATAL ERROR 0xC0C0:<br>TOO MUCH PERSONALITY</p>' +
         '<p class="ft-halt">SYSTEM HALTED.</p><p class="ft-lost">CONNECTION LOST.</p></div>' +
-      '<p class="ft-disc">// harmless animation. nothing is happening to your device.</p>' +
+      '<p class="ft-disc">SIMULATION &middot; NO SYSTEM CHANGES</p>' +
     '</div>';
 
   /* ---------- sequence ---------- */
