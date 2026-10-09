@@ -3,17 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Privacy — COCO Systems</title>
+<title>Privacy · COCO Systems</title>
 <meta name="description" content="What COCO Systems collects through its forms, where it's stored, who sees it, and how to request deletion.">
+<link rel="canonical" href="https://crmconsultco.com/privacy">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="COCO Systems">
+<meta property="og:title" content="Privacy · COCO Systems">
+<meta property="og:description" content="What COCO Systems collects through its forms, where it's stored, who sees it, and how to request deletion.">
+<meta property="og:url" content="https://crmconsultco.com/privacy">
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <!--
   COCO Systems — Privacy page (privacy.html)
   Plain-language draft, written by Engineering from what the system
   actually does (doPost() in CRM Setup.gs, the CRM Sheet, GitHub Pages
-  hosting, PayPal for payment). Nothing here is invented — but this
+  hosting, a payment link for payment). Nothing here is invented — but this
   is a plain-English summary, not reviewed by an attorney. Flagged in
   the page itself and in the handoff; treat as a draft pending legal
-  review, especially once the creator/18+ segment goes live.
+  review, especially once the creator segment goes live. E1b 2026-10-09: PayPal bullet made generic (payments currently run through whatever link we send; Stripe pending).
 -->
 <style>
   :root{--bg:#020805;--card:#0d2b1a;--text:#e8fff0;--muted:#8fbfa0;--acc:#3dff8a;--border:#1f6b40}
@@ -30,8 +39,9 @@
   .note{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;
     font-size:.82rem;color:var(--muted);margin:18px 0}
   a{color:var(--acc)}
-  footer{margin-top:40px;font-size:.78rem;color:var(--muted)}
-  footer a{color:var(--muted)}
+  .sitefoot{margin-top:44px;padding-top:14px;border-top:1px solid var(--border);font-size:.78rem;color:var(--muted);line-height:1.8}
+  .sitefoot a{color:var(--muted)}
+  .sitefoot .row{display:block}
 </style>
 </head>
 <body>
@@ -61,7 +71,7 @@
   <ul>
     <li><strong>Google Workspace</strong> — hosts the Sheet and email. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's privacy policy</a>.</li>
     <li><strong>GitHub Pages</strong> — hosts this website itself, and sees standard web-server access logs like any host does. See <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub's privacy statement</a>.</li>
-    <li><strong>PayPal</strong> — only if you go on to pay us. PayPal handles your payment details directly; we never see or store your card or bank information. See <a href="https://www.paypal.com/us/legalhub/privacy-full" target="_blank" rel="noopener">PayPal's privacy policy</a>.</li>
+    <li><strong>Payment provider</strong> &mdash; only if you pay us. We send you a payment link; the provider named on that link handles your payment details directly, and we never see or store your card or bank information. Their privacy policy applies to that payment.</li>
     <li><strong>Google Fonts</strong> — this site loads its typefaces from Google's font service, which means your browser makes a request to Google to fetch them. No form data is involved.</li>
   </ul>
 
@@ -80,12 +90,12 @@
   from an actual person, not an automated system.</p>
 
   <h2>Age</h2>
-  <p>This site isn't directed at children. Some services on this site are restricted to adults (18+) — see the
-  terms for that specific offer where it applies.</p>
+  <p>This site isn't directed at children. Our clients must be at least 18 years old — see our <a href="/terms#who">terms</a>.</p>
 
-  <footer>
-    COCO Systems LLC &middot; Denver, CO &middot; <a href="mailto:info@crmconsultco.com">info@crmconsultco.com</a> &middot;
-    <a href="/">Home</a>
+  <footer class="sitefoot" id="site-footer">
+    <span class="row">&copy; 2026 COCO Systems LLC &middot; Denver, CO</span>
+    <span class="row"><a href="/privacy">Privacy</a> &middot; <a href="/terms">Terms</a> &middot; <a href="mailto:info@crmconsultco.com">info@crmconsultco.com</a></span>
+    <span class="row">Refunds: see <a href="/terms#refunds">Terms</a>.</span>
   </footer>
 </main>
 </body>

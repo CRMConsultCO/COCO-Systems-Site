@@ -3,10 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>COCO Systems · Link pages for artists & creators</title>
-<meta name="description" content="Link-in-bio pages you own. $25 template, live in 48 hrs. $50 on your own domain. No monthly fee.">
-<meta property="og:title" content="COCO Systems · Link pages for artists & creators">
-<meta property="og:description" content="Link-in-bio pages you own. $25 template, live in 48 hrs. $50 on your own domain. No monthly fee.">
+<title>COCO Systems · Link pages for artists and creators</title>
+<meta name="description" content="Link-in-bio pages you own. Template pages from $25, fully custom from $150. Live in 48 hours. No required monthly fee.">
+<link rel="canonical" href="https://crmconsultco.com/follow">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="COCO Systems">
+<meta property="og:title" content="COCO Systems · Link pages for artists and creators">
+<meta property="og:description" content="Link-in-bio pages you own. Template pages from $25, fully custom from $150. Live in 48 hours. No required monthly fee.">
+<meta property="og:url" content="https://crmconsultco.com/follow">
+<meta property="og:image" content="https://crmconsultco.com/assets/og-follow.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="COCO Systems. Follow the signal. Link pages from $25.">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#ff3b3b">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -83,6 +95,9 @@
   .faq-item:last-child{border-bottom:none;padding-bottom:0}
   .faq-q{margin:0 0 4px;font-size:13px;font-weight:700;letter-spacing:.02em;text-transform:none}
   .faq-a{margin:0;font-size:13px;line-height:1.5;letter-spacing:.01em;color:var(--ink);text-transform:none}
+  /* legal footer (E3): in-flow under the FAQ, above the fixed taskbar */
+  .legal{margin:18px 2px 0;padding-top:12px;border-top:1px solid var(--line);font-size:12px;line-height:1.7;letter-spacing:.02em;text-transform:none}
+  .legal span{display:block}
   /* taskbar */
   .task{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;align-items:center;gap:8px;padding:8px 12px calc(8px + env(safe-area-inset-bottom));
     border-top:1px solid var(--line);background:var(--red);font-size:9.5px;letter-spacing:.1em}
@@ -156,17 +171,20 @@ const CONFIG = {
     { ic:"@", name:"EMAIL",            tag:".LNK", sub:"info@crmconsultco.com", url:"mailto:info@crmconsultco.com" },
     { ic:"✉", name:"SOMETHING_ELSE",   tag:".EXE", sub:"Tell us what you need", url:"https://crmconsultco.com/get-started.html" }
   ],
-  // README.TXT -> short FAQ (Marketing 2026-10-08 + CEO checklist item E4). No payment processor named.
+  // README.TXT -> FAQ: 8 questions (Marketing 2026-10-09, CEO checklist E4). Same copy as /faq. No payment processor named.
+  // Q7 has no age sentence on purpose (no age label in public copy); contract age lives in /terms. Pending CEO ruling.
   faq: [
-    ["What do I get for $25?", "A link page from a template: up to 6 links, live in 48 hours, 1 revision. It's in your own free account, so you own it."],
-    ["What's the $50 page?", "The same idea on your own domain (about $20/yr, in your name), with up to 15 links and 2 revisions. Half to start, half when you approve it."],
-    ["Is there a monthly fee?", "No. You own the page and the account."],
-    ["How do I pay?", "Once we confirm what you want, we send you a payment link. Payment comes before work starts."],
-    ["Who is this for?", "ALL Content Creators, plus DJs, artists, and small shops."],
-    ["Do you do Google listings and reviews?", "Yes, for local businesses. Tap FOR_BUSINESSES."]
+    ["What do I get for $25?", "A link page from a template: up to 6 links, live within 48 hours, and 1 revision. It's built in your own free account, so you own it."],
+    ["What's the $50 page?", "The same page on your own domain (about $20 a year, registered in your name), with up to 15 links and 2 revisions. Want it fully custom? Custom pages start at $150."],
+    ["Do I own it?", "Yes. The page, the account, and the domain are in your name from day one, and everything we build is yours after the final payment. There's no required monthly fee. If you want us to handle edits, optional care starts at $25/mo, and you can cancel anytime."],
+    ["How long does it take?", "Template pages go live within 48 hours of getting your links and photo. For custom pages and business sites, we give you a date before we start."],
+    ["How do I pay?", "Once we confirm what you want, we send you a payment link. Payment comes before work starts: $25 pages are paid up front, and the $50 page and anything $100 or more are half to start, half when you approve it."],
+    ["How many revisions do I get?", "Template pages include 1 revision. Own-domain and custom work include 2 rounds. Anything beyond that, we quote before we do it."],
+    ["Who can hire you?", "ALL Content Creators, DJs, artists, and small shops."],
+    ["Do you do Google listings?", "Yes, for local businesses. A Google listing cleanup is $125, and a review link with a QR card is $95. It's all done inside your own Google account. You add us as a manager, so we never need your password."]
   ],
   bootLines: ["> INCOMING TRANSMISSION...", "> SIGNAL HIJACKED [RED]", "> LOADING RED_OS v96", "> FOLLOW THE SIGNAL_"],
-  shareTitle: "COCO Systems · Link pages for artists & creators",
+  shareTitle: "COCO Systems · Link pages for artists and creators",
   // The skull's come-on lines, cycled until it's tapped (then it stops nagging for this visit).
   skullLines: ["I SEE YOU", "...CLICK ME"],
   // The 3-step overview opened by tapping the skull. Edit this, not the layout, to change the copy.
@@ -212,7 +230,12 @@ const CONFIG = {
     <section class="win" aria-label="FAQ">
       <div class="bar"><span>README.TXT</span><span aria-hidden="true">[ × ]</span></div>
       <div class="faq">${faq}</div>
-    </section>`;
+    </section>
+    <footer class="legal" id="site-footer">
+      <span>© 2026 COCO Systems LLC · Denver, CO</span>
+      <span><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="mailto:info@crmconsultco.com">info@crmconsultco.com</a></span>
+      <span>Refunds: see <a href="/terms#refunds">Terms</a>.</span>
+    </footer>`;
   document.body.insertAdjacentHTML('beforeend',`<footer class="task"><a class="box tb" href="https://crmconsultco.com">COCO SYSTEMS</a><button class="box tb" type="button" data-action="replay">↻ replay the signal</button><span class="clock" id="clock"></span></footer>`);
 
   // clock

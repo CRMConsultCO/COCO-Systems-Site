@@ -6,6 +6,9 @@
 <title>404 // FILE_NOT_FOUND.EXE — COCO SYSTEMS</title>
 <meta name="robots" content="noindex">
 <meta name="description" content="Page not found — COCO Systems.">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <!--
   COCO Systems — 404 page (404.html)
@@ -28,7 +31,7 @@
   *{box-sizing:border-box}
   html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);
     font-family:'Space Mono','Courier New',monospace;}
-  body{display:flex;align-items:center;justify-content:center;padding:24px;min-height:100vh;}
+  body{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;min-height:100vh;}
   body::before{
     content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
     background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0px,rgba(0,0,0,.18) 1px,transparent 1px,transparent 3px);
@@ -56,7 +59,9 @@
   a.btn:hover,a.btn:focus-visible{background:rgba(255,59,59,.12);outline:none;}
   a.btn.quiet{border-color:#5a3a3a;color:var(--muted);}
   a.btn.quiet:hover,a.btn.quiet:focus-visible{background:rgba(255,255,255,.04);}
-  footer{margin-top:16px;font-size:.68rem;color:var(--muted);text-align:center;opacity:.7;}
+  footer{margin-top:16px;font-size:.75rem;color:var(--muted);text-align:center;line-height:1.8;}
+  footer a{color:var(--muted)}
+  footer .row{display:block}
 </style>
 </head>
 <body>
@@ -76,6 +81,10 @@
       </div>
     </div>
   </div>
-  <footer>COCO Systems LLC &middot; crmconsultco.com</footer>
+  <footer id="site-footer">
+    <span class="row">&copy; 2026 COCO Systems LLC &middot; Denver, CO</span>
+    <span class="row"><a href="/privacy">Privacy</a> &middot; <a href="/terms">Terms</a> &middot; <a href="mailto:info@crmconsultco.com">info@crmconsultco.com</a></span>
+    <span class="row">Refunds: see <a href="/terms#refunds">Terms</a>.</span>
+  </footer>
 </body>
 </html>

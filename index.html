@@ -1,42 +1,778 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sample pages · COCO Systems</title><meta name="description" content="Sample link pages and small business sites built by COCO Systems. Every business shown is fictional.">
-<link rel="canonical" href="https://crmconsultco.com/demos/">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>COCO Systems · Websites, Google listings, and CRMs in Denver</title>
+<meta name="description" content="Denver tech help for small businesses: Google listing cleanups, review links, booking, and simple websites. You own everything. No required monthly fee.">
+<link rel="canonical" href="https://crmconsultco.com/">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="COCO Systems">
-<meta property="og:title" content="Sample pages · COCO Systems">
-<meta property="og:description" content="Sample link pages and small business sites built by COCO Systems. Every business shown is fictional.">
-<meta property="og:url" content="https://crmconsultco.com/demos/">
+<meta property="og:title" content="COCO Systems · Websites, Google listings, and CRMs in Denver">
+<meta property="og:description" content="Denver tech help for small businesses: Google listing cleanups, review links, booking, and simple websites. You own everything. No required monthly fee.">
+<meta property="og:url" content="https://crmconsultco.com/">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<!-- FOLLOW RACCOON: glitch/crash sequence for the red raccoon link (see follow-intro.js) -->
+<script src="follow-intro.js"></script>
 <style>
-:root{--bg:#020805;--card:#0d2b1a;--text:#e8fff0;--muted:#8fbfa0;--acc:#3dff8a}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-main{max-width:760px;margin:0 auto;padding:36px 16px 40px}h1{margin:0;font-size:1.6rem}h2{font-size:1.05rem;margin:30px 0 4px;color:var(--acc)}
-p{color:var(--muted);line-height:1.5;margin:6px 0}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:12px}
-.card{display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:14px;background:var(--card);color:var(--text);text-decoration:none;border:1px solid rgba(255,255,255,.08);position:relative}
-.card:hover,.card:focus-visible{border-color:var(--acc);outline:none}.card small{color:var(--muted);line-height:1.4}
-.dot{width:28px;height:28px;border-radius:50%;background:var(--b);border:3px solid var(--a)}
-.steps{counter-reset:s;padding:0;list-style:none}.steps li{counter-increment:s;padding:10px 0 10px 40px;position:relative;color:var(--text);border-bottom:1px solid rgba(255,255,255,.06)}
-.steps li::before{content:counter(s);position:absolute;left:0;top:8px;width:28px;height:28px;border-radius:50%;background:var(--acc);color:var(--bg);font-weight:700;display:flex;align-items:center;justify-content:center}
-.cta{display:inline-block;margin-top:14px;padding:13px 20px;border-radius:12px;background:var(--acc);color:var(--bg);font-weight:700;text-decoration:none}
-.lead{font-weight:600;color:var(--text)}
-footer{margin-top:34px;font-size:.8rem;color:var(--muted);line-height:1.8}footer a{color:var(--muted)}footer .row{display:block}
-.badge{display:inline-block;align-self:flex-start;font-size:.68rem;letter-spacing:.06em;font-weight:700;color:var(--acc);border:1px solid var(--acc);border-radius:4px;padding:2px 6px}
-</style></head><body><main>
-<h1>Samples by COCO Systems</h1>
-<p>Every sample below is a <b>fictional demo</b>. Tap one to see it the way your customers would on their phone. You own everything I build: your accounts, your domain, no monthly platform fee.</p>
-<p class="lead">New: $25 Quick Page — a template link page, up to 6 links, live in 48 hrs, 1 revision. It's in your own free account, so you own it.</p>
-<h2>Link pages · $50</h2><p>One page for your booking link, prices, policies and socials. $25 to start, $25 when you approve it. Your domain is about $20/yr. Analytics + custom design upgrade: $99.</p>
-<div class="grid"><a class="card" href="raven-ink/" style="--a:#ff3b3b;--b:#120c0c"><span class="badge">SAMPLE · FICTIONAL BUSINESS</span><span class="dot"></span><b>Raven Ink</b><small>Fine-line & blackwork tattoos · Denver · Books open monthly.</small></a><a class="card" href="fade-district/" style="--a:#f5b700;--b:#0b1220"><span class="badge">SAMPLE · FICTIONAL BUSINESS</span><span class="dot"></span><b>Fade District Barbers</b><small>Walk-ins welcome · Fades, tapers, beard work · Open Tue–Sat.</small></a><a class="card" href="juniper-hair/" style="--a:#6b8f71;--b:#f6f1ea"><span class="badge">SAMPLE · FICTIONAL BUSINESS</span><span class="dot"></span><b>Juniper Hair Studio</b><small>Color, cuts & extensions · 4 stylists · Colfax Ave.</small></a><a class="card" href="northside-trim/" style="--a:#4da3ff;--b:#14171a"><span class="badge">SAMPLE · FICTIONAL BUSINESS</span><span class="dot"></span><b>Northside Trim & Upholstery</b><small>Auto interiors, seats, headliners & boat upholstery · Family-owned.</small></a><a class="card" href="mika-moves/" style="--a:#ff6ec7;--b:#1a0f24"><span class="badge">SAMPLE · FICTIONAL BUSINESS</span><span class="dot"></span><b>Mika Moves</b><small>Denver fitness & lifestyle creator · Brand partnerships open.</small></a></div>
-<h2>Systems</h2><p>Forms, client databases, boards and estimates built in Google Workspace you own. Pricing is quoted after a free conversation.</p>
-<div class="grid"><a class="card" href="../demo-chop-shop.html"><span class="badge">SAMPLE · FICTIONAL BUSINESS</span><b>Auto trim CRM</b><small>CHOP_SHOP: intake form → client database → production board → estimate</small></a><a class="card" href="../demo-booth-rent.html"><span class="badge">SAMPLE · FICTIONAL BUSINESS</span><b>Booth rent tracker</b><small>BOOTH_RENT: renter roster + rent-due tracking for salons</small></a><a class="card" href="../demo-ink-log.html"><span class="badge">SAMPLE · FICTIONAL BUSINESS</span><b>Tattoo client log</b><small>INK_LOG: consult → deposit → session records</small></a><a class="card" href="../demo-full-stack.html"><span class="badge">SAMPLE · FICTIONAL BUSINESS</span><b>Full stack</b><small>FULL_STACK: leads → clients → projects → payments</small></a></div>
-<h2>How it works</h2>
-<ol class="steps"><li>Pick a sample or tell me what you need.</li><li>Pay the deposit through PayPal.</li><li>I build it in your own accounts and send you a preview.</li><li>You approve, pay the balance, and it goes live. It's yours.</li></ol>
-<a class="cta" href="../get-started.html">Get started</a>
-<footer id="site-footer">
-<span class="row">&copy; 2026 COCO Systems LLC &middot; Denver, CO</span>
-    <span class="row"><a href="/privacy">Privacy</a> &middot; <a href="/terms">Terms</a> &middot; <a href="mailto:info@crmconsultco.com">info@crmconsultco.com</a> &middot; <a href="/follow">Links</a></span>
+  *{box-sizing:border-box;}
+  html,body{ height:100%; }
+  body{
+    margin:0; background:#020805; color:#3dff8a;
+    font-family:'Space Mono', 'Courier New', monospace;
+    overflow:hidden; position:relative;
+  }
+  body::before{
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:900;
+    background:repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 3px);
+  }
+  #matrixCanvas{ position:fixed; inset:0; z-index:0; opacity:0.15; pointer-events:none; }
+  .glow{ text-shadow:0 0 6px #3dff8a, 0 0 12px rgba(61,255,138,0.4); }
+  h1, h2, .mono-title{ font-family:'Share Tech Mono', 'Courier New', monospace; }
+
+  /* ---------- BOOT SCREEN ---------- */
+  #bootScreen{
+    position:fixed; inset:0; background:rgba(0,0,0,0.78); color:#3dff8a; z-index:1000;
+    display:flex; align-items:center; justify-content:center; flex-direction:column;
+    cursor:pointer; user-select:none; text-align:center; padding:20px;
+  }
+  #bootScreen .boot-logo{ font-size:12px; line-height:1.15; margin:0 0 20px; }
+  #bootScreen .boot-text{ font-size:1.1rem; letter-spacing:3px; }
+  #bootScreen .boot-sub{ font-size:0.7rem; opacity:0.6; margin-top:14px; letter-spacing:1px; }
+  .cursor{ display:inline-block; width:9px; height:16px; background:#3dff8a; animation:blink 1s step-start infinite; vertical-align:-3px; margin-left:4px; }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  #bootScreen.flicker{ animation:flicker 0.45s steps(2, end) forwards; }
+  @keyframes flicker{
+    0%{ background:#000; }
+    15%{ background:#3dff8a; }
+    30%{ background:#000; }
+    45%{ background:#3dff8a; }
+    60%{ background:#000; }
+    100%{ background:#000; opacity:0; }
+  }
+
+  /* ---------- DESKTOP ---------- */
+  #desktop{ display:none; height:100%; width:100%; position:relative; padding:14px 16px 96px; overflow-y:auto; }
+  #desktop.on{ display:block; }
+  .topbar{ display:flex; justify-content:space-between; font-size:11px; opacity:0.85; letter-spacing:1px; margin-bottom:14px; }
+
+  .icons{ display:flex; flex-wrap:wrap; gap:22px; width:150px; }
+  .icon-btn{
+    background:none; border:1px solid transparent; color:#3dff8a; font-family:'Space Mono', monospace;
+    width:110px; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer;
+    padding:8px 4px; font-size:0.68rem; letter-spacing:0.5px;
+  }
+  .icon-btn .glyph{ font-size:1.9rem; line-height:1; }
+  .icon-btn:hover, .icon-btn:focus-visible{ background:rgba(61,255,138,0.08); border-color:#1f6b40; outline:none; }
+  .icon-btn.highlight{ color:#7fffb0; }
+
+  /* status widget, sticky-note style */
+  .widget{
+    position:absolute; top:60px; right:20px; width:230px; border:1px solid #1f6b40;
+    background:rgba(61,255,138,0.04); font-size:0.68rem; padding:12px 14px; line-height:1.7;
+  }
+  .widget h3{ margin:0 0 8px; font-size:0.7rem; letter-spacing:2px; border-bottom:1px solid #1f6b40; padding-bottom:6px; }
+  .infra-line{ display:flex; justify-content:space-between; gap:10px; }
+  .infra-line span:last-child{ text-align:right; }
+  .widget .w-note{ opacity:0.7; margin-top:6px; }
+  .status-ok{ color:#3dff8a; }
+
+  /* ---------- WINDOWS ---------- */
+  #windowLayer{ position:absolute; inset:0; pointer-events:none; }
+  .window{
+    position:absolute; min-width:280px; min-height:200px; background:#020805;
+    border:1px solid #3dff8a; box-shadow:0 0 18px rgba(61,255,138,0.15);
+    display:flex; flex-direction:column; pointer-events:auto;
+  }
+  .window .titlebar{
+    display:flex; justify-content:space-between; align-items:center; cursor:grab;
+    background:#0d2b1a; padding:6px 10px; border-bottom:1px solid #1f6b40; font-size:0.72rem; letter-spacing:1px;
+  }
+  .window .titlebar:active{ cursor:grabbing; }
+  .window .titlebar .dots{ display:flex; gap:6px; }
+  .window .titlebar .dots span{
+    width:11px; height:11px; border-radius:50%; border:1px solid #3dff8a; background:transparent; cursor:pointer;
+  }
+  .window .titlebar .dots span.close:hover{ background:#3dff8a; }
+  .window .titlebar .dots span.newtab:hover{ background:#3dff8a; }
+  .window .resize-grip{
+    position:absolute; right:0; bottom:0; width:16px; height:16px; cursor:nwse-resize; z-index:2;
+    background:linear-gradient(135deg, transparent 50%, #3dff8a 50%, #3dff8a 60%, transparent 60%, transparent 72%, #3dff8a 72%, #3dff8a 82%, transparent 82%);
+  }
+  body.wm-busy .window iframe{ pointer-events:none; } /* stop iframes eating the mouse mid-drag/resize */
+  body.wm-busy{ user-select:none; }
+  .window iframe{ flex:1; min-height:0; border:none; width:100%; background:#fff; }
+  .window .window-body{ flex:1; min-height:0; padding:16px 18px; overflow:auto; background:#020805; color:#3dff8a; }
+
+  .icon-btn.reveal-flicker{ animation:revealFlicker 0.7s ease-in-out; }
+  @keyframes revealFlicker{ 0%,100%{ opacity:1; } 20%,60%{ opacity:0.15; } 40%,80%{ opacity:0.7; } }
+
+  /* ---------- TRELLO-MIMIC PRODUCTION BOARD ---------- */
+  .board{ display:flex; gap:10px; height:100%; overflow-x:auto; font-size:0.68rem; }
+  .board-col{ min-width:150px; flex:1; border:1px solid #1f6b40; padding:8px; display:flex; flex-direction:column; gap:8px; }
+  .board-col h4{ margin:0 0 2px; font-size:0.65rem; letter-spacing:1px; opacity:0.8; border-bottom:1px solid #1f6b40; padding-bottom:6px; }
+  .board-card{ border:1px solid #3dff8a; padding:8px; line-height:1.5; position:relative; }
+  .board-card .badge{ position:absolute; top:-8px; right:-6px; background:#3dff8a; color:#020805; font-size:0.55rem; padding:2px 5px; font-weight:bold; }
+  .board-card .title{ font-weight:bold; margin-bottom:4px; }
+
+  /* ---------- TASKBAR ---------- */
+  .taskbar{
+    position:absolute; left:0; right:0; bottom:0; height:38px; display:flex; align-items:center;
+    gap:10px; padding:0 12px; border-top:1px solid #1f6b40; background:#020805; font-size:0.68rem; z-index:50;
+  }
+  .taskbar .start{ border:1px solid #3dff8a; padding:5px 10px; letter-spacing:1px; }
+  .taskbar .tabs{ display:flex; gap:8px; flex:1; overflow-x:auto; }
+  .taskbar .tab{ border:1px solid #1f6b40; padding:5px 10px; cursor:pointer; white-space:nowrap; }
+  .taskbar .tab.active{ border-color:#3dff8a; }
+  .taskbar .clock{ opacity:0.75; }
+
+  /* ---------- FOLLOW RACCOON: red link to RED_OS (follow/). Remove these 2 rules + the <a class="follow-raccoon"> to undo. ---------- */
+  .taskbar .follow-raccoon{
+    color:#ff3b3b; text-decoration:none; font-family:'Space Mono', monospace; font-size:9px; line-height:1.05;
+    white-space:pre; padding:2px 4px; border:1px solid transparent; text-shadow:0 0 6px rgba(255,59,59,0.55);
+  }
+  .taskbar .follow-raccoon:hover, .taskbar .follow-raccoon:focus-visible{ border-color:#ff3b3b; outline:none; }
+
+  /* site footer (E3): fixed line above the taskbar; windows paint above it */
+  .window{ z-index:10; }
+  .sitefoot{ position:fixed; left:0; right:0; bottom:38px; z-index:5; text-align:center; font-size:11px; line-height:1.6; padding:6px 12px; background:linear-gradient(to top,#020805 70%,rgba(2,8,5,0)); color:#8fbfa0; pointer-events:none; }
+  .sitefoot a{ color:#8fbfa0; pointer-events:auto; }
+  .sitefoot .row{ display:inline; }
+  .sitefoot .row+.row::before{ content:" · "; }
+  .hidden{ display:none !important; }
+
+  /* ---------- MOBILE ---------- */
+  @media (max-width: 720px){
+    .widget{ position:static; width:100%; margin:14px 0; }
+    .icons{ width:100%; justify-content:flex-start; }
+    .window{
+      position:fixed !important; inset:10px 10px 48px 10px !important; width:auto !important; height:auto !important;
+    }
+    .window .titlebar{ cursor:default; }
+    .window .resize-grip{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+  <canvas id="matrixCanvas"></canvas>
+
+  <div id="bootScreen" class="glow" tabindex="0" role="button" aria-label="Click or press Enter to boot">
+    <div class="boot-text">CLICK / PRESS ENTER TO BOOT<span class="cursor"></span></div>
+    <div class="boot-sub">COCO SYSTEMS TERMINAL v1.0</div>
+  </div>
+
+  <footer class="sitefoot" id="site-footer">
+    <span class="row">&copy; 2026 COCO Systems LLC</span>
+    <span class="row"><a href="/privacy">Privacy</a> &middot; <a href="/terms">Terms</a> &middot; <a href="mailto:info@crmconsultco.com">info@crmconsultco.com</a></span>
     <span class="row">Refunds: see <a href="/terms#refunds">Terms</a>.</span>
-</footer>
-</main></body></html>
+  </footer>
+
+  <div id="desktop">
+    <div class="topbar glow">
+      <span>SECURE CHANNEL ESTABLISHED [GREEN]</span>
+      <span>SYSTEM: CRMCONSULTCO.COM</span>
+    </div>
+
+    <div class="icons">
+      <button class="icon-btn" data-prog="chopshop" onclick="openWindow('chopshop','CHOP_SHOP.EXE','demo-chop-shop.html')">
+        <span class="glyph">🛠</span>CHOP_SHOP.EXE
+      </button>
+      <button class="icon-btn" data-prog="boothrent" onclick="openWindow('boothrent','BOOTH_RENT.EXE','demo-booth-rent.html')">
+        <span class="glyph">✂</span>BOOTH_RENT.EXE
+      </button>
+      <button class="icon-btn" data-prog="inklog" onclick="openWindow('inklog','INK_LOG.EXE','demo-ink-log.html')">
+        <span class="glyph">🖋</span>INK_LOG.EXE
+      </button>
+      <button class="icon-btn" data-prog="fullstack" onclick="openWindow('fullstack','FULL_STACK.EXE','demo-full-stack.html')">
+        <span class="glyph">🗂</span>FULL_STACK.EXE
+      </button>
+      <button class="icon-btn highlight" data-prog="getstarted" onclick="openWindow('getstarted','GET_STARTED.EXE','get-started.html')">
+        <span class="glyph">▶</span>GET_STARTED.EXE
+      </button>
+      <button class="icon-btn" data-prog="pong" onclick="openPong()">
+        <span class="glyph">●</span>PONG.EXE
+      </button>
+      <button class="icon-btn hidden" id="secretIcon" onclick="openWindow('secret','SECRET.TXT', null, secretMessage)">
+        <span class="glyph">🔒</span>SECRET.TXT
+      </button>
+    </div>
+
+    <div class="widget glow" id="statusWidget" aria-live="polite">
+      <h3>CURRENT INFRASTRUCTURE</h3>
+      <div class="infra-line"><span>WORKSPACE</span><span class="status-ok">LIVE</span></div>
+      <div class="infra-line"><span>DOMAIN: CRMCONSULTCO.COM</span><span class="status-ok">LIVE</span></div>
+      <div class="infra-line"><span>PAYPAL BUSINESS</span><span class="status-ok">LIVE</span></div>
+      <div class="infra-line"><span>LEAD INTAKE FORM</span><span class="status-ok">LIVE</span></div>
+      <div class="infra-line"><span>ENTITY: COCO SYSTEMS LLC</span><span class="status-ok">ACTIVE</span></div>
+    </div>
+
+    <div id="windowLayer"></div>
+
+    <div class="taskbar glow">
+      <div class="start">COCO SYSTEMS</div>
+      <div class="tabs" id="taskbarTabs"></div>
+      <div class="clock" id="clock"></div>
+      <a class="follow-raccoon" data-prog="follow" href="follow" title="Follow" aria-label="Follow COCO Systems. Plays a short, skippable retro crash animation."><span aria-hidden="true">/^\_/^\
+(=0=0=)
+  &gt;^&lt;</span></a>
+    </div>
+  </div>
+
+<script>
+  // ---------- BOOT ----------
+  var bootScreen = document.getElementById('bootScreen');
+  var desktop = document.getElementById('desktop');
+  function boot(){
+    if(bootScreen.classList.contains('flicker')) return;
+    bootScreen.classList.add('flicker');
+    setTimeout(function(){
+      bootScreen.classList.add('hidden');
+      desktop.classList.add('on');
+    }, 460);
+  }
+  bootScreen.addEventListener('click', boot);
+  bootScreen.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); boot(); }
+  });
+
+  // ---------- STATUS WIDGET: describes whatever program the mouse is over ----------
+  // Fields match Coco's spec: NAME / PRICING (a la carte vs. combo) / DESCRIPTION /
+  // PRICE / RETAIL PRICE. CHOP_SHOP/BOOTH_RENT/INK_LOG prices are the CEO-confirmed
+  // "from" estimates (2026-10-02 decisions log); FULL_STACK stays "Custom quote"
+  // until the Simulation configurator exists. GET_STARTED/PONG are free; FOLLOW
+  // uses the confirmed $50 Link Page price. estNote renders a small disclaimer
+  // line under estimated prices only -- not shown for free/flat-confirmed items.
+  var PROGRAMS = {
+    chopshop:  { name:'CHOP_SHOP', pricing:'Custom build',
+                 desc:'Book-now form, client database, and a drag-style production board &mdash; built for a mobile auto trim &amp; upholstery shop like Overland Mobile Trim.',
+                 price:'From $1,750', retail:'From $2,600',
+                 estNote:'Estimates. Flat price confirmed in writing before work starts.' },
+    boothrent: { name:'BOOTH_RENT', pricing:'Custom build',
+                 desc:'Booking form, renter roster, and a rent-due tracker &mdash; built for a salon or barbershop that rents chairs/booths.',
+                 price:'From $1,250', retail:'From $1,850',
+                 estNote:'Estimates. Flat price confirmed in writing before work starts.' },
+    inklog:    { name:'INK_LOG', pricing:'Custom build',
+                 desc:'Consult form, client log, and deposit tracking from first message to finished session &mdash; built for a tattoo studio or independent artist.',
+                 price:'From $1,550', retail:'From $2,300',
+                 estNote:'Estimates. Flat price confirmed in writing before work starts.' },
+    fullstack: { name:'FULL_STACK', pricing:'&Agrave; la carte or bundled',
+                 desc:'The whole system in one place: leads, clients, projects, payments, and follow-ups &mdash; priced to what you actually need.',
+                 price:'Custom quote', retail:'Custom quote',
+                 estNote:'Estimates. Flat price confirmed in writing before work starts.' },
+    getstarted:{ name:'GET_STARTED', pricing:'&mdash;',
+                 desc:'Tell us what you need. We reply with a free scoping call &mdash; no pressure, no obligation.',
+                 price:'Free', retail:'Free' },
+    pong:      { name:'PONG', pricing:'&mdash;',
+                 desc:'A fully playable Pong clone, because every good terminal needs one.',
+                 price:'Free', retail:'Free' },
+    follow:    { name:'FOLLOW / LINK PAGE', pricing:'&Agrave; la carte &middot; $99 bundle upgrade available',
+                 desc:'One mobile-friendly link-in-bio page for your socials, built once &mdash; you own it, no monthly fee.',
+                 price:'$50 ($25 down, $25 on delivery)', retail:'$50' }
+  };
+  var statusWidget = document.getElementById('statusWidget');
+  var statusDefault = statusWidget.innerHTML;
+  function showProgram(key){
+    var p = PROGRAMS[key]; if(!p) return;
+    statusWidget.innerHTML =
+      '<h3>PROGRAM STATS</h3>' +
+      '<div class="infra-line"><span>NAME</span><span>' + p.name + '</span></div>' +
+      '<div class="infra-line"><span>PRICING</span><span>' + p.pricing + '</span></div>' +
+      '<div class="w-note">DESCRIPTION:<br>' + p.desc + '</div>' +
+      '<div class="infra-line"><span>PRICE</span><span>' + p.price + '</span></div>' +
+      '<div class="infra-line"><span>RETAIL PRICE</span><span>' + p.retail + '</span></div>' +
+      (p.estNote ? '<div class="w-note">' + p.estNote + '</div>' : '');
+  }
+  function resetStatus(){ statusWidget.innerHTML = statusDefault; }
+  document.querySelectorAll('[data-prog]').forEach(function(btn){
+    btn.addEventListener('mouseenter', function(){ showProgram(btn.dataset.prog); });
+    btn.addEventListener('focus', function(){ showProgram(btn.dataset.prog); });
+    btn.addEventListener('mouseleave', resetStatus);
+    btn.addEventListener('blur', resetStatus);
+  });
+
+  // ---------- CLOCK ----------
+  function updateClock(){
+    document.getElementById('clock').textContent = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  }
+  updateClock();
+  setInterval(updateClock, 15000);
+
+  // ---------- WINDOW MANAGER ----------
+  var openWindows = {};
+  var zTop = 10;
+  var isMobile = function(){ return window.innerWidth <= 720; };
+
+  function openWindow(id, title, url, htmlContent){
+    if(openWindows[id]){
+      focusWindow(id);
+      return;
+    }
+    var win = document.createElement('div');
+    win.className = 'window';
+    win.style.zIndex = ++zTop;
+    if(!isMobile()){
+      var n = Object.keys(openWindows).length;
+      var w = Math.min(520, window.innerWidth - 40);
+      var h = Math.min(540, window.innerHeight - 90);
+      win.style.width = w + 'px';
+      win.style.height = h + 'px';
+      win.style.left = Math.min(60 + n * 26, Math.max(0, window.innerWidth - w - 10)) + 'px';
+      win.style.top = Math.min(70 + n * 26, Math.max(0, window.innerHeight - h - 48)) + 'px';
+    }
+    // Cache-bust every iframe load so updates to the linked page (get-started.html,
+    // the demo-*.html files) always show up immediately instead of a stale cached copy.
+    var freshUrl = url ? url + (url.indexOf('?') === -1 ? '?' : '&') + '_=' + Date.now() : url;
+    var bodyMarkup = htmlContent
+      ? '<div class="window-body">' + htmlContent + '</div>'
+      : '<iframe src="' + freshUrl + '" title="' + title + '"></iframe>';
+    // Third titlebar button: only for windows backed by a real page (url is set).
+    // Generated-content windows (production board, estimate, clients db, pong,
+    // the secret note) have nothing of their own to open in a tab, so they keep
+    // just the original two.
+    var newTabBtn = url
+      ? '<span class="newtab" title="Open in new tab" aria-label="Open in new tab"></span>'
+      : '';
+    win.innerHTML =
+      '<div class="titlebar">' +
+        '<span>' + title + '</span>' +
+        '<div class="dots">' +
+          '<span class="min" title="Minimize"></span>' +
+          newTabBtn +
+          '<span class="close" title="Close"></span>' +
+        '</div>' +
+      '</div>' +
+      bodyMarkup +
+      '<div class="resize-grip" title="Resize"></div>';
+
+    document.getElementById('windowLayer').appendChild(win);
+    openWindows[id] = win;
+
+    win.querySelector('.close').addEventListener('click', function(){ closeWindow(id); });
+    win.querySelector('.min').addEventListener('click', function(){ minimizeWindow(id); });
+    if(url){
+      win.querySelector('.newtab').addEventListener('click', function(){ window.open(url, '_blank', 'noopener'); });
+    }
+    win.addEventListener('mousedown', function(){ focusWindow(id); });
+
+    makeDraggable(win, win.querySelector('.titlebar'));
+    makeResizable(win, win.querySelector('.resize-grip'));
+    addTaskbarTab(id, title);
+    focusWindow(id);
+  }
+
+  function closeWindow(id){
+    if(!openWindows[id]) return;
+    openWindows[id].remove();
+    delete openWindows[id];
+    removeTaskbarTab(id);
+    if(id === 'pong' && pongInterval){ clearInterval(pongInterval); pongInterval = null; }
+  }
+
+  function minimizeWindow(id){
+    if(!openWindows[id]) return;
+    openWindows[id].classList.toggle('hidden');
+  }
+
+  function focusWindow(id){
+    if(!openWindows[id]) return;
+    openWindows[id].classList.remove('hidden');
+    openWindows[id].style.zIndex = ++zTop;
+    document.querySelectorAll('.taskbar .tab').forEach(function(t){ t.classList.remove('active'); });
+    var tab = document.getElementById('tab-' + id);
+    if(tab) tab.classList.add('active');
+  }
+
+  function addTaskbarTab(id, title){
+    var tab = document.createElement('div');
+    tab.className = 'tab';
+    tab.id = 'tab-' + id;
+    tab.textContent = title;
+    tab.addEventListener('click', function(){
+      if(openWindows[id].classList.contains('hidden')){
+        focusWindow(id);
+      } else {
+        minimizeWindow(id);
+      }
+    });
+    document.getElementById('taskbarTabs').appendChild(tab);
+  }
+
+  function removeTaskbarTab(id){
+    var tab = document.getElementById('tab-' + id);
+    if(tab) tab.remove();
+  }
+
+  function makeDraggable(win, handle){
+    var dragging = false, offsetX = 0, offsetY = 0;
+    handle.addEventListener('mousedown', function(e){
+      if(isMobile()) return;
+      dragging = true;
+      offsetX = e.clientX - win.offsetLeft;
+      offsetY = e.clientY - win.offsetTop;
+      document.body.classList.add('wm-busy');
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', function(e){
+      if(!dragging) return;
+      win.style.left = Math.min(window.innerWidth - 80, Math.max(80 - win.offsetWidth, e.clientX - offsetX)) + 'px';
+      win.style.top = Math.min(window.innerHeight - 70, Math.max(0, e.clientY - offsetY)) + 'px';
+    });
+    document.addEventListener('mouseup', function(){
+      if(dragging) document.body.classList.remove('wm-busy');
+      dragging = false;
+    });
+  }
+
+  function makeResizable(win, grip){
+    var resizing = false, startX, startY, startW, startH;
+    grip.addEventListener('mousedown', function(e){
+      if(isMobile()) return;
+      resizing = true;
+      startX = e.clientX; startY = e.clientY;
+      startW = win.offsetWidth; startH = win.offsetHeight;
+      document.body.classList.add('wm-busy');
+      e.preventDefault(); e.stopPropagation();
+    });
+    document.addEventListener('mousemove', function(e){
+      if(!resizing) return;
+      var maxW = window.innerWidth - win.offsetLeft - 4;
+      var maxH = window.innerHeight - win.offsetTop - 42;
+      win.style.width = Math.max(280, Math.min(maxW, startW + e.clientX - startX)) + 'px';
+      win.style.height = Math.max(200, Math.min(maxH, startH + e.clientY - startY)) + 'px';
+    });
+    document.addEventListener('mouseup', function(){
+      if(resizing) document.body.classList.remove('wm-busy');
+      resizing = false;
+    });
+  }
+
+  // ---------- CHOP_SHOP: Overland Mobile Trim themed board + database ----------
+  // Per house rule: CRT green stays on the home page only. Anything spawned
+  // from inside a program's own demo is that business's own themed build —
+  // window chrome (titlebar/drag/close) stays consistent OS shell, but the
+  // content inside is Overland Mobile Trim's own blue/steel look, not green.
+  // NOTE (Engineering, 2026-10-08): this sample business name is a made-up
+  // stand-in. Standing rule: never name the trim shop from the legal matter
+  // anywhere in this file — if you're renaming this again, change every
+  // "Overland Mobile Trim" string below and nothing else needs to move.
+  var chopShopWindowCount = 0;
+  var lastChopTicket = null;
+
+  window.addEventListener('message', function(e){
+    if(e.data && e.data.type === 'chopshop-ticket'){
+      chopShopWindowCount++;
+      // Universal small-business workflow: New Lead -> Estimate -> Deposit ->
+      // Drop-off Scheduled -> Work Complete -> Final Payment -> Pickup. Same
+      // shape works for salons/tattoo studios/etc, just relabeled per vertical.
+      var sampleClients = [
+        { id:'C-1021', first:'Marcus', last:'Webb', email:'marcus.webb@example.com', phone:'(720) 555-0148', vehicle:'2016 Chevy Silverado', service:'Seat re-upholstery', stage:'estimate' },
+        { id:'C-1034', first:'Priya', last:'Shah', email:'priya.shah@example.com', phone:'(303) 555-0199', vehicle:'2020 Subaru Outback', service:'Headliner replacement', stage:'deposit' },
+        { id:'C-1042', first:'Devon', last:'Cole', email:'devon.cole@example.com', phone:'(720) 555-0173', vehicle:'2014 Jeep Wrangler', service:'Full interior re-trim', stage:'dropoff' },
+        { id:'C-1055', first:'Renee', last:'Ibarra', email:'renee.ibarra@example.com', phone:'(303) 555-0182', vehicle:'2019 Ford Transit', service:'Door panel repair', stage:'complete' },
+        { id:'C-1063', first:'Tasha', last:'Reyes', email:'tasha.reyes@example.com', phone:'(720) 555-0164', vehicle:'2017 Honda CR-V', service:'Dash repair', stage:'finalpayment' },
+        { id:'C-1071', first:'Oliver', last:'Kim', email:'oliver.kim@example.com', phone:'(303) 555-0177', vehicle:'2015 Toyota Tacoma', service:'Bed liner install', stage:'pickup' }
+      ];
+      var d = e.data.data;
+      var newClient = {
+        id: 'C-NEW', first: d.firstName, last: d.lastName, email: d.email, phone: d.phone,
+        vehicle: [d.vehYear, d.vehMake, d.vehModel].filter(Boolean).join(' '),
+        service: d.service, stage: 'newlead', isNew: true
+      };
+      lastChopTicket = newClient;
+      // Database window opens first (ends up behind), board opens second (ends up in front).
+      openClientsDatabase('chopdb' + chopShopWindowCount, sampleClients.concat([newClient]));
+      openProductionBoard('chopboard' + chopShopWindowCount, sampleClients.concat([newClient]));
+    }
+  });
+
+  function esc(s){
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  var shopStyle =
+    '<style>' +
+    '.shop-wrap{ font-family:Arial, Helvetica, sans-serif; background:#f4f6f8; color:#1c2b36; height:100%; margin:-16px -18px; display:flex; flex-direction:column; overflow:hidden; }' +
+    '.shop-header{ flex:0 0 auto; background:#1c3a52; color:#fff; padding:10px 14px; font-size:0.8rem; font-weight:bold; }' +
+    '.shop-body{ flex:1; overflow:auto; padding:12px; }' +
+    '.shop-board{ display:flex; gap:10px; min-width:max-content; }' +
+    '.shop-col{ width:150px; flex:0 0 150px; background:#e9edf0; border-radius:6px; padding:8px; }' +
+    '.shop-col h4{ margin:0 0 8px; font-size:0.62rem; color:#3d4b56; letter-spacing:0.5px; }' +
+    '.shop-card{ background:#fff; border:1px solid #dfe4e8; border-radius:6px; padding:8px; margin-bottom:8px; font-size:0.64rem; line-height:1.5; box-shadow:0 1px 2px rgba(0,0,0,0.08); position:relative; }' +
+    '.shop-card .shop-title{ font-weight:bold; margin-bottom:3px; }' +
+    '.shop-card .shop-badge{ position:absolute; top:-7px; right:-6px; background:#1c3a52; color:#fff; font-size:0.55rem; padding:2px 5px; border-radius:3px; }' +
+    '.shop-card button{ margin-top:6px; background:#1c3a52; color:#fff; border:none; padding:4px 7px; border-radius:4px; font-size:0.6rem; cursor:pointer; font-family:Arial,sans-serif; }' +
+    '.shop-card button:hover{ background:#14293b; }' +
+    '.shop-table{ width:100%; border-collapse:collapse; font-size:0.66rem; }' +
+    '.shop-table th{ background:#1c3a52; color:#fff; text-align:left; padding:6px 8px; position:sticky; top:0; }' +
+    '.shop-table td{ padding:6px 8px; border-bottom:1px solid #dfe4e8; }' +
+    '.shop-table tr:nth-child(even) td{ background:#f0f2f4; }' +
+    '.shop-table tr.shop-new td{ background:#e7f3ea; font-weight:bold; }' +
+    '</style>';
+
+  var STAGES = [
+    ['newlead', 'NEW LEAD'],
+    ['estimate', 'ESTIMATE'],
+    ['deposit', 'DEPOSIT'],
+    ['dropoff', 'DROP-OFF SCHEDULED'],
+    ['complete', 'WORK COMPLETE'],
+    ['finalpayment', 'FINAL PAYMENT'],
+    ['pickup', 'PICKUP']
+  ];
+
+  function openProductionBoard(id, clients){
+    var cols = STAGES.map(function(s){
+      var stageKey = s[0], label = s[1];
+      var cards = clients.filter(function(c){ return c.stage === stageKey; }).map(function(c){
+        return '<div class="shop-card">' +
+          (c.isNew ? '<div class="shop-badge">NEW</div>' : '') +
+          '<div class="shop-title">' + esc(c.first) + ' ' + esc(c.last) + (c.vehicle ? ' — ' + esc(c.vehicle) : '') + '</div>' +
+          (c.service ? '<div>Service: ' + esc(c.service) + '</div>' : '') +
+          (c.phone ? '<div>Contact: ' + esc(c.phone) + '</div>' : '') +
+          (c.isNew ? '<button onclick="openChopEstimate()">Generate Estimate &rarr;</button>' : '') +
+        '</div>';
+      }).join('');
+      return '<div class="shop-col"><h4>' + label + '</h4>' + cards + '</div>';
+    }).join('');
+
+    var html = shopStyle +
+      '<div class="shop-wrap">' +
+        '<div class="shop-header">Overland Mobile Trim — Production Board</div>' +
+        '<div class="shop-body"><div class="shop-board">' + cols + '</div></div>' +
+      '</div>';
+
+    openWindow(id, 'PRODUCTION_BOARD.EXE', null, html);
+  }
+
+  function openChopEstimate(){
+    if(!lastChopTicket) return;
+    var c = lastChopTicket;
+    var lineItems = [
+      { desc: c.service || 'Custom interior work', price: 640 },
+      { desc: 'Materials (fabric/foam/adhesive)', price: 210 },
+      { desc: 'Shop supplies', price: 35 }
+    ];
+    var subtotal = lineItems.reduce(function(s,i){ return s + i.price; }, 0);
+    var deposit = Math.round(subtotal * 0.5);
+    var balance = subtotal - deposit;
+
+    var rows = lineItems.map(function(i){
+      return '<tr><td>' + esc(i.desc) + '</td><td style="text-align:right;">$' + i.price.toFixed(2) + '</td></tr>';
+    }).join('');
+
+    var html = shopStyle +
+      '<div class="shop-wrap">' +
+        '<div class="shop-header">Overland Mobile Trim — Estimate</div>' +
+        '<div class="shop-body">' +
+          '<div style="font-size:0.72rem; margin-bottom:10px;">' +
+            '<strong>' + esc(c.first) + ' ' + esc(c.last) + '</strong><br>' +
+            esc(c.vehicle) + '<br>' + esc(c.phone) + (c.email ? ' &middot; ' + esc(c.email) : '') +
+          '</div>' +
+          '<table class="shop-table"><thead><tr><th>Description</th><th style="text-align:right;">Amount</th></tr></thead><tbody>' +
+          rows +
+          '<tr><td><strong>Subtotal</strong></td><td style="text-align:right;"><strong>$' + subtotal.toFixed(2) + '</strong></td></tr>' +
+          '<tr><td>Deposit due (50%) to schedule drop-off</td><td style="text-align:right;">$' + deposit.toFixed(2) + '</td></tr>' +
+          '<tr><td>Balance due at pickup</td><td style="text-align:right;">$' + balance.toFixed(2) + '</td></tr>' +
+          '</tbody></table>' +
+          '<div style="margin-top:14px; font-size:0.62rem; opacity:0.65;">Sample estimate for demo purposes — generated straight from the intake ticket above. Same shape works for a deposit invoice or a final-payment invoice later in the workflow.</div>' +
+        '</div>' +
+      '</div>';
+
+    chopShopWindowCount++;
+    openWindow('chopestimate' + chopShopWindowCount, 'ESTIMATE.PDF', null, html);
+  }
+
+  function openClientsDatabase(id, clients){
+    var rows = clients.map(function(c){
+      return '<tr' + (c.isNew ? ' class="shop-new"' : '') + '>' +
+        '<td>' + esc(c.id) + '</td>' +
+        '<td>' + esc(c.first) + '</td>' +
+        '<td>' + esc(c.last) + '</td>' +
+        '<td>' + esc(c.email) + '</td>' +
+        '<td>' + esc(c.phone) + '</td>' +
+        '<td>' + esc(c.vehicle) + '</td>' +
+        '<td>Yes</td>' +
+      '</tr>';
+    }).join('');
+
+    var html = shopStyle +
+      '<div class="shop-wrap">' +
+        '<div class="shop-header">Overland Mobile Trim — Clients (Database)</div>' +
+        '<div class="shop-body"><table class="shop-table"><thead><tr>' +
+          '<th>Client ID</th><th>First</th><th>Last</th><th>Email Address</th><th>Phone</th><th>Vehicle</th><th>SMS Consent</th>' +
+        '</tr></thead><tbody>' + rows + '</tbody></table></div>' +
+      '</div>';
+
+    openWindow(id, 'CLIENTS.DB', null, html);
+  }
+
+  // ---------- PONG.EXE ----------
+  var pongInterval = null;
+
+  function openPong(){
+    openWindow('pong', 'PONG.EXE', null,
+      '<canvas id="pongCanvas" width="320" height="320" style="display:block;margin:0 auto;background:#000;border:1px solid #1f6b40;max-width:100%;"></canvas>' +
+      '<div style="text-align:center;font-size:0.68rem;opacity:0.7;margin-top:10px;">&uarr; / &darr; or mouse to move &middot; first to 5</div>'
+    );
+    initPong();
+  }
+
+  function initPong(){
+    if(pongInterval){ clearInterval(pongInterval); pongInterval = null; }
+    var canvas = document.getElementById('pongCanvas');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W = canvas.width, H = canvas.height;
+    var paddleH = 54, paddleW = 8;
+    var playerY = H/2 - paddleH/2, cpuY = H/2 - paddleH/2;
+    var ballX = W/2, ballY = H/2, ballVX = 3, ballVY = 2;
+    var playerScore = 0, cpuScore = 0, over = false;
+
+    canvas.tabIndex = 0;
+    canvas.addEventListener('mousemove', function(e){
+      var rect = canvas.getBoundingClientRect();
+      playerY = (e.clientY - rect.top) - paddleH/2;
+      playerY = Math.max(0, Math.min(H - paddleH, playerY));
+    });
+    canvas.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowUp'){ playerY = Math.max(0, playerY - 22); e.preventDefault(); }
+      if(e.key === 'ArrowDown'){ playerY = Math.min(H - paddleH, playerY + 22); e.preventDefault(); }
+    });
+
+    function resetBall(dir){
+      ballX = W/2; ballY = H/2;
+      ballVX = 3 * dir; ballVY = (Math.random() * 4) - 2;
+    }
+
+    function step(){
+      if(over) return;
+      ballX += ballVX; ballY += ballVY;
+      if(ballY <= 0 || ballY >= H) ballVY *= -1;
+
+      if(ballX <= paddleW + 6 && ballX > paddleW && ballY >= playerY && ballY <= playerY + paddleH){
+        ballVX = Math.abs(ballVX) * 1.05;
+      }
+      if(ballX >= W - paddleW - 6 && ballX < W - paddleW && ballY >= cpuY && ballY <= cpuY + paddleH){
+        ballVX = -Math.abs(ballVX) * 1.05;
+      }
+
+      var cpuCenter = cpuY + paddleH / 2;
+      if(cpuCenter < ballY - 10) cpuY += 2.6;
+      else if(cpuCenter > ballY + 10) cpuY -= 2.6;
+      cpuY = Math.max(0, Math.min(H - paddleH, cpuY));
+
+      if(ballX < 0){ cpuScore++; resetBall(1); }
+      if(ballX > W){ playerScore++; resetBall(-1); }
+      if(playerScore >= 5 || cpuScore >= 5) over = true;
+
+      ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = '#3dff8a';
+      ctx.fillRect(4, playerY, paddleW, paddleH);
+      ctx.fillRect(W - paddleW - 4, cpuY, paddleW, paddleH);
+      ctx.beginPath(); ctx.arc(ballX, ballY, 5, 0, Math.PI * 2); ctx.fill();
+      ctx.font = '16px monospace';
+      ctx.fillText(playerScore + '  -  ' + cpuScore, W / 2 - 24, 20);
+      if(over){
+        ctx.font = '14px monospace';
+        ctx.fillText(playerScore > cpuScore ? 'YOU WIN' : 'CPU WINS', W / 2 - 36, H / 2);
+      }
+    }
+    pongInterval = setInterval(step, 1000 / 50);
+  }
+
+  // ---------- LIGHT MATRIX RAIN ----------
+  (function(){
+    var canvas = document.getElementById('matrixCanvas');
+    var ctx = canvas.getContext('2d');
+    var fontSize = 18;
+    var drops = [];
+    var columnWords = [];
+
+    var words = ['GROW','BUILD','RISE','CREATE','TRUST','BELIEVE','OWN IT','KEEP GOING','GRATITUDE','THANK YOU','FAMILY','ONWARD','PERSIST','SIMPLE','REAL'];
+    function randomWord(){ return words[Math.floor(Math.random() * words.length)] + '     '; }
+
+    function setup(){
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      var columns = Math.floor(canvas.width / fontSize);
+      drops = new Array(columns).fill(0).map(function(){ return Math.random() * -40; });
+      columnWords = new Array(columns).fill(0).map(function(){ return { word: randomWord(), idx: 0 }; });
+    }
+    setup();
+    window.addEventListener('resize', setup);
+
+    function draw(){
+      ctx.fillStyle = 'rgba(2,8,5,0.10)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#3dff8a';
+      ctx.font = fontSize + 'px monospace';
+      for(var i = 0; i < drops.length; i++){
+        var cw = columnWords[i];
+        var ch = cw.word[cw.idx % cw.word.length];
+        cw.idx++;
+        if(ch !== ' '){
+          ctx.fillText(ch, i * fontSize, drops[i] * fontSize);
+        }
+        if(drops[i] * fontSize > canvas.height && Math.random() > 0.978){
+          drops[i] = 0;
+          cw.word = randomWord();
+          cw.idx = 0;
+        }
+        drops[i]++;
+      }
+    }
+    setInterval(draw, 80);
+  })();
+
+  // ---------- EASTER EGGS ----------
+  console.log('%cYou opened the console. Curious minds welcome.\n— DavidRay "Coco" Jaramillo', 'color:#3dff8a; font-family:monospace; font-size:13px;');
+
+  var secretMessage =
+    '<pre style="white-space:pre-wrap; font-family:\'Space Mono\',monospace; font-size:0.8rem; line-height:1.7; margin:0;">' +
+    'ACCESS GRANTED.\n\n' +
+    'You found the easter egg. Not bad.\n\n' +
+    'COCO SYSTEMS was built by one person,\n' +
+    'in borrowed hours, on borrowed machines.\n\n' +
+    'Thank you to my parents and grandparents —\n' +
+    'none of this happens without you.\n\n' +
+    'This one\'s dedicated to Angel O\'Dowd.\n\n' +
+    'Thanks for looking closely.\n\n' +
+    '— DavidRay "Coco" Jaramillo</pre>';
+
+  var secretUnlocked = false;
+  function unlockSecret(){
+    if(secretUnlocked) return;
+    secretUnlocked = true;
+    var icon = document.getElementById('secretIcon');
+    if(!icon) return;
+    icon.classList.remove('hidden');
+    icon.classList.add('reveal-flicker');
+  }
+
+  var konamiSeq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  var konamiPos = 0;
+  var typedBuffer = '';
+
+  document.addEventListener('keydown', function(e){
+    var key = e.key;
+    var expected = konamiSeq[konamiPos];
+    if(key === expected || key.toLowerCase() === expected.toLowerCase()){
+      konamiPos++;
+      if(konamiPos === konamiSeq.length){ unlockSecret(); konamiPos = 0; }
+    } else {
+      konamiPos = (key === konamiSeq[0]) ? 1 : 0;
+    }
+
+    if(key.length === 1){
+      typedBuffer = (typedBuffer + key).slice(-4).toLowerCase();
+      if(typedBuffer === 'coco'){ unlockSecret(); }
+    }
+  });
+</script>
+
+</body>
+</html>
