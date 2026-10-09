@@ -1,86 +1,68 @@
-COCO Systems — FULL CATCH-UP PUSH, 2026-10-08
+COCO Systems — /follow v2 push, 2026-10-08
 ====================================================================
-Marketing tested the live site on 8 Oct and found GitHub Pages is
-still serving whatever was live BEFORE this whole round of work —
-"Last-Modified: Sat 3 Oct 2026." None of the follow.html / 404 / privacy
-/ index / follow-intro bundles sent earlier actually made it onto
-github.com/CRMConsultCO/COCO-Systems-Site. This zip replaces all of
-those separate uploads with ONE bundle so you don't have to redo them
-one at a time.
+Marketing's "follow v2, menu order, links, legibility" handoff, built.
+3 files changed. Sections 1-6 of the handoff; section 8 (pixel phone
+frame) intentionally NOT built — it's P1 polish pending your/CEO's
+budget sign-off on the $1,000 freeze.
 
-HOW TO PUSH (same steps every time — bookmark this section)
+HOW TO PUSH
 --------------------------------------------------------------------
-1. Unzip this folder on your computer first. Don't drag the .zip
-   itself into GitHub, and don't drag the unzipped FOLDER either —
-   GitHub nests folder contents under a subfolder instead of landing
-   them at the repo root. Drag the loose files one level up, out of
-   the folder, before uploading.
-2. Go to github.com/CRMConsultCO/COCO-Systems-Site
-3. Click "Add file" -> "Upload files"
-4. Drag in the 6 loose files below (not the folder, not the zip)
-5. Scroll down, add a commit message (e.g. "Catch-up: skull tutorial,
-   404/privacy pages, trim-shop name fix"), click "Commit changes"
-6. Wait 10 minutes (GitHub Pages' cache is max-age=600), or hard-refresh
-   (Ctrl/Cmd+Shift+R) the live URL to bypass your own browser cache
-7. Check crmconsultco.com/, /follow, /404-doesnt-exist, /privacy on
-   your phone — ideally once in Safari/Chrome directly AND once by
-   pasting the link into an Instagram DM to yourself and opening it
-   from there, since that's how most of your 100 leads will actually
-   open it
+1. Go to github.com/CRMConsultCO/COCO-Systems-Site
+2. Click "Add file" -> "Upload files"
+3. Drag in follow.html and get-started.html at the REPO ROOT (same
+   level as index.html) — these replace the current files there.
+4. For demos/index.html: open the demos/ folder in the repo first
+   (click into it), THEN "Add file" -> "Upload files" there, and
+   drag in the index.html from the demos/ subfolder of this bundle.
+   It needs to land at demos/index.html, not the repo root.
+5. Commit message, e.g. "follow v2: menu reorder, legibility,
+   destination-page price fixes" — commit directly to main.
+6. Wait ~10 min (GitHub Pages cache) or hard-refresh on your phone.
+7. Check /follow, /get-started.html and /demos/ — ideally once in
+   Safari/Chrome directly and once by opening the /follow link from
+   an Instagram DM to yourself, since that's how most leads will see it.
 
-WHAT'S IN THIS ZIP -> WHERE IT GOES (repo root, no subfolder)
+WHAT CHANGED
 --------------------------------------------------------------------
-  index.html        -> /index.html        (REPLACES current file)
-  follow.html        -> /follow.html       (REPLACES current file)
-  follow-os.html      -> /follow-os.html     (NEW file)
-  follow-intro.js     -> /follow-intro.js    (REPLACES current file)
-  404.html         -> /404.html         (NEW file)
-  privacy.html       -> /privacy.html       (NEW file)
+follow.html
+  - Menu reordered to: QUICK_PAGE $25 (hot) / SAMPLES / LINK_PAGE $50
+    / LINK_CHECK $1 / FOR_BUSINESSES / DM_ME / EMAIL / SOMETHING_ELSE.
+    Every button now links somewhere real. REPLAY moved to a small
+    footer link ("replay the signal").
+  - #1/#3/#4 (Quick Page, Link Page, Link Check) go to your DM link
+    (ig.me/m/crmconsultco) for now — get-started.html doesn't
+    preselect a tier yet, so routing there would still dead-end.
+  - Text sizes bumped up (title 16px, sub-line 13px, full opacity) and
+    scanlines dimmed behind the text — should read a lot easier.
+  - Header compacted so the first 3 buttons are visible on a phone
+    screen without scrolling (verified at 375x667).
+  - README.TXT window now shows a short FAQ instead of the old
+    key/value list.
+  - Page title/meta updated for sharing/SEO.
+  - Instagram handle confirmed by Coco (10/8): all DM links point to
+    @crmconsultco (ig.me/m/crmconsultco and instagram.com/crmconsultco),
+    not the @crmconsultingco handle the earlier draft used.
 
-Nothing else changes. demo-*.html, get-started.html, link-template.html,
-CRM Setup.gs etc. are untouched — not part of this bundle.
+get-started.html
+  - The $25/$50 link-page tiers now match what /follow actually says
+    (was showing $25/8-links and $75/custom-domain — out of sync).
+    Renamed them "QUICK PAGE" / "LINK PAGE" to match /follow's button
+    names. Added a $99 "analytics + custom design upgrade" add-on to
+    match the number already on /demos/. The business tiers (PAGE,
+    PAGE PRO, STARTER CRM, CUSTOM) and the lead form are untouched.
 
-WHAT'S ACTUALLY NEW SINCE 3 OCT
+demos/index.html
+  - Added one line above the $50 section flagging the new $25 Quick
+    Page option. Didn't add a DJ/creator sample card — that's a
+    separate, bigger task (a new sample page), not just a copy fix.
+
+NOT IN THIS PUSH
 --------------------------------------------------------------------
-  - follow.html: the full RED_OS link-in-bio rebuild, final skull
-    behavior (red glowing badge, says "I SEE YOU", tap opens a 3-step
-    tutorial overview — not the earlier cursor-follow or auto-cycling
-    versions)
-  - index.html: ONE content fix only — see below. Everything else
-    (window manager, CHOP_SHOP demo, status widget, easter eggs) is
-    unchanged from what was already a project doc.
-  - follow-os.html: the old desktop-icon-grid RED_OS page, archived
-    here as a standalone Easter-egg page, not linked from anywhere
-  - follow-intro.js, 404.html, privacy.html: unchanged content, just
-    confirmed these were never actually live and are included so the
-    whole site matches what's documented in the project
-
-ONE FIX MADE IN index.html JUST NOW (flagging, not asking)
---------------------------------------------------------------------
-Marketing's 8 Oct note said the CHOP_SHOP demo (and its code comments)
-named a real trim shop — 5 mentions — and flagged the standing rule:
-never name the trim shop from the legal matter anywhere in the site.
-Checked the file myself: "Ace Mobile Auto Trim" appeared exactly 5
-times (3 window titles + 1 program description + 1 code comment), plus
-a CSS class prefix (.ace-*) clearly derived from the same name.
-
-Swapped it for a made-up name, "Overland Mobile Trim," everywhere —
-window titles, the description text, code comments, and the .ace-*
-CSS/JS prefix (now .shop-*, purely internal, never shown to a visitor).
-A source search for "ace mobile" or the old class prefix now returns
-nothing. If you'd rather use a different placeholder name than
-"Overland Mobile Trim," it's one find-and-replace away — say the word
-and I'll swap it before you push, or just edit it yourself, it only
-appears in the CHOP_SHOP section of index.html.
-
-NOT IN THIS PUSH (still open, see the separate note in chat)
---------------------------------------------------------------------
-  - skull.js (the floating index.html widget) — still not installed;
-    open question whether it's wanted at all now that /follow has its
-    own skull
-  - Marketing's P0 items #1 (mobile boot fix, untested on real phones),
-    #2 (/follow 3-step-offer spec — follow.html above covers some of
-    it but not all), #3 (home page prices/services section), #5-7
-    (Quick Page dry run, intake form, DJ/creator sample)
-  - get-started.html $25/$50 catalog mismatch (flagged earlier,
-    still unresolved)
+  - Pixel phone frame around /follow (Marketing's section 8) — P1,
+    waiting on CEO budget confirmation.
+  - get-started.html's ?offer= preselect + creator-friendly intake
+    questions (P0-6) — until that's built, the DM-link routing above
+    is the workaround.
+  - A DJ/creator sample page on /demos/ (P0-7).
+  - index.html's mobile boot-gate fix (P0-1) — separate, unrelated to
+    this handoff; still open.
