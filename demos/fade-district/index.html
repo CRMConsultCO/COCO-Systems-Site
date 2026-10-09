@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fade District Barbers (Demo)</title>
@@ -35,12 +38,14 @@
   .socials{display:flex;gap:16px;margin-top:8px;flex-wrap:wrap;justify-content:center}
   .socials a{color:var(--muted);text-decoration:none;font-size:.9rem}
   .socials a:hover{color:var(--accent)}
+  .sample-badge{position:sticky;top:0;z-index:5;text-align:center;font-size:.72rem;letter-spacing:.08em;font-weight:700;padding:6px 10px;background:var(--accent);color:var(--accentText)}
   footer{margin-top:22px;font-size:.72rem;color:var(--muted);text-align:center}
   footer a{color:var(--muted)}
   @media (prefers-reduced-motion:reduce){a.btn{transition:none}a.btn:hover{transform:none}}
 </style>
 </head>
 <body>
+<div class="sample-badge" role="note">SAMPLE · FICTIONAL BUSINESS</div>
 <main id="app"></main>
 <script>
 /* ===================== CONFIG — edit this block only ===================== */
