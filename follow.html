@@ -67,6 +67,7 @@
   .skull{width:50px;height:50px;display:block;color:var(--red);filter:drop-shadow(0 0 5px rgba(255,59,59,.8))}
   @keyframes skpulse{0%{transform:scale(1)}40%{transform:scale(1.1)}100%{transform:scale(1)}}
   .skrow.talk .skullbtn{animation:skpulse .3s ease-out}
+  .skullbub.off{visibility:hidden}
   .skullbub{max-width:200px;text-align:center;border:1px solid var(--line);font-size:10px;
     letter-spacing:.1em;line-height:1.4;padding:5px 10px;min-height:1.4em}
   h1{margin:10px 0 0;font-size:19px;letter-spacing:.16em;font-weight:700}
@@ -222,7 +223,7 @@ const CONFIG = {
     <section class="profile">
       <div class="skrow" id="skrow">
         <button class="skullbtn" id="skullBtn" type="button" aria-label="About this page" aria-haspopup="dialog">${skull}</button>
-        <div class="skullbub" role="status" aria-live="polite"><span id="skullTxt"></span></div>
+        <div class="skullbub off" id="skullBub" role="status" aria-live="polite"><span id="skullTxt"></span></div>
       </div>
       <h1>${esc(c.name)}</h1>
       <p class="tagline">${esc(c.tagline)}<span class="cur" aria-hidden="true"></span></p>
@@ -271,12 +272,12 @@ const CONFIG = {
 
   // skull: comes alive after boot, says "I SEE YOU", then nudges the visitor to tap it.
   // Static — no cursor-follow. Tapping opens the 3-step overview and stops the nagging for this visit.
-  const skrow=document.getElementById('skrow'), skullBtn=document.getElementById('skullBtn'), skullTxt=document.getElementById('skullTxt');
+  const skrow=document.getElementById('skrow'), skullBtn=document.getElementById('skullBtn'), skullTxt=document.getElementById('skullTxt'), skullBub=document.getElementById('skullBub');
   let si=0, comeOnTimer=null;
-  function skullSay(t){ skullTxt.textContent=t; skrow.classList.remove('talk'); void skrow.offsetWidth; skrow.classList.add('talk'); }
+  function skullSay(t){ skullBub.classList.remove('off'); skullTxt.textContent=t; skrow.classList.remove('talk'); void skrow.offsetWidth; skrow.classList.add('talk'); }
   function comeOnNext(){ skullSay(c.skullLines[si++%c.skullLines.length]); }
   function startComeOn(){ comeOnNext(); comeOnTimer=setInterval(comeOnNext,3200); }
-  function stopComeOn(){ clearInterval(comeOnTimer); skullTxt.textContent=''; }
+  function stopComeOn(){ clearInterval(comeOnTimer); skullTxt.textContent=''; skullBub.classList.add('off'); }
   setTimeout(startComeOn, reduce?400:1900);
 
   // overview modal: a short 3-step "what is this page" tutorial
