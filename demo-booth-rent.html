@@ -24,6 +24,9 @@
   .curtain{ display:none; margin-top:14px; background:#0d1a12; color:#3dff8a; font-family:'Courier New',monospace; font-size:0.72rem; padding:12px; border-radius:6px; white-space:pre-wrap; }
   footer{ text-align:center; padding:26px; font-size:0.75rem; color:#a08a8a; font-family:Arial, sans-serif; }
   footer a{ color:#8a5a4d; }
+  .skip-row{ margin:6px 0 0; font-size:0.85rem; }
+  .skip{ font-weight:bold; color:inherit; text-decoration:underline; }
+  .skip-note{ opacity:0.7; font-size:0.78rem; }
 </style>
 </head>
 <body>
@@ -37,6 +40,7 @@
 <div class="wrap">
   <div class="card">
     <h2>Book a chair</h2>
+    <p class="skip-row"><a href="#" class="skip" onclick="skipForm(); return false;">Skip the form: show me how it's built &rarr;</a><span class="skip-note"> Uses made-up sample data. Nothing is sent anywhere.</span></p>
     <p style="font-size:0.85rem; color:#7a6262; font-family:Arial, sans-serif;">Pick a stylist and a time — we'll confirm shortly.</p>
 
     <label for="name">Name</label>
@@ -83,7 +87,15 @@ function submitBooking(){
     curtain.textContent += '\n> DONE. New event on the calendar:\n\n' +
       'Name: ' + values.name + '\nStylist: ' + values.stylist +
       '\nService: ' + values.service + '\nTime: ' + values.time;
+    try{
+      window.parent.postMessage({ type: 'boothrent-ticket', data: values }, '*');
+    }catch(err){}
   }, 1600);
+}
+function skipForm(){
+  var sample = {name:'Sample Client',stylist:'Marisol',service:'Color + cut',time:'Thursday afternoon'};
+  Object.keys(sample).forEach(function(k){ var el = document.getElementById(k); if(el) el.value = sample[k]; });
+  submitBooking();
 }
 function toggleCurtain(){
   var c = document.getElementById('curtain');

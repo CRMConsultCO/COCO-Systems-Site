@@ -28,6 +28,9 @@
   .curtain{ display:none; margin-top:14px; background:#0d1a12; color:#3dff8a; font-family:'Courier New',monospace; font-size:0.72rem; padding:12px; border-radius:6px; white-space:pre-wrap; }
   footer{ text-align:center; padding:26px; font-size:0.75rem; color:#8a97a1; }
   footer a{ color:#1c3a52; }
+  .skip-row{ margin:6px 0 0; font-size:0.85rem; }
+  .skip{ font-weight:bold; color:inherit; text-decoration:underline; }
+  .skip-note{ opacity:0.7; font-size:0.78rem; }
 </style>
 </head>
 <body>
@@ -41,6 +44,7 @@
 <div class="wrap">
   <div class="card">
     <h2>Book a service</h2>
+    <p class="skip-row"><a href="#" class="skip" onclick="skipForm(); return false;">Skip the form: show me how it's built &rarr;</a><span class="skip-note"> Uses made-up sample data. Nothing is sent anywhere.</span></p>
     <p style="font-size:0.85rem; color:#5b6871;">Tell us about you and your vehicle — this is the same depth of intake a real shop needs to run without back-and-forth phone tag.</p>
 
     <div class="section-label first">Your Info</div>
@@ -147,6 +151,11 @@ function submitBooking(){
       window.parent.postMessage({ type: 'chopshop-ticket', data: values }, '*');
     }catch(err){}
   }, 1700);
+}
+function skipForm(){
+  var sample = {firstName:'Jordan',lastName:'Pierce',phone:'(720) 555-0112',email:'jordan.pierce@example.com',vehYear:'2018',vehMake:'Ford',vehModel:'F-150',vin:'',service:'Seat re-upholstery',details:'Driver seat bolster is split. Wants a matching gray vinyl.',contactMethod:'Text',budget:'$500–$1,500',apptDate:'',apptTime:''};
+  Object.keys(sample).forEach(function(k){ var el = document.getElementById(k); if(el) el.value = sample[k]; });
+  submitBooking();
 }
 function toggleCurtain(){
   var c = document.getElementById('curtain');

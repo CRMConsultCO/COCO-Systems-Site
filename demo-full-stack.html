@@ -24,6 +24,9 @@
   .curtain{ display:none; margin-top:14px; background:#0d1a12; color:#3dff8a; font-family:'Courier New',monospace; font-size:0.72rem; padding:12px; border-radius:6px; white-space:pre-wrap; }
   footer{ text-align:center; padding:26px; font-size:0.75rem; color:#8f8d81; }
   footer a{ color:#2b2b26; }
+  .skip-row{ margin:6px 0 0; font-size:0.85rem; }
+  .skip{ font-weight:bold; color:inherit; text-decoration:underline; }
+  .skip-note{ opacity:0.7; font-size:0.78rem; }
 </style>
 </head>
 <body>
@@ -37,6 +40,7 @@
 <div class="wrap">
   <div class="card">
     <h2>Tell us about your shop</h2>
+    <p class="skip-row"><a href="#" class="skip" onclick="skipForm(); return false;">Skip the form: show me how it's built &rarr;</a><span class="skip-note"> Uses made-up sample data. Nothing is sent anywhere.</span></p>
     <p style="font-size:0.85rem; color:#6b6a5e;">This is where a real Discovery conversation starts.</p>
 
     <label for="name">Name</label>
@@ -83,7 +87,15 @@ function submitBooking(){
     curtain.textContent += '\n> DONE. Logged across every connected piece:\n\n' +
       'Name: ' + values.name + '\nContact: ' + values.contact +
       '\nNeeds: ' + values.need + '\nType: ' + values.type;
+    try{
+      window.parent.postMessage({ type: 'fullstack-ticket', data: values }, '*');
+    }catch(err){}
   }, 1600);
+}
+function skipForm(){
+  var sample = {name:'Sample Owner',contact:'owner@example.com',need:'Online booking and a customer list',type:'Salon'};
+  Object.keys(sample).forEach(function(k){ var el = document.getElementById(k); if(el) el.value = sample[k]; });
+  submitBooking();
 }
 function toggleCurtain(){
   var c = document.getElementById('curtain');
